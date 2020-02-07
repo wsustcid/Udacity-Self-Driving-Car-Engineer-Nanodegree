@@ -1,5 +1,4 @@
 <center><font size=7>   Udacity Self-Driving Car Engineer Nanodegree  </font>  </center>
-
 <center> Shuai Wang </center>
 <center>USTC, February 1, 2020
 
@@ -10,7 +9,6 @@
 
 
 <center> <font color=blue> Copyright (c) 2020 Shuai Wang. All rights reserved. </font> </center>
-
 ---
 
 In this repository I will share the **source code** of all the projects of **[Udacity Self-Driving Car Engineer Nanodegree](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013)**.  
