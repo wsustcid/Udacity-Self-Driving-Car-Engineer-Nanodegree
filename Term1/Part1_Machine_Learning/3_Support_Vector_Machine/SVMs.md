@@ -1,1 +1,0 @@
-https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
