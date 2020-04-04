@@ -1,0 +1,27 @@
+name: carnd-term1
+channels:
+    - https://conda.anaconda.org/menpo
+    - conda-forge
+dependencies:
+    - python
+    - numpy
+    - matplotlib
+    - jupyter
+    - pillow
+    - scikit-learn
+    - scikit-image
+    - scipy
+    - h5py
+    - eventlet
+    - flask-socketio
+    - seaborn
+    - pandas
+    - ffmpeg
+    - imageio
+    - pyqt=4.11.4
+    - pip:
+        - moviepy
+        - opencv-python
+        - requests
+        - tensorflow-gpu==1.9.0
+        - keras==2.1.6
