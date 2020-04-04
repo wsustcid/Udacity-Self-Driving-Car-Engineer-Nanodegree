@@ -1,0 +1,108 @@
+1
+00:00:00,380 --> 00:00:03,280
+We're here with Kirsten from
+the Udacity careers team.
+
+2
+00:00:03,280 --> 00:00:06,460
+Kirsten and her team will be providing
+you with career support throughout
+
+3
+00:00:06,460 --> 00:00:10,120
+the program in your effort to find
+a job in the self driving car industry.
+
+4
+00:00:10,120 --> 00:00:13,500
+They'll help to ensure your application
+materials are polished, you're ready for
+
+5
+00:00:13,500 --> 00:00:16,620
+interviews and you're connected
+to employers in the field.
+
+6
+00:00:16,620 --> 00:00:20,250
+We'll also be taking you behind the
+scenes at top auto manufacturers to get
+
+7
+00:00:20,250 --> 00:00:23,670
+an idea of what they're looking for
+and how the hiring process works.
+
+8
+00:00:23,670 --> 00:00:26,960
+&gt;&gt; In addition to this course, we're
+working with more than a dozen hiring
+
+9
+00:00:26,960 --> 00:00:28,720
+partners about our
+leaders in this field,
+
+10
+00:00:28,720 --> 00:00:33,540
+such as Mercedes Benz, nVidia,
+BMW, Otto, Di Di, and many more.
+
+11
+00:00:33,540 --> 00:00:35,510
+We're also working with
+software companies,
+
+12
+00:00:35,510 --> 00:00:39,280
+radar and lidar manufacturers, and
+many others that are searching for
+
+13
+00:00:39,280 --> 00:00:41,580
+top talent in this growing field.
+
+14
+00:00:41,580 --> 00:00:45,870
+Having hiring partners like these means
+that you, as a student, have direct and
+
+15
+00:00:45,870 --> 00:00:48,150
+preferential exposure
+at these companies,
+
+16
+00:00:48,150 --> 00:00:51,250
+which will give you a significant
+advantage in your job search.
+
+17
+00:00:51,250 --> 00:00:54,730
+&gt;&gt; Kirsten is just one of the many
+dedicated people here at Udacity
+
+18
+00:00:54,730 --> 00:00:57,580
+that you'll interact with
+throughout the program.
+
+19
+00:00:57,580 --> 00:01:02,930
+You'll also have reviewers, mentors,
+other students, career staff,
+
+20
+00:01:02,930 --> 00:01:08,080
+hiring partners, and of course,
+Ryan and me, to help you along the way.
+
+21
+00:01:08,080 --> 00:01:11,140
+It's these people that will help
+you make the most of your Udacity
+
+22
+00:01:11,140 --> 00:01:15,420
+experience, and so, on behalf of
+all of us, welcome to the program.

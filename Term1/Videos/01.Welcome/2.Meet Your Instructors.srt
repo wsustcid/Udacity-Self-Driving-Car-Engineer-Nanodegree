@@ -1,0 +1,70 @@
+1
+00:00:00,121 --> 00:00:06,379
+[SOUND]
+&gt;&gt; Here are my colleagues,
+
+2
+00:00:06,379 --> 00:00:07,191
+David and Ryan.
+
+3
+00:00:07,191 --> 00:00:12,424
+David used to work at Ford as a engineer
+before he joined as an instructor.
+
+4
+00:00:12,424 --> 00:00:16,360
+And Ryan is a recovering astrophysicist,
+who was looking for outer space,
+
+5
+00:00:16,360 --> 00:00:19,532
+couldn't find them and
+joined us as an instructor here at.
+
+6
+00:00:19,532 --> 00:00:21,390
+&gt;&gt; Awesome, thanks Sebastian.
+
+7
+00:00:21,390 --> 00:00:25,320
+&gt;&gt; So the most exciting part of this
+course is that at the end of the course
+
+8
+00:00:25,320 --> 00:00:29,130
+you'll be able to put your own
+code on a real self driving car.
+
+9
+00:00:29,130 --> 00:00:31,410
+In fact,
+it's that car right there behind us.
+
+10
+00:00:31,410 --> 00:00:33,480
+&gt;&gt; That's right, so
+welcome to the program.
+
+11
+00:00:33,480 --> 00:00:36,540
+You and I are going to be learning
+together to write code to drive a car.
+
+12
+00:00:36,540 --> 00:00:39,135
+We're going to have David and
+Sebastian looking after us.
+
+13
+00:00:39,135 --> 00:00:43,165
+And we will be bringing in industry
+experts to join us in the class room as
+
+14
+00:00:43,165 --> 00:00:43,576
+well.
+
+15
+00:00:43,576 --> 00:00:44,659
+&gt;&gt; All right.

@@ -1,0 +1,147 @@
+1
+00:00:00,050 --> 00:00:04,460
+Self-driving car engineers today use
+two distinct approaches to autonomous
+
+2
+00:00:04,460 --> 00:00:09,080
+development, a robotics approach,
+and a deep learning approach.
+
+3
+00:00:09,080 --> 00:00:13,730
+The robotics approach fuses output from
+a suite of sensors to directly measure
+
+4
+00:00:13,730 --> 00:00:16,535
+the vehicle's surroundings,
+and then navigate accordingly.
+
+5
+00:00:16,535 --> 00:00:19,380
+Self-driving car engineers
+have been working on and
+
+6
+00:00:19,380 --> 00:00:21,509
+perfecting the robotics approach for
+many years.
+
+7
+00:00:22,790 --> 00:00:25,710
+&gt;&gt; More recently, engineering teams
+have begun to use deep learning
+
+8
+00:00:25,710 --> 00:00:28,530
+as a different approach to
+developing autonomous vehicles.
+
+9
+00:00:28,530 --> 00:00:32,000
+Deep neural networks allow self-driving
+cars to learn how to drive
+
+10
+00:00:32,000 --> 00:00:34,370
+by mimicking human driving behavior.
+
+11
+00:00:34,370 --> 00:00:37,601
+Both the robotics and deep learning
+methods are actively being pursued today
+
+12
+00:00:37,601 --> 00:00:40,040
+in the development of self-driving cars.
+
+13
+00:00:40,040 --> 00:00:45,230
+&gt;&gt; So in this Nanodegree program,
+you'll be working with both approaches.
+
+14
+00:00:45,230 --> 00:00:49,720
+That way you, as an engineer,
+will be prepared to work anywhere.
+
+15
+00:00:49,720 --> 00:00:52,880
+By the end of this program you'll
+be teaming up with other students
+
+16
+00:00:52,880 --> 00:00:54,980
+to actually write both robotics and
+
+17
+00:00:54,980 --> 00:00:58,600
+deep learning code to control
+a real self-driving car.
+
+18
+00:00:58,600 --> 00:00:59,453
+Pretty cool.
+
+19
+00:00:59,453 --> 00:01:02,603
+&gt;&gt; Along the way you'll work through
+several modules, with each one focusing
+
+20
+00:01:02,603 --> 00:01:05,880
+on a different layer of
+the self-driving car technology stack.
+
+21
+00:01:05,880 --> 00:01:06,980
+And after each module,
+
+22
+00:01:06,980 --> 00:01:09,590
+you'll build a project to
+demonstrate what you've learned.
+
+23
+00:01:09,590 --> 00:01:12,100
+And you'll get real human
+feedback on your work.
+
+24
+00:01:12,100 --> 00:01:14,370
+This first module that you're
+going through now is smaller and
+
+25
+00:01:14,370 --> 00:01:16,840
+should only take a week or
+so to complete.
+
+26
+00:01:16,840 --> 00:01:19,459
+Later modules will be longer and
+may take up to a month.
+
+27
+00:01:21,030 --> 00:01:24,440
+In addition to receiving human
+feedback on your projects,
+
+28
+00:01:24,440 --> 00:01:27,950
+you'll also have access to the forums,
+where you can ask questions and
+
+29
+00:01:27,950 --> 00:01:29,700
+get to know your fellow students.
+
+30
+00:01:29,700 --> 00:01:33,420
+And of course,
+our team is here to help you succeed, so
+
+31
+00:01:33,420 --> 00:01:35,120
+be sure to reach out and keep in touch.

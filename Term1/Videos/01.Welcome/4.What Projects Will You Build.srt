@@ -1,0 +1,322 @@
+1
+00:00:00,210 --> 00:00:03,710
+Our very first project in
+the Self-Driving Car Nanodegree will be
+
+2
+00:00:03,710 --> 00:00:05,410
+to find lane markings.
+
+3
+00:00:05,410 --> 00:00:06,660
+Why is that important?
+
+4
+00:00:06,660 --> 00:00:07,420
+Well, I can tell you,
+
+5
+00:00:07,420 --> 00:00:11,480
+if you can't find lane markings,
+you will have no clue where to drive.
+
+6
+00:00:11,480 --> 00:00:13,750
+You probably don't pay
+much attention to them.
+
+7
+00:00:13,750 --> 00:00:16,610
+But as a self-driving car engineer,
+they become your best friend.
+
+8
+00:00:16,610 --> 00:00:21,278
+They tell you a lot
+as to where to drive.
+
+9
+00:00:21,278 --> 00:00:24,945
+Behavioral cloning means that our
+learning program will copy and clone
+
+10
+00:00:24,945 --> 00:00:28,940
+human behavior, that is, our steering
+actions and brake and gas actions.
+
+11
+00:00:28,940 --> 00:00:31,420
+And you get a chance
+to try it on your own.
+
+12
+00:00:31,420 --> 00:00:34,370
+When we train people, we don't train
+them by giving them the rules.
+
+13
+00:00:34,370 --> 00:00:36,650
+We train them by letting
+them learn from examples.
+
+14
+00:00:36,650 --> 00:00:39,531
+So in this unit,
+you're going to apply neural networks,
+
+15
+00:00:39,531 --> 00:00:41,260
+deep learning to camera images.
+
+16
+00:00:41,260 --> 00:00:44,020
+And do some of the very things that
+a self-driving car ought to do right.
+
+17
+00:00:46,370 --> 00:00:47,970
+What is computer vision?
+
+18
+00:00:47,970 --> 00:00:49,240
+When you and I drive a car,
+
+19
+00:00:49,240 --> 00:00:53,260
+we use our eyes more than any other
+organ to understand what to do.
+
+20
+00:00:53,260 --> 00:00:56,977
+Computer vision, this gives
+the same capability into computers.
+
+21
+00:00:56,977 --> 00:01:00,516
+It uses cameras, and we learn how to
+extract things, like lane markings and
+
+22
+00:01:00,516 --> 00:01:02,410
+other vehicles, out of camera images.
+
+23
+00:01:02,410 --> 00:01:03,101
+It's a lot of fun.
+
+24
+00:01:03,101 --> 00:01:05,340
+[MUSIC]
+
+25
+00:01:05,340 --> 00:01:09,260
+And we're really excited to get
+into the world of sensor fusion.
+
+26
+00:01:09,260 --> 00:01:10,544
+What is sensor fusion?
+
+27
+00:01:10,544 --> 00:01:14,715
+It is the science how to integrate
+different types of sensors.
+
+28
+00:01:14,715 --> 00:01:18,500
+Self-driving cars have things like
+LIDARs, and they have radars, and
+
+29
+00:01:18,500 --> 00:01:19,350
+also cameras.
+
+30
+00:01:19,350 --> 00:01:23,730
+And they have internal sensors called
+gyroscopes, inertial measurement units.
+
+31
+00:01:23,730 --> 00:01:28,482
+Sensor fusion is the science how to come
+up with a single coherent picture based
+
+32
+00:01:28,482 --> 00:01:30,528
+on these different modalities.
+
+33
+00:01:30,528 --> 00:01:36,555
+Localization is the simple question,
+where, relative to the world, is a car?
+
+34
+00:01:36,555 --> 00:01:39,907
+And it's important because, as you're
+going to see, you're going to build maps
+
+35
+00:01:39,907 --> 00:01:42,310
+of the environment with lots
+of detailed information.
+
+36
+00:01:42,310 --> 00:01:44,380
+Some of which might even
+be invisible to the robot,
+
+37
+00:01:44,380 --> 00:01:45,740
+like where are the danger zones?
+
+38
+00:01:45,740 --> 00:01:48,310
+Where do pedestrians typically cross?
+
+39
+00:01:48,310 --> 00:01:53,250
+And to make sense of those maps, the bot
+must know where is road from the map.
+
+40
+00:01:53,250 --> 00:01:55,590
+And the alignment of the sensor data,
+
+41
+00:01:55,590 --> 00:01:59,360
+the current position to a map,
+that's what's called localization.
+
+42
+00:02:00,900 --> 00:02:05,212
+So now we're entering the fascinating
+world of what's called control.
+
+43
+00:02:05,212 --> 00:02:08,204
+In technical terms,
+what a controller does,
+
+44
+00:02:08,204 --> 00:02:12,576
+it's a computer program that steers
+your wheels, your gas pedal,
+
+45
+00:02:12,576 --> 00:02:15,890
+your brake pedal, so
+as to meet a given objective.
+
+46
+00:02:15,890 --> 00:02:19,260
+So for example, if your objective is
+to stay centered in the road, and
+
+47
+00:02:19,260 --> 00:02:22,920
+you start driving, and
+your car veers a little bit to the left,
+
+48
+00:02:22,920 --> 00:02:25,380
+your controller is
+the unit that decides,
+
+49
+00:02:25,380 --> 00:02:28,450
+okay, we compensate with a slight,
+right turn of the steering wheel.
+
+50
+00:02:28,450 --> 00:02:31,659
+That might sound trivial, but
+it's really easy to screw it up.
+
+51
+00:02:31,659 --> 00:02:35,981
+[MUSIC]
+
+52
+00:02:35,981 --> 00:02:41,162
+Path planning is designs of how to
+find a valid sequence of steps or
+
+53
+00:02:41,162 --> 00:02:42,686
+actions in a maze.
+
+54
+00:02:42,686 --> 00:02:44,469
+When you are stuck in Manhattan,
+for example,
+
+55
+00:02:44,469 --> 00:02:48,730
+and you want to cross the city,
+you have to find a plan, a sequence
+
+56
+00:02:48,730 --> 00:02:52,487
+of streets you want to go down to
+make it all the way to the other end.
+
+57
+00:02:52,487 --> 00:02:55,170
+A path-planning
+algorithm is an algorithm
+
+58
+00:02:55,170 --> 00:02:57,250
+that finds that sequence of actions for
+you.
+
+59
+00:02:57,250 --> 00:02:58,966
+We can apply it to city navigation.
+
+60
+00:02:58,966 --> 00:03:01,910
+We can also apply it to parking lot
+navigation, in order, for example,
+
+61
+00:03:01,910 --> 00:03:02,888
+to cross a parking lot.
+
+62
+00:03:02,888 --> 00:03:04,884
+[MUSIC]
+
+63
+00:03:04,884 --> 00:03:09,232
+[SOUND] So now we are ready for the most
+fascinating part of this nanodegree.
+
+64
+00:03:09,232 --> 00:03:14,150
+We will take your code onto a physical
+car and drive it around in California.
+
+65
+00:03:14,150 --> 00:03:15,370
+Sound scary?
+
+66
+00:03:15,370 --> 00:03:18,171
+Yes, I'm slightly scared,
+but I'm also really excited.
+
+67
+00:03:18,171 --> 00:03:22,023
+Because there's no great nanodegree
+that would be complete without actually
+
+68
+00:03:22,023 --> 00:03:24,484
+writing final actual software,
+actually cars.
+
+69
+00:03:24,484 --> 00:03:25,180
+So let's do it.
