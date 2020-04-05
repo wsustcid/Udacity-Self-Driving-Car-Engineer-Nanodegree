@@ -1,0 +1,57 @@
+1
+00:00:00,267 --> 00:00:04,656
+When we talk about computer vision,
+we're literally talking about using
+
+2
+00:00:04,656 --> 00:00:08,012
+algorithms to let a computer
+see the world like we see it.
+
+3
+00:00:08,012 --> 00:00:11,211
+Full of depth, and color,
+and shapes, and meaning.
+
+4
+00:00:11,211 --> 00:00:13,851
+Computer vision is
+a really broad field and
+
+5
+00:00:13,851 --> 00:00:17,090
+right now we're just going to
+focus on a few features.
+
+6
+00:00:17,090 --> 00:00:21,704
+Later in the nanodegree program,
+we'll be getting much more in depth with
+
+7
+00:00:21,704 --> 00:00:26,190
+the tools and techniques used in
+computer vision for self driving cars.
+
+8
+00:00:26,190 --> 00:00:29,842
+&gt;&gt; At this point we'll introduce you to
+two powerful techniques that you'll use
+
+9
+00:00:29,842 --> 00:00:33,439
+for your first project where you'll be
+identifying the lane lines in an image
+
+10
+00:00:33,439 --> 00:00:34,063
+of the road.
+
+11
+00:00:34,063 --> 00:00:36,952
+The first technique we'll look
+at is Canny Edge Detection.
+
+12
+00:00:36,952 --> 00:00:37,690
+So let's give it a go.

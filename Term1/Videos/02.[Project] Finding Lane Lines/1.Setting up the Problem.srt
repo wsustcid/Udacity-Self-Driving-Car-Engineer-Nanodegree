@@ -1,0 +1,90 @@
+1
+00:00:00,200 --> 00:00:03,110
+Your job is to teach the car
+how to drive itself.
+
+2
+00:00:03,110 --> 00:00:06,360
+And in order to do that you're going to
+need to teach the car how to perceive
+
+3
+00:00:06,360 --> 00:00:07,980
+the world around it.
+
+4
+00:00:07,980 --> 00:00:11,590
+Now when I drive I use my eyes
+to figure out how fast to go and
+
+5
+00:00:11,590 --> 00:00:14,335
+where the lane lines are and
+where to turn.
+
+6
+00:00:14,335 --> 00:00:18,665
+A car doesn't have eyes, but in a
+self-driving car we can use cameras and
+
+7
+00:00:18,665 --> 00:00:21,235
+other sensors to achieve
+a similar function.
+
+8
+00:00:21,235 --> 00:00:21,805
+&gt;&gt; That's right, so
+
+9
+00:00:21,805 --> 00:00:25,625
+let's think about what those cameras
+are seeing as we drive down the road.
+
+10
+00:00:25,625 --> 00:00:28,175
+You and I can see where the lane
+lines are automatically, but
+
+11
+00:00:28,175 --> 00:00:30,515
+we need to teach the car how to do that.
+
+12
+00:00:30,515 --> 00:00:34,475
+So your goal in this first module,
+is to write code to identify and
+
+13
+00:00:34,475 --> 00:00:37,069
+track the position of the lane
+lines in a series of images.
+
+14
+00:00:38,140 --> 00:00:40,890
+&gt;&gt; And in the project at
+the end of this first module,
+
+15
+00:00:40,890 --> 00:00:44,670
+you're going to use image analysis
+techniques to do exactly that.
+
+16
+00:00:44,670 --> 00:00:47,210
+So let's start really high level.
+
+17
+00:00:47,210 --> 00:00:50,400
+Here's a picture of a stretch
+of wide open highway.
+
+18
+00:00:50,400 --> 00:00:53,120
+What kinds of features do
+you think would be helpful
+
+19
+00:00:53,120 --> 00:00:55,670
+to figure out where the lane
+lines are in this image?

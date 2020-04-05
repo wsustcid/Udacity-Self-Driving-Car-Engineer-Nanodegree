@@ -1,0 +1,91 @@
+1
+00:00:00,250 --> 00:00:03,919
+We saw before with the XOR perceptron
+that adding a second layer of units
+
+2
+00:00:03,919 --> 00:00:08,289
+allows the model to find solutions
+to linearly inseparable problems.
+
+3
+00:00:08,289 --> 00:00:13,079
+So here is an example of a multilayer
+perceptron, with three input units,
+
+4
+00:00:13,080 --> 00:00:16,530
+one output unit, and
+two units in the middle.
+
+5
+00:00:16,530 --> 00:00:19,089
+This middle layer is
+called the hidden layer.
+
+6
+00:00:19,089 --> 00:00:22,960
+Calculating the output of this network
+is the same as before, except that now,
+
+7
+00:00:22,960 --> 00:00:27,589
+the activations of the hidden layer are
+used as the input to the output layer.
+
+8
+00:00:27,589 --> 00:00:30,370
+The input to the hidden
+layer is the same as before.
+
+9
+00:00:30,370 --> 00:00:34,469
+It's these weights times the input
+values plus some bias term.
+
+10
+00:00:34,469 --> 00:00:39,329
+And as before, again, you use
+an activation function such as a sigmoid
+
+11
+00:00:39,329 --> 00:00:41,979
+to calculate the output
+of the hidden layer.
+
+12
+00:00:41,979 --> 00:00:44,619
+The hidden layer activations
+are passed to the output layer through
+
+13
+00:00:44,619 --> 00:00:46,329
+the second set of weights and
+
+14
+00:00:46,329 --> 00:00:49,799
+again use an activation function
+to get the output of the network.
+
+15
+00:00:49,799 --> 00:00:50,539
+Stacking more and
+
+16
+00:00:50,539 --> 00:00:54,570
+more layers like this, helps the network
+learn more complex patterns.
+
+17
+00:00:54,570 --> 00:00:57,500
+This is where deep learning gets
+its name from, and what makes it so
+
+18
+00:00:57,500 --> 00:00:58,479
+powerful.
+
+19
+00:00:58,479 --> 00:01:00,009
+Deep stacks of hidden layers.
+

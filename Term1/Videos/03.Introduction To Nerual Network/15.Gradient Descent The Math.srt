@@ -1,0 +1,598 @@
+1
+00:00:00,750 --> 00:00:05,030
+Now we know how to get an output from a
+simple neural network like the one shown
+
+2
+00:00:05,030 --> 00:00:05,910
+here.
+
+3
+00:00:05,910 --> 00:00:09,690
+We'd like to use the output to make
+predictions, but how do we build this
+
+4
+00:00:09,690 --> 00:00:14,030
+network to make predictions without
+knowing the correct weights before hand?
+
+5
+00:00:14,030 --> 00:00:17,530
+What we can is present it with
+data that we know to be true
+
+6
+00:00:17,530 --> 00:00:21,640
+then set the model parameters,
+the weights to match that data.
+
+7
+00:00:21,640 --> 00:00:25,330
+First we need some measure of
+how bad our predictions are.
+
+8
+00:00:25,330 --> 00:00:28,500
+The obvious choice is to use
+the difference between the true target
+
+9
+00:00:28,500 --> 00:00:32,220
+value, y, and the network output, y hat.
+
+10
+00:00:32,220 --> 00:00:36,090
+However, if the prediction is too high,
+this error will be negative and
+
+11
+00:00:36,090 --> 00:00:40,270
+if their prediction is too low by the
+same amount the error will be positive.
+
+12
+00:00:40,270 --> 00:00:42,370
+We'd rather treat these
+errors the same to
+
+13
+00:00:43,420 --> 00:00:46,890
+make both cases positive
+we'll just square the error.
+
+14
+00:00:46,890 --> 00:00:50,630
+You might be wondering why not
+just take the absolute value.
+
+15
+00:00:50,630 --> 00:00:53,250
+One bit of using the square
+is that it penalizes
+
+16
+00:00:53,250 --> 00:00:56,020
+outliers more than small errors.
+
+17
+00:00:56,020 --> 00:00:59,690
+Also squaring the error
+makes the math nice later.
+
+18
+00:00:59,690 --> 00:01:02,455
+This is the error for
+just one prediction though.
+
+19
+00:01:02,455 --> 00:01:06,860
+We'd rather like to know the error for
+the entire dataset.
+
+20
+00:01:06,860 --> 00:01:12,000
+So we'll just sum up the errors for each
+data record denoted by the sum over mu,
+
+21
+00:01:13,010 --> 00:01:15,230
+this u looking guy here.
+
+22
+00:01:15,230 --> 00:01:20,190
+Now we have the total error for
+the network over the entire dataset.
+
+23
+00:01:20,190 --> 00:01:20,990
+And finally,
+
+24
+00:01:20,990 --> 00:01:25,100
+we'll add a one half in front
+because it cleans up the math later.
+
+25
+00:01:25,100 --> 00:01:29,010
+This formulation is typically called
+the sum of the squared errors.
+
+26
+00:01:29,010 --> 00:01:34,550
+SSE for short because well it is
+the sum of the squared errors.
+
+27
+00:01:35,590 --> 00:01:38,910
+Remember that y hat is the linear
+combination of the weights and
+
+28
+00:01:38,910 --> 00:01:41,780
+inputs passed through
+that activation function.
+
+29
+00:01:41,780 --> 00:01:45,240
+We can substitute it in here,
+then we see that the error depends on
+
+30
+00:01:45,240 --> 00:01:48,500
+the weights, wi, and
+the input values, xi.
+
+31
+00:01:49,580 --> 00:01:53,850
+As I said before the data records
+are represented by the Greek letter mu.
+
+32
+00:01:53,850 --> 00:01:57,360
+You can think of the data as two
+tables or arrays, or matrices,
+
+33
+00:01:57,360 --> 00:01:59,180
+whatever works for you.
+
+34
+00:01:59,180 --> 00:02:04,360
+One contains the input data, x, and
+the other contains the targets, y.
+
+35
+00:02:04,360 --> 00:02:07,940
+Each record is one row here, so
+mu equals 1 is the first row.
+
+36
+00:02:08,940 --> 00:02:11,160
+Then, to calculate the total error,
+
+37
+00:02:11,160 --> 00:02:15,590
+you're just scanning through the rows of
+these arrays and calculating the SSE.
+
+38
+00:02:15,590 --> 00:02:17,440
+Then summing up all of those results.
+
+39
+00:02:18,580 --> 00:02:21,800
+The SSE is a measure of
+our network's performance.
+
+40
+00:02:21,800 --> 00:02:24,540
+If it's high,
+the network is making bad predictions.
+
+41
+00:02:24,540 --> 00:02:27,800
+If it's low,
+the network is making good predictions.
+
+42
+00:02:27,800 --> 00:02:30,700
+So we want to make it
+as small as possible.
+
+43
+00:02:30,700 --> 00:02:35,220
+Going forward, let's consider a simple
+example with only one data record
+
+44
+00:02:35,220 --> 00:02:38,620
+to make it easier to understand
+how we'll minimize the error.
+
+45
+00:02:38,620 --> 00:02:43,530
+For the simple network the SSE is
+the true target minus the prediction,
+
+46
+00:02:43,530 --> 00:02:46,680
+y- y hat and squared and divided by 2.
+
+47
+00:02:46,680 --> 00:02:51,440
+Substituting for the prediction, you see
+the error is a function of the weights.
+
+48
+00:02:51,440 --> 00:02:54,880
+The weights are the knobs we can use
+to alter the network's predictions
+
+49
+00:02:54,880 --> 00:02:57,930
+which in turn affects the overall error.
+
+50
+00:02:57,930 --> 00:03:00,919
+Then our goal is to find weights
+that minimize the error.
+
+51
+00:03:01,950 --> 00:03:05,580
+Here is a simple depiction of
+the error with one weight.
+
+52
+00:03:05,580 --> 00:03:08,790
+Our goals is to find the weight
+at the bottom of this bowl.
+
+53
+00:03:08,790 --> 00:03:10,340
+Starting at some random weight,
+
+54
+00:03:10,340 --> 00:03:14,130
+we want to make a step in
+the direction towards the minimum.
+
+55
+00:03:14,130 --> 00:03:18,190
+This direction is the opposite
+to the gradient, the slope.
+
+56
+00:03:18,190 --> 00:03:21,580
+If we take many steps,
+always descending down a gradient.
+
+57
+00:03:21,580 --> 00:03:25,410
+Eventually the weight will find
+the minimum of the error function and
+
+58
+00:03:25,410 --> 00:03:27,900
+this is gradient descent.
+
+59
+00:03:27,900 --> 00:03:32,490
+We want to update the weight, so
+a new weight, wi, is the old weight,
+
+60
+00:03:32,490 --> 00:03:34,940
+wi plus this weight step, delta wi.
+
+61
+00:03:36,140 --> 00:03:40,070
+This Greek letter, delta,
+typically signifies change.
+
+62
+00:03:40,070 --> 00:03:43,169
+The weight step is
+proportional to the gradient,
+
+63
+00:03:43,169 --> 00:03:47,543
+the partial derivative of the error
+with respect to each weight, wi.
+
+64
+00:03:47,543 --> 00:03:51,367
+We can add in an arbitrary scaling
+parameter that allows us to set the size
+
+65
+00:03:51,367 --> 00:03:53,780
+of the gradient descent steps.
+
+66
+00:03:53,780 --> 00:03:56,720
+This is called the learning rate,
+signified by the Greek letter eta.
+
+67
+00:03:57,910 --> 00:04:01,410
+Calculating the gradient here
+requires multivariable calculus.
+
+68
+00:04:01,410 --> 00:04:04,970
+Which you might already know since
+we're taking partial derivatives.
+
+69
+00:04:04,970 --> 00:04:08,890
+I wouldn't worry too much if you
+don't understand what I'm doing here.
+
+70
+00:04:08,890 --> 00:04:12,540
+It's more important to understand
+the concept of gradient descent and
+
+71
+00:04:12,540 --> 00:04:14,380
+the final result.
+
+72
+00:04:14,380 --> 00:04:18,620
+If you need a refresher, I suggest Khan
+Academy multivariable calculus lessons,
+
+73
+00:04:18,620 --> 00:04:21,130
+which I'll link to for your convenience.
+
+74
+00:04:21,130 --> 00:04:24,030
+Writing out the gradient,
+you get the partial derivative
+
+75
+00:04:24,030 --> 00:04:26,970
+with respect to the weights
+of the squared error.
+
+76
+00:04:26,970 --> 00:04:30,330
+The network output, y hat,
+is a function of the weights.
+
+77
+00:04:30,330 --> 00:04:33,820
+So what we have here is
+a function of another function
+
+78
+00:04:33,820 --> 00:04:35,750
+that depends on the weights.
+
+79
+00:04:35,750 --> 00:04:39,080
+This requires using the chain
+rule to calculate the derivative.
+
+80
+00:04:40,210 --> 00:04:43,120
+Here is a quick refresher
+on the chain rule.
+
+81
+00:04:43,120 --> 00:04:46,340
+Say you want to take the derivative
+of a function p with respect to z.
+
+82
+00:04:46,340 --> 00:04:51,150
+If p depends on another
+function q that depends on z.
+
+83
+00:04:51,150 --> 00:04:55,442
+The chain rule says, you first take the
+derivative of p with the respect to q,
+
+84
+00:04:55,442 --> 00:04:58,825
+then multiply it by the derivative
+of q with the respect to z.
+
+85
+00:04:58,825 --> 00:05:02,879
+I like to envision this as
+normal fractions, the d q's and
+
+86
+00:05:02,879 --> 00:05:07,535
+the denominator and numerator
+cancel out, and you get back dpdz.
+
+87
+00:05:07,535 --> 00:05:11,877
+This relates to our problem because
+we can set q to the error,
+
+88
+00:05:11,877 --> 00:05:14,811
+y- y hat and set p to the squared error.
+
+89
+00:05:14,811 --> 00:05:18,842
+And then we're taking
+the derivative with respect to wi,
+
+90
+00:05:18,842 --> 00:05:23,211
+the derivative of p with respect
+to q returns the error itself.
+
+91
+00:05:23,211 --> 00:05:27,100
+The 2 in the exponent drops down and
+cancels out the 1/2.
+
+92
+00:05:27,100 --> 00:05:31,140
+Then we're left with the derivative
+of the error with respect to wi.
+
+93
+00:05:32,290 --> 00:05:36,120
+The target value y doesn't depend
+on the weights, but y hat does.
+
+94
+00:05:37,130 --> 00:05:40,200
+Using the Chain Rule again,
+the minus sign comes out in front and
+
+95
+00:05:40,200 --> 00:05:43,350
+we're left with the partial
+derivative of y hat.
+
+96
+00:05:43,350 --> 00:05:47,650
+If you remember, y hat is equal
+to the activation function at h.
+
+97
+00:05:47,650 --> 00:05:51,810
+Where h is the linear combination
+of the weights and input values.
+
+98
+00:05:51,810 --> 00:05:55,520
+Taking the derivative of y hat,
+and again using the chain rule.
+
+99
+00:05:55,520 --> 00:05:59,010
+You get the derivative of
+the activation function at h,
+
+100
+00:05:59,010 --> 00:06:02,390
+times the partial derivative
+of the linear combination.
+
+101
+00:06:02,390 --> 00:06:06,310
+In the sum, there is only one
+term that depends on each weight.
+
+102
+00:06:06,310 --> 00:06:07,090
+Writing this out for
+
+103
+00:06:07,090 --> 00:06:12,410
+weight one, you see that only the first
+term with x1 depends on weight one.
+
+104
+00:06:12,410 --> 00:06:17,180
+Then the partial derivative of the sum
+with respect to weight one is just x1.
+
+105
+00:06:17,180 --> 00:06:19,520
+All the other terms are zero,
+
+106
+00:06:19,520 --> 00:06:24,860
+then the partial derivative of this
+sum with respect to wi is just xi.
+
+107
+00:06:24,860 --> 00:06:28,420
+Finally, putting all this together,
+the gradient of the squared error
+
+108
+00:06:28,420 --> 00:06:31,540
+with respect to wi is
+the negative of the error
+
+109
+00:06:31,540 --> 00:06:37,410
+times the derivative of the activation
+function at h times the input value xi.
+
+110
+00:06:37,410 --> 00:06:40,820
+Then the weight step is a learning
+rate eta times the error,
+
+111
+00:06:40,820 --> 00:06:44,590
+times the activation derivative,
+times the input value.
+
+112
+00:06:44,590 --> 00:06:48,730
+For convenience, and to make things
+easy later, we can define an error term,
+
+113
+00:06:48,730 --> 00:06:53,250
+lowercase delta, as the error times
+the activation function derivative at h.
+
+114
+00:06:54,360 --> 00:06:58,660
+Then we can write our weight
+update as wi equals wi
+
+115
+00:06:58,660 --> 00:07:03,320
+plus the learning rate times the error
+term times xi is the value of input i.
+
+116
+00:07:04,350 --> 00:07:07,410
+You might be working with
+multiple output units.
+
+117
+00:07:07,410 --> 00:07:10,820
+You can think of this as just stacking
+the architecture from the single output
+
+118
+00:07:10,820 --> 00:07:14,469
+network but connecting the input
+units to the new output units.
+
+119
+00:07:15,820 --> 00:07:19,940
+Now the total error would include
+the error of each outputs sum together
+
+120
+00:07:20,770 --> 00:07:25,030
+The gradient descent step can be extended 
+to a network with multiple output.
+
+121
+00:07:25,030 --> 00:07:27,148
+By calculating an error term for
+
+122
+00:07:27,148 --> 00:07:30,213
+each output unit denoted
+with the subscript j.
+
+123
+00:07:30,213 --> 00:07:33,000
+Next, I'll show you how to
+translate this into codes.
+
+124
+00:07:33,000 --> 00:07:35,267
+So you can implement gradient descent in Python and Numpy
+

@@ -1,0 +1,125 @@
+1
+00:00:00,410 --> 00:00:04,665
+The name Canny refers to John F Canny
+who developed this edge detection
+
+2
+00:00:04,665 --> 00:00:06,188
+algorithm in 1986.
+
+3
+00:00:06,188 --> 00:00:07,381
+With edge detection,
+
+4
+00:00:07,381 --> 00:00:11,390
+the goal is to identify the boundaries
+of an object in an image.
+
+5
+00:00:11,390 --> 00:00:14,419
+So to do that, first,
+I'll convert to grayscale.
+
+6
+00:00:14,419 --> 00:00:19,410
+[SOUND] All right and next,
+I'll compute the gradient.
+
+7
+00:00:19,410 --> 00:00:22,448
+[SOUND] Nice, okay.
+
+8
+00:00:22,448 --> 00:00:26,848
+So now, you're looking at the gradient
+of my world, where the brightness of
+
+9
+00:00:26,848 --> 00:00:30,858
+each pixel corresponds to the strength
+of the gradient at that point.
+
+10
+00:00:30,858 --> 00:00:34,778
+We're going to find edges by tracing out
+the pixels that follow the strongest
+
+11
+00:00:34,778 --> 00:00:36,330
+gradients.
+
+12
+00:00:36,330 --> 00:00:39,388
+All right, but the gradient world's a
+little scary, so let's go back to color.
+
+13
+00:00:39,388 --> 00:00:41,597
+[SOUND] By identifying edges,
+
+14
+00:00:41,597 --> 00:00:45,316
+we can more easily detect
+objects by their shape.
+
+15
+00:00:45,316 --> 00:00:47,700
+So what exactly is an edge?
+
+16
+00:00:47,700 --> 00:00:50,500
+Let's first get some intuition by
+having a look at the parameters for
+
+17
+00:00:50,500 --> 00:00:52,175
+the open CV Canny function.
+
+18
+00:00:52,175 --> 00:00:53,975
+You'll call it like this.
+
+19
+00:00:53,975 --> 00:00:57,678
+In this case, I'm applying the Canny
+function to an image called gray and
+
+20
+00:00:57,678 --> 00:01:00,200
+the output will be another image called,
+edges.
+
+21
+00:01:00,200 --> 00:01:01,107
+Low_threshold and
+
+22
+00:01:01,107 --> 00:01:04,364
+high_threshold determine how strong
+the edges must be to be detected.
+
+23
+00:01:05,455 --> 00:01:08,815
+You can think of the strength of an edge
+as being defined by how different
+
+24
+00:01:08,815 --> 00:01:11,480
+the values are in adjacent
+pixels in the image.
+
+25
+00:01:11,480 --> 00:01:13,580
+Really just the strength
+of the gradient.
+
+26
+00:01:13,580 --> 00:01:16,650
+Next, I'll show you how that works so
+that you have a clear picture of what's
+
+27
+00:01:16,650 --> 00:01:21,590
+going on under the hood when you use the
+Canny edge detection method in OpenCV.

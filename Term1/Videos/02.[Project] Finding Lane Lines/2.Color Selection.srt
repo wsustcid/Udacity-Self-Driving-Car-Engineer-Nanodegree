@@ -1,0 +1,52 @@
+1
+00:00:00,370 --> 00:00:04,420
+For starters, let's try finding
+the lane lines using color.
+
+2
+00:00:04,420 --> 00:00:09,058
+The lane lines are white, so how do we
+select the white pixels in an image?
+
+3
+00:00:09,058 --> 00:00:13,342
+To select a color, we first need to
+think about what color actually means in
+
+4
+00:00:13,342 --> 00:00:14,979
+the case of digital images.
+
+5
+00:00:14,979 --> 00:00:18,938
+In this case, it means that our image
+is actually made up of a stack of
+
+6
+00:00:18,938 --> 00:00:22,730
+three images, one each for
+red, green, and blue.
+
+7
+00:00:22,730 --> 00:00:25,620
+These images are sometimes
+called color channels.
+
+8
+00:00:25,620 --> 00:00:31,270
+Each of these color channels contains
+pixels whose values range from 0 to 255,
+
+9
+00:00:31,270 --> 00:00:36,510
+where 0 is the darkest possible value,
+and 255 is the brightest possible value.
+
+10
+00:00:36,510 --> 00:00:40,230
+If 0 is dark and 255 is bright,
+
+11
+00:00:40,230 --> 00:00:44,230
+what color would represent pure white in
+our combined red, green, and blue image?

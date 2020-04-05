@@ -1,0 +1,86 @@
+1
+00:00:00,370 --> 00:00:03,469
+Okay so
+now I've taken a grayscaled image, and
+
+2
+00:00:03,469 --> 00:00:07,000
+using edge detection, turned it
+into an image full of dots, but
+
+3
+00:00:07,000 --> 00:00:10,820
+only the dots that represent
+edges in the original image.
+
+4
+00:00:10,820 --> 00:00:12,650
+Now let's connect the dots.
+
+5
+00:00:12,650 --> 00:00:15,640
+I could connect the dots to look for
+any kind of shape in my image, but
+
+6
+00:00:15,640 --> 00:00:17,910
+in this case I'm looking for lines.
+
+7
+00:00:17,910 --> 00:00:21,234
+To find lines I need to first
+adopt a model of a line, and
+
+8
+00:00:21,234 --> 00:00:26,050
+then fit that model to the assortment
+of dots in my edge detected image.
+
+9
+00:00:26,050 --> 00:00:28,720
+Keeping in mind that my image
+is just a function of x and y,
+
+10
+00:00:28,720 --> 00:00:33,990
+I can use the old familiar
+equation of a line y = mx + b.
+
+11
+00:00:33,990 --> 00:00:38,230
+In this case, my model includes
+two parameters, m and b.
+
+12
+00:00:38,230 --> 00:00:41,990
+In Image Space,
+a line is plotted as x versus y.
+
+13
+00:00:41,990 --> 00:00:45,550
+But in parameter space,
+which we will call Hough Space,
+
+14
+00:00:45,550 --> 00:00:49,615
+I can represent that same
+line as m versus b instead.
+
+15
+00:00:49,615 --> 00:00:52,595
+The Hough transform is just
+the conversion from Image Space
+
+16
+00:00:52,595 --> 00:00:53,775
+to Hough Space.
+
+17
+00:00:53,775 --> 00:00:56,515
+So the characterization
+of a line in Image Space,
+
+18
+00:00:56,515 --> 00:01:00,205
+will be a single point at
+the position mb in Hough Space.

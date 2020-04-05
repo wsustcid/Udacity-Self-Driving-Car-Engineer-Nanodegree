@@ -1,0 +1,107 @@
+1
+00:00:00,380 --> 00:00:04,059
+So our strategy to find lines in
+image space will be to look for
+
+2
+00:00:04,059 --> 00:00:06,790
+intersecting lines in Hough space.
+
+3
+00:00:06,790 --> 00:00:10,170
+We do this by dividing up our
+Hough space into a grid, and
+
+4
+00:00:10,170 --> 00:00:14,860
+define intersecting lines as all lines
+passing through a given grid cell.
+
+5
+00:00:14,860 --> 00:00:18,100
+To do this, I'll first run
+the Canny edge detection algorithm
+
+6
+00:00:18,100 --> 00:00:21,870
+to find all points associated
+with edges in my image.
+
+7
+00:00:21,870 --> 00:00:26,209
+I can then consider every point in this
+edge-detected image as a line in Hough
+
+8
+00:00:26,209 --> 00:00:26,685
+space.
+
+9
+00:00:26,685 --> 00:00:30,836
+And where many lines in Hough space
+intersect, I declare I have found
+
+10
+00:00:30,836 --> 00:00:34,451
+a collection of points that
+describe a line in image space.
+
+11
+00:00:34,451 --> 00:00:36,220
+We have a problem, though.
+
+12
+00:00:36,220 --> 00:00:40,630
+Vertical lines have infinite
+slope in MB representation,
+
+13
+00:00:40,630 --> 00:00:42,810
+so we need a new parameterization.
+
+14
+00:00:43,860 --> 00:00:47,020
+Let's redefine our line
+in polar coordinates.
+
+15
+00:00:47,020 --> 00:00:51,530
+Now the variable rho describes
+the perpendicular distance of the line
+
+16
+00:00:51,530 --> 00:00:52,890
+from the origin.
+
+17
+00:00:52,890 --> 00:00:56,990
+And theta is the angle of
+the line away from horizontal.
+
+18
+00:00:56,990 --> 00:01:00,170
+Now each point in image space
+corresponds to a sine curve in
+
+19
+00:01:00,170 --> 00:01:01,780
+Hough space.
+
+20
+00:01:01,780 --> 00:01:03,850
+If we take a whole line of points,
+
+21
+00:01:03,850 --> 00:01:07,010
+it translates into a whole bunch
+of sine curves in Hough space.
+
+22
+00:01:07,010 --> 00:01:09,789
+And again,
+the intersection of those sine curves
+
+23
+00:01:09,789 --> 00:01:13,110
+in theta rho space gives
+the parameterization of the line.

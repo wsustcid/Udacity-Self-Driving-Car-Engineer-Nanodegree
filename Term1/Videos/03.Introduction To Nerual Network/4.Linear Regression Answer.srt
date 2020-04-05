@@ -1,0 +1,302 @@
+1
+00:00:00,250 --> 00:00:04,400
+Well to help us out, we can see that
+these points kind of form a line.
+
+2
+00:00:05,400 --> 00:00:08,010
+And we can draw the line
+that best fits this data.
+
+3
+00:00:09,090 --> 00:00:13,783
+Now on this line, we can see that our
+best guess for the price of the house is
+
+4
+00:00:13,783 --> 00:00:18,499
+this point here over the line,
+which corresponds to $120,000.
+
+5
+00:00:18,499 --> 00:00:22,465
+So if you said $120,000,
+that is correct.
+
+6
+00:00:22,465 --> 00:00:24,470
+This method is known
+as linear regression.
+
+7
+00:00:25,840 --> 00:00:29,950
+You can think of linear regression as a
+painter, who will look at your data and
+
+8
+00:00:29,950 --> 00:00:32,299
+draw the best fitting line through it.
+
+9
+00:00:32,299 --> 00:00:34,750
+Now you may be asking,
+how do we find this line?
+
+10
+00:00:35,930 --> 00:00:37,450
+So let's try a small example.
+
+11
+00:00:37,450 --> 00:00:41,680
+Let's try to fit the best line that fits
+through these three points over here.
+
+12
+00:00:42,930 --> 00:00:46,900
+Obviously best line is subjective, but
+we'll find some line that works well.
+
+13
+00:00:48,210 --> 00:00:51,710
+Since we're pretending to be a computer,
+we can't really eyeball the line.
+
+14
+00:00:51,710 --> 00:00:54,470
+So we're going to start by
+drawing a random line and
+
+15
+00:00:54,470 --> 00:00:56,030
+seeing how bad this line is.
+
+16
+00:00:57,920 --> 00:01:01,160
+In order to see how bad this line is,
+we calculate the error.
+
+17
+00:01:02,200 --> 00:01:06,160
+So we're going to look at the length of
+the distances from the line to the three
+
+18
+00:01:06,160 --> 00:01:07,540
+points.
+
+19
+00:01:07,540 --> 00:01:10,800
+And we're going to say that the error
+of this line is the sum of those
+
+20
+00:01:10,800 --> 00:01:11,570
+three lengths.
+
+21
+00:01:13,080 --> 00:01:16,209
+Now what we're going to do is
+to move this line around and
+
+22
+00:01:16,209 --> 00:01:17,949
+see if we can reduce the error.
+
+23
+00:01:17,949 --> 00:01:21,115
+[BLANK_AUDIO]
+
+24
+00:01:21,115 --> 00:01:23,110
+So, let's say we move in this direction.
+
+25
+00:01:24,720 --> 00:01:26,830
+And we calculate the error again.
+
+26
+00:01:26,830 --> 00:01:30,180
+It’s given by these yellow distances.
+
+27
+00:01:30,180 --> 00:01:34,318
+We add them up and realize that
+we've just increase the error, so
+
+28
+00:01:34,318 --> 00:01:35,530
+that's not good.
+
+29
+00:01:36,700 --> 00:01:39,476
+Let's try moving in
+the other direction then.
+
+30
+00:01:39,476 --> 00:01:41,439
+[BLANK_AUDIO]
+
+31
+00:01:41,439 --> 00:01:44,060
+We move it and
+again calculate the error.
+
+32
+00:01:44,060 --> 00:01:46,250
+It's given by the sum
+of the green distances.
+
+33
+00:01:47,380 --> 00:01:50,240
+And we see that the errors smaller,
+so we say, let's take that step.
+
+34
+00:01:51,800 --> 00:01:54,428
+If we continue doing this
+procedure several times,
+
+35
+00:01:54,428 --> 00:01:56,639
+we'll always be decreasing the error,
+and
+
+36
+00:01:56,639 --> 00:02:00,000
+we'll finally arrived to a good
+solution in the form of this line.
+
+37
+00:02:01,130 --> 00:02:05,250
+This general procedure to minimize
+the error, is known as gradient descent.
+
+38
+00:02:06,750 --> 00:02:09,660
+In real life, since we don't want to
+deal with negative distance.
+
+39
+00:02:09,660 --> 00:02:13,930
+What we do, is instead of finding the
+distances from the line to the points,
+
+40
+00:02:13,930 --> 00:02:16,030
+we actually have their squares.
+
+41
+00:02:16,030 --> 00:02:18,030
+This procedure is called least squares.
+
+42
+00:02:20,350 --> 00:02:23,190
+So we're back here on the summit
+of Mount Errorest, and
+
+43
+00:02:23,190 --> 00:02:25,430
+we're trying to descent to the bottom.
+
+44
+00:02:25,430 --> 00:02:29,840
+Now in this context, the higher
+we are the larger our error is.
+
+45
+00:02:29,840 --> 00:02:31,890
+So descending means reducing the error.
+
+46
+00:02:33,460 --> 00:02:34,480
+Now what do we do?
+
+47
+00:02:34,480 --> 00:02:36,290
+Well, we look at our surroundings and
+
+48
+00:02:36,290 --> 00:02:38,740
+try to figure out which
+way we can descend more.
+
+49
+00:02:40,570 --> 00:02:43,275
+That's the equivalent of jiggling
+the line around and looking for
+
+50
+00:02:43,275 --> 00:02:46,055
+the movement that reduces
+the error the most.
+
+51
+00:02:46,055 --> 00:02:47,445
+So for example here,
+
+52
+00:02:47,445 --> 00:02:50,265
+this seems to be the direction
+that makes it descend the most.
+
+53
+00:02:51,365 --> 00:02:52,795
+So we take a step in that direction.
+
+54
+00:02:54,025 --> 00:02:57,280
+That is the equivalent of moving
+the line one step in the direction that
+
+55
+00:02:57,280 --> 00:02:58,851
+decreases the error the most.
+
+56
+00:02:59,960 --> 00:03:03,650
+In a way, removing the line
+closer to the three points.
+
+57
+00:03:03,650 --> 00:03:07,830
+So now we've reduced our error and got
+closer to the bottom of the mountain,
+
+58
+00:03:07,830 --> 00:03:09,660
+then we can start the procedure again.
+
+59
+00:03:09,660 --> 00:03:13,370
+Looking at our surroundings and deciding
+in what direction we descend the most.
+
+60
+00:03:13,370 --> 00:03:17,160
+Or equivalently, in what direction
+we get closer to the points.
+
+61
+00:03:17,160 --> 00:03:21,024
+Then we start the procedure again and
+again, looking at our surroundings and
+
+62
+00:03:21,024 --> 00:03:24,415
+deciding in what direction we
+descend the most, or equivalently,
+
+63
+00:03:24,415 --> 00:03:27,000
+in what direction we get
+closer to the points.
+
+64
+00:03:27,000 --> 00:03:31,780
+What we just did, was reducing the error
+until we find its minimum value,
+
+65
+00:03:31,780 --> 00:03:33,490
+which gives us the best line fit.
+

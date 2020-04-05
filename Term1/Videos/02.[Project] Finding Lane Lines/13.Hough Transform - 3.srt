@@ -1,0 +1,14 @@
+1
+00:00:00,310 --> 00:00:02,760
+All right, I'd like to check
+your intuition on this.
+
+2
+00:00:02,760 --> 00:00:06,180
+If you run a Hough transform on
+an image of dots forming a square,
+
+3
+00:00:06,180 --> 00:00:08,810
+what would you expect
+to see in Hough space?

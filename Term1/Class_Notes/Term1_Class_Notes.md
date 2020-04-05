@@ -632,12 +632,95 @@ weights = np.random.normal(scale=1/n_features**.5, size=n_features)
 
 ### 3.4 Multilayer Perceptron
 
+<img src=assets/3_4_1.png width=400>
 
+#### Making a column vector
+
+You see above that sometimes you'll want a column vector, even though by default Numpy arrays work like row vectors. It's possible to get the transpose of an array like so `arr.T`, but for a 1D array, the transpose will return a row vector. Instead, use `arr[:,None]` to create a column vector:
+
+```python
+print(features)
+> array([ 0.49671415, -0.1382643 ,  0.64768854])
+
+print(features.T)
+> array([ 0.49671415, -0.1382643 ,  0.64768854])
+
+print(features[:, None])
+> array([[ 0.49671415],
+       [-0.1382643 ],
+       [ 0.64768854]])
+```
+
+Alternatively, you can create arrays with two dimensions. Then, you can use `arr.T` to get the column vector.
+
+```python
+np.array(features, ndmin=2)
+> array([[ 0.49671415, -0.1382643 ,  0.64768854]])
+
+np.array(features, ndmin=2).T
+> array([[ 0.49671415],
+       [-0.1382643 ],
+       [ 0.64768854]])
+```
+
+I personally prefer keeping all vectors as 1D arrays, it just works better in my head.
+
+#### Code
+
+Below, you'll implement a forward pass through a 4x3x2 network, with sigmoid activation functions for both layers.
+
+Things to do:
+
+- Calculate the input to the hidden layer.
+- Calculate the hidden layer output.
+- Calculate the input to the output layer.
+- Calculate the output of the network.
+
+
+
+- See `scripts/03.Introduction to Neural Network/18_Multilayer_Perception` for more details.
 
 ### 3.5 Backpropagation
 
+<img src=assets/3_5_1.png width=400>
+
+- 每个节点传播过来的误差等于上一层和它有连接的所有节点的误差的加权和（权重为二者的连接权重）然后乘以本节点的激活函数对激活值的梯度
+
+- 根据此法则，将误差从输出层逐层向前传播
+
+- 最后每层更新的参数值为学习率乘以本层误差乘以本层输出值（激活值或输入值）：
+  $$
+  \Delta w_{ij} = \eta \delta_{j}x_i
+  $$
+  
+
+#### **Working through an example**
+
+<img src=assets/3_5_2.png height=200>
+
+<img src=assets/3_5_3.png >
+
+- From this example, you can see one of the effects of using the sigmoid function for the activations. The maximum derivative of the sigmoid function is 0.25, so the errors in the output layer get reduced by at least 75%, and errors in the hidden layer are scaled down by at least 93.75%! You can see that if you have a lot of layers, using a sigmoid activation function will quickly reduce the weight steps to tiny values in layers near the input. This is known as the **vanishing gradient** problem.
+
+#### Code
+
+If you multiply a row vector array with a column vector array, it will multiply the first element in the column by each element in the row vector and set that as the first row in a new 2D array. This continues for each element in the column vector, so you get a 2D array that has shape `(len(column_vector), len(row_vector))`.
+
+```python
+hidden_error*inputs[:,None]
+```
+
+- **See `scripts/03.Introduction to Neural Network/19_Backpropagation` for more details.**
+- **See `scripts/03.Introduction to Neural Network/20_Implementing_Backpropagation` for more details.**
+
+### 3.6 Further Reading
+
+## Further reading
+
+Backpropagation is fundamental to deep learning. TensorFlow and other libraries will perform the backprop for you, but you should really *really* understand the algorithm. We'll be going over backprop again, but here are some extra resources for you:
+
+- From Andrej Karpathy: [Yes, you should understand backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b#.vt3ax2kg9)
+- Also from Andrej Karpathy, [a lecture from Stanford's CS231n course](https://www.youtube.com/watch?v=59Hbtz7XgjM)
 
 
-### Further Reading
 
-### Creating Your Own NN

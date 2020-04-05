@@ -1,0 +1,78 @@
+1
+00:00:00,330 --> 00:00:01,950
+Great job so far.
+
+2
+00:00:01,950 --> 00:00:05,380
+In this lesson, you've used image
+analysis techniques like canny
+
+3
+00:00:05,380 --> 00:00:10,140
+edge detection and huff transforms
+to find lane lines in images.
+
+4
+00:00:10,140 --> 00:00:12,720
+These are the exact same techniques
+that you're going to need for
+
+5
+00:00:12,720 --> 00:00:13,890
+the first project.
+
+6
+00:00:13,890 --> 00:00:17,140
+So, Ryan, what will students be
+doing for the first project?
+
+7
+00:00:17,140 --> 00:00:21,213
+&gt;&gt; Well, your goal, in this first
+project, is to write a software pipeline
+
+8
+00:00:21,213 --> 00:00:25,106
+to identify and track the position
+of the lane lines in a video stream.
+
+9
+00:00:25,106 --> 00:00:28,523
+That might sound complicated,
+but don't worry, you can do it.
+
+10
+00:00:28,523 --> 00:00:31,239
+A video is really just
+a series of images.
+
+11
+00:00:31,239 --> 00:00:35,186
+So you already have the tools
+you need to do this project.
+
+12
+00:00:35,186 --> 00:00:36,304
+&gt;&gt; Awesome.
+
+13
+00:00:36,304 --> 00:00:40,228
+This project is your first step toward
+becoming a real self-driving car
+
+14
+00:00:40,228 --> 00:00:40,879
+engineer.
+
+15
+00:00:40,879 --> 00:00:44,544
+And, in fact, this was one of my first
+projects when I was learning to become
+
+16
+00:00:44,544 --> 00:00:46,111
+a self-driving car engineer.
+
+17
+00:00:46,111 --> 00:00:46,810
+So let's get to it.

@@ -1,0 +1,592 @@
+1
+00:00:00,270 --> 00:00:02,620
+Okay so let's look more
+carefully at this model for
+
+2
+00:00:02,620 --> 00:00:04,730
+accepting rejecting students.
+
+3
+00:00:04,730 --> 00:00:07,759
+Let's say we have a student four
+who got nine on the test but
+
+4
+00:00:07,759 --> 00:00:08,789
+one on their grades.
+
+5
+00:00:09,869 --> 00:00:12,009
+That student gets accepted
+according to our model,
+
+6
+00:00:12,009 --> 00:00:15,410
+since they are over here
+on top of the line.
+
+7
+00:00:15,410 --> 00:00:16,320
+But that seems wrong,
+
+8
+00:00:16,320 --> 00:00:18,740
+since the student got very low
+grades shouldn't get accepted.
+
+9
+00:00:19,870 --> 00:00:23,560
+So, maybe it's too simplistic to think
+that this data can be separated by just
+
+10
+00:00:23,559 --> 00:00:24,529
+a line, right?
+
+11
+00:00:25,570 --> 00:00:29,000
+Maybe the real data should look more
+like this where these students who got
+
+12
+00:00:29,000 --> 00:00:32,630
+a low test score or
+low grades still did not get accepted.
+
+13
+00:00:33,649 --> 00:00:35,609
+So it seems that a line
+won't cut it anymore.
+
+14
+00:00:36,659 --> 00:00:38,089
+What's the next thing after a line?
+
+15
+00:00:39,100 --> 00:00:40,609
+Maybe a circle?
+
+16
+00:00:40,609 --> 00:00:41,909
+A circle could work.
+
+17
+00:00:41,909 --> 00:00:43,329
+Maybe two lines?
+
+18
+00:00:43,329 --> 00:00:44,769
+That could work too.
+
+19
+00:00:44,770 --> 00:00:45,640
+Let's go with that.
+
+20
+00:00:45,640 --> 00:00:47,810
+Lets go with two lines.
+
+21
+00:00:47,810 --> 00:00:50,710
+And how do we find these two lines,
+again we can do it using
+
+22
+00:00:50,710 --> 00:00:53,890
+gradient descent to minimize a similar
+log lost function as before.
+
+23
+00:00:55,070 --> 00:00:57,710
+This is called a neural network,
+
+24
+00:00:57,710 --> 00:01:00,859
+now the question is why is
+this called a neural network.
+
+25
+00:01:00,859 --> 00:01:03,390
+Well let's say we're working in
+a very slow computer which can
+
+26
+00:01:03,390 --> 00:01:04,829
+only do one thing at a time.
+
+27
+00:01:05,840 --> 00:01:07,590
+So it's not easy to just ask,
+
+28
+00:01:07,590 --> 00:01:11,490
+is this point in the area
+bounded by these two lines?
+
+29
+00:01:11,489 --> 00:01:13,709
+We have to split it into
+separate questions.
+
+30
+00:01:15,280 --> 00:01:19,079
+The first question is,
+is the point over the blue line?
+
+31
+00:01:19,079 --> 00:01:23,620
+Let's answer that question based on
+the four black points in the graph.
+
+32
+00:01:23,620 --> 00:01:25,719
+We can see that for this four points.
+
+33
+00:01:25,719 --> 00:01:30,530
+The answers are Yes, Yes, No, and No.
+
+34
+00:01:30,530 --> 00:01:34,640
+The second question is,
+is the point over the orange line?
+
+35
+00:01:34,640 --> 00:01:41,420
+And we can see that for the four points
+the answers are No, Yes, No, and Yes.
+
+36
+00:01:41,420 --> 00:01:44,870
+Now, the third question will just take
+the answers from the previous two, and
+
+37
+00:01:44,870 --> 00:01:46,040
+combine them.
+
+38
+00:01:46,040 --> 00:01:51,700
+So the third question is, are the
+answers to questions 1 and 2, both yes?
+
+39
+00:01:52,829 --> 00:01:56,609
+And we can see that for
+these four points,
+
+40
+00:01:56,609 --> 00:02:00,299
+the answers are No, Yes, No, and No.
+
+41
+00:02:00,299 --> 00:02:04,189
+So they are all no, except for
+the one that is in the green area.
+
+42
+00:02:05,629 --> 00:02:08,448
+Now let's craft each
+question as a small note.
+
+43
+00:02:08,449 --> 00:02:12,030
+The first question is,
+is the point over the blue line?
+
+44
+00:02:12,030 --> 00:02:15,699
+We have a node with the area and
+two input nodes.
+
+45
+00:02:15,699 --> 00:02:18,819
+The test score and the grades.
+
+46
+00:02:18,819 --> 00:02:21,889
+For example we have a student
+where the test score is one and
+
+47
+00:02:21,889 --> 00:02:23,129
+the grades at eight.
+
+48
+00:02:24,539 --> 00:02:29,449
+The node plots the point and checks that
+the point is on top of the black line.
+
+49
+00:02:29,449 --> 00:02:31,829
+And returns the answer, yes or no.
+
+50
+00:02:33,129 --> 00:02:38,079
+The second question is similar, we input
+tests and grades, and the corresponding node
+
+51
+00:02:38,080 --> 00:02:40,469
+will plot the point,
+and return a yes or
+
+52
+00:02:40,469 --> 00:02:44,500
+a no depending on the point being
+on top of the orange line or not.
+
+53
+00:02:46,210 --> 00:02:47,250
+Now, the third question.
+
+54
+00:02:47,250 --> 00:02:50,409
+Are the answers to questions one and
+two both yes?
+
+55
+00:02:50,409 --> 00:02:54,719
+We'll just take as inputs the answers
+to the two previous questions, and
+
+56
+00:02:54,719 --> 00:02:58,530
+return a yes if the two answers
+are yes and a no otherwise.
+
+57
+00:02:59,539 --> 00:03:01,549
+This is known in logic as the and
+operator.
+
+58
+00:03:02,770 --> 00:03:04,219
+Now, this is where the magic happens.
+
+59
+00:03:04,219 --> 00:03:08,000
+If we join the nodes for these three
+questions, then we get a neural network.
+
+60
+00:03:09,500 --> 00:03:11,930
+And if we clean it up a bit,
+we have the following.
+
+61
+00:03:11,930 --> 00:03:15,390
+The first column is where
+we input tests and grades.
+
+62
+00:03:15,389 --> 00:03:18,489
+And the second column is where we
+checked that the point with coordinates
+
+63
+00:03:18,490 --> 00:03:22,510
+corresponding to the tests and the grades
+is on top of each one of the lines.
+
+64
+00:03:23,629 --> 00:03:27,379
+And the third layer in which we look at
+the answers from the previous layers and
+
+65
+00:03:27,379 --> 00:03:29,289
+join them with the and operator.
+
+66
+00:03:30,819 --> 00:03:33,489
+So this is how our neural
+network will look.
+
+67
+00:03:33,490 --> 00:03:36,120
+Now you may be thinking something's
+a little suspicious here.
+
+68
+00:03:37,270 --> 00:03:39,560
+The first two nodes look
+like they take values and
+
+69
+00:03:39,560 --> 00:03:43,650
+check if the corresponding point
+is on top or below a certain line.
+
+70
+00:03:43,650 --> 00:03:47,830
+Whereas the third node just takes yes or
+no and returns yes or no.
+
+71
+00:03:49,159 --> 00:03:52,530
+Is it possible to see the third
+node as one of the first two?
+
+72
+00:03:53,710 --> 00:03:54,900
+And the answer is yes.
+
+73
+00:03:54,900 --> 00:03:57,960
+So let's look at the and
+operator in more detail.
+
+74
+00:03:57,960 --> 00:04:02,030
+Let's actually make a little table
+of what goes in, and what goes out.
+
+75
+00:04:02,030 --> 00:04:06,217
+So with the and operator if we put
+a yes and a yes, we get a yes.
+
+76
+00:04:06,217 --> 00:04:10,175
+If we input a yes and a no, we get a no.
+
+77
+00:04:10,175 --> 00:04:13,679
+If we input a no and a yes, we get a no.
+
+78
+00:04:13,680 --> 00:04:17,050
+And finally if we input a no and
+a no, we get a no.
+
+79
+00:04:18,290 --> 00:04:21,319
+Now, we can think of a yes as a one and
+a no as a zero.
+
+80
+00:04:21,319 --> 00:04:24,089
+In that case,
+our table turns into this other one.
+
+81
+00:04:25,100 --> 00:04:29,357
+And now, look at this operator in which
+we enter value zero and one and check if
+
+82
+00:04:29,357 --> 00:04:33,499
+the corresponding point with those
+coordinates is over or above the line.
+
+83
+00:04:34,689 --> 00:04:37,949
+If we look at the points for
+coordinates (1,1), we get that this
+
+84
+00:04:37,949 --> 00:04:42,029
+point is over the line on the green or
+positive region, so we get a one.
+
+85
+00:04:43,060 --> 00:04:44,680
+Now if we look at the points
+with coordinates (1,0),
+
+86
+00:04:44,680 --> 00:04:49,360
+we see that it's under the line
+on the red or negative region.
+
+87
+00:04:49,360 --> 00:04:51,040
+So we get a 0.
+
+88
+00:04:51,040 --> 00:04:54,470
+Similarly for
+the point with coordinates (0, 1),
+
+89
+00:04:54,470 --> 00:04:57,730
+this point is under the line,
+so we get a 0.
+
+90
+00:04:57,730 --> 00:05:02,850
+And finally, the point with coordinate
+(0, 0) is under the line too.
+
+91
+00:05:02,850 --> 00:05:05,040
+So the answer is 0 again.
+
+92
+00:05:05,040 --> 00:05:07,319
+So this is how our final
+neural network looks.
+
+93
+00:05:08,439 --> 00:05:12,009
+On the left, we have what's called
+the input layer, where in this case,
+
+94
+00:05:12,009 --> 00:05:16,060
+we're inputting the test scores and
+the grades.
+
+95
+00:05:16,060 --> 00:05:20,189
+Here we have a case where the test
+score is 1 and the grades are 8.
+
+96
+00:05:20,189 --> 00:05:22,279
+Then this goes through a middle layer,
+
+97
+00:05:22,279 --> 00:05:25,449
+called the hidden layer, which will
+help us with our computations.
+
+98
+00:05:26,459 --> 00:05:29,859
+So in here we can see that the 1 and
+the 8 go become the point with
+
+99
+00:05:29,860 --> 00:05:32,980
+coordinates 1,8 on the two
+graphs in the next layer.
+
+100
+00:05:34,180 --> 00:05:38,639
+In the top node the point (1,8) is
+on the green or positive region so
+
+101
+00:05:38,639 --> 00:05:40,028
+the top node emits a yes.
+
+102
+00:05:41,720 --> 00:05:45,550
+In the bottom node the point (1,8)
+from the red or negative region, so
+
+103
+00:05:45,550 --> 00:05:47,069
+the bottom node emits a no.
+
+104
+00:05:48,310 --> 00:05:51,850
+Now we remember that a yes
+is represented by a 1 and
+
+105
+00:05:51,850 --> 00:05:53,885
+a no is represented by a 0.
+
+106
+00:05:55,110 --> 00:05:57,379
+Now the next layer,
+called the output layer,
+
+107
+00:05:57,379 --> 00:06:01,800
+takes the values coming out of the
+middle layer, namely the 1 and the 0.
+
+108
+00:06:01,800 --> 00:06:05,638
+And it locates the point
+with coordinates (1, 0).
+
+109
+00:06:05,637 --> 00:06:10,489
+This point is in the red or
+negative region of the final node, so
+
+110
+00:06:10,490 --> 00:06:13,329
+the output here is a no.
+
+111
+00:06:13,329 --> 00:06:16,567
+Thus the neural network
+has received its inputs,
+
+112
+00:06:16,567 --> 00:06:21,399
+the values test equals 1, and grades
+equals 8, and it has outputted a no.
+
+113
+00:06:23,399 --> 00:06:27,179
+This is a simple neural network, but
+you can see how adding more nodes in
+
+114
+00:06:27,180 --> 00:06:31,030
+the middle or even more layers of
+nodes can help us map more complex
+
+115
+00:06:31,029 --> 00:06:34,639
+areas in the plane or even in three
+dimensions or higher dimensional spaces.
+
+116
+00:06:35,709 --> 00:06:39,379
+Neural networks are a very powerful
+machine learning algorithm used
+
+117
+00:06:39,379 --> 00:06:42,509
+in most state of the art projects
+such as facial recognition,
+
+118
+00:06:42,509 --> 00:06:45,879
+voice recognition, playing chess,
+and self-driving cars.
+
+119
+00:06:47,069 --> 00:06:49,779
+And we call it a neural network
+because these nodes resemble
+
+120
+00:06:49,779 --> 00:06:50,759
+neurons in the brain.
+
+121
+00:06:51,790 --> 00:06:55,379
+And neurons will take as input, the
+output of other neurons in the form of
+
+122
+00:06:55,379 --> 00:07:00,159
+nervous impulses and
+decide to fire a nervous impulse or not.
+
+123
+00:07:00,160 --> 00:07:04,000
+In our case the neuron takes as input
+the output of other neurons in the form
+
+124
+00:07:04,000 --> 00:07:04,740
+of numbers.
+
+125
+00:07:04,740 --> 00:07:07,314
+And decides to return a 1 or a 0.
+
+126
+00:07:07,314 --> 00:07:08,499
+[BLANK_AUDIO]
+

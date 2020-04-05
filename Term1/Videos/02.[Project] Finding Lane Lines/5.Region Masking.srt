@@ -1,0 +1,28 @@
+1
+00:00:00,330 --> 00:00:04,800
+Now, let's focus on just the region
+of the image that interests us.
+
+2
+00:00:04,800 --> 00:00:07,480
+Mainly, the region where
+the lane lines are.
+
+3
+00:00:07,480 --> 00:00:10,970
+In this case, you can assume that
+the camera that took the image
+
+4
+00:00:10,970 --> 00:00:14,270
+is mounted at a fixed position
+on the front of the car.
+
+5
+00:00:14,270 --> 00:00:17,550
+Therefore, the lane lines will
+always appear in the same general
+
+6
+00:00:17,550 --> 00:00:18,350
+region of the image.

@@ -1,0 +1,88 @@
+1
+00:00:00,590 --> 00:00:04,130
+Looking at a grey scale image,
+I see bright points, dark points, and
+
+2
+00:00:04,130 --> 00:00:06,000
+all the grey in between.
+
+3
+00:00:06,000 --> 00:00:09,190
+Rapid changes in brightness
+are where we find the edges.
+
+4
+00:00:09,190 --> 00:00:12,020
+Our image is just a mathematical
+function of x and y so
+
+5
+00:00:12,020 --> 00:00:15,830
+we can perform mathematical operations
+on it, just like any other function.
+
+6
+00:00:15,830 --> 00:00:18,030
+For example, we can take its derivative,
+
+7
+00:00:18,030 --> 00:00:21,060
+which is just a measure of
+change of this function.
+
+8
+00:00:21,060 --> 00:00:22,780
+A small derivative means small change.
+
+9
+00:00:22,780 --> 00:00:24,138
+Big derivative, big chance.
+
+10
+00:00:24,138 --> 00:00:26,160
+Images are two-dimensional so
+
+11
+00:00:26,160 --> 00:00:30,590
+it makes sense to take the derivative
+with respect to x and y simultaneously.
+
+12
+00:00:30,590 --> 00:00:32,240
+This is called the gradient and
+
+13
+00:00:32,240 --> 00:00:36,450
+in computing it, we're measuring how
+fast pixel values are changing at each
+
+14
+00:00:36,450 --> 00:00:40,770
+point in an image and in which direction
+they are changing most rapidly.
+
+15
+00:00:40,770 --> 00:00:43,390
+Computing the gradient
+gives us thick edges.
+
+16
+00:00:43,390 --> 00:00:46,830
+With the Canny algorithm we will
+thin out these edges to find just
+
+17
+00:00:46,830 --> 00:00:50,510
+the individual pixels that
+follow the strongest gradients.
+
+18
+00:00:50,510 --> 00:00:53,680
+We'll then extend those strong edges
+to include pixels all the way down to
+
+19
+00:00:53,680 --> 00:00:56,760
+a lower threshold that we defined
+when calling the Canny function.
