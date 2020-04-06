@@ -265,9 +265,11 @@ Now that everything is installed, let's make sure it's working!
    The instructions for the first project are on the next page.
 
    ```sh
-# Anaconda
    conda activate carnd-term1 # If currently deactivated, i.e. start of a new terminal session
-jupyter notebook test.ipynb
+   jupyter notebook test.ipynb
+   ```
+
+Docker   
    ```
 
    ```sh
@@ -275,8 +277,8 @@ jupyter notebook test.ipynb
    docker run -it --rm -p 8888:8888 -v ${pwd}:/src udacity/carnd-term1-starter-kit test.ipynb
    # OR
    docker run -it --rm -p 8888:8888 -v `pwd`:/src udacity/carnd-term1-starter-kit test.ipynb
-```
-   
+   ```
+
 3. Go to [`http://localhost:8888/notebooks/test.ipynb`](http://localhost:8888/notebooks/test.ipynb) in your browser and run all the cells. Everything should execute without error.
 
 #### Troubleshooting
@@ -488,7 +490,7 @@ The NOT operations only cares about one input. The operation returns a `0` if th
 
 - See `scripts/03.Introduction to Neural Network/11_NOT_Perceptron_Quiz.py` for more details.
 
-# XOR Perceptron
+#### XOR Perceptron
 
 An XOR perceptron is a logic gate that outputs `0` if the inputs are the same and `1` if the inputs are different. Unlike previous perceptrons, this graph isn't linearly separable. To handle more complex problems like this, we can chain perceptrons together.
 
@@ -715,12 +717,450 @@ hidden_error*inputs[:,None]
 
 ### 3.6 Further Reading
 
-## Further reading
-
 Backpropagation is fundamental to deep learning. TensorFlow and other libraries will perform the backprop for you, but you should really *really* understand the algorithm. We'll be going over backprop again, but here are some extra resources for you:
 
 - From Andrej Karpathy: [Yes, you should understand backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b#.vt3ax2kg9)
 - Also from Andrej Karpathy, [a lecture from Stanford's CS231n course](https://www.youtube.com/watch?v=59Hbtz7XgjM)
 
 
+
+## 4. MiniFlow
+
+### 4.1 Introduction
+
+In this lab, you’ll build a library called **`MiniFlow`** which will be your own version of [TensorFlow](http://tensorflow.org/)! [(link for China)](http://tensorfly.cn/)
+
+- TensorFlow is one of the most popular open source neural network libraries, built by the team at Google Brain over just the last few years.
+- Following this lab, you'll spend the remainder of this module actually working with open-source deep learning libraries like [TensorFlow](http://tensorflow.org/) and [Keras](https://keras.io/). So why bother building MiniFlow? 
+
+- The goal of this lab is to demystify two concepts at the heart of neural networks - **backpropagation** and **differentiable graphs**.
+  - Backpropagation is the process by which neural networks update the weights of the network over time. (You may have seen it in [this video](https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/6df7ae49-c61c-4bb2-a23e-6527e69209ec/lessons/83a4e710-a69e-4ce9-9af9-939307c0711b/concepts/45cebfff-236d-453a-be24-7a179c1fa8ed) earlier.)
+  - Differentiable graphs are graphs where the nodes are [differentiable functions](https://en.wikipedia.org/wiki/Differentiable_function). They are also useful as *visual aids* for understanding and calculating complicated derivatives. This is the fundamental abstraction of TensorFlow - it's a framework for creating differentiable graphs.
+
+With graphs and backpropagation, you will be able to create your own nodes and properly compute the derivatives. Even more importantly, you will be able to think and reason in terms of these graphs.
+
+### 4.2 Graphs
+
+**What is a Neural Network?**
+
+- A neural network is a graph of mathematical functions such as [linear combinations](https://en.wikipedia.org/wiki/Linear_combination) and activation functions. The graph consists of **nodes**, and **edges**.
+
+- Nodes in each layer (except for nodes in the input layer) perform mathematical functions using inputs from nodes in the previous layers. For example, a node could represent *f*(*x*,*y*)=*x*+*y*, where *x* and *y* are input values from nodes in the previous layer.
+- Layers between the input layer and the output layer are called **hidden layers**.
+- The edges in the graph describe the connections between the nodes, along which the values flow from one layer to the next. *These edges can also apply operations to the values that flow along them, such as multiplying by weights, adding biases, etc..* 
+- MiniFlow won't use a special class for edges. Instead, its nodes will perform both their own calculations and those of their input edges. This will be more clear as you go through these lessons.
+
+**Forward Propagation:**
+
+By propagating values from the first layer (the input layer) through all the mathematical functions represented by each node, the network outputs a value. This process is called a **forward pass**.
+
+**Graphs**
+
+There are generally two steps to create neural networks:
+
+1. Define the graph of nodes and edges.
+2. Propagate values through the graph.
+
+`MiniFlow` works the same way. You'll define the nodes and edges of your network with one method and then propagate values through the graph with another method.
+
+### 4.3 MiniFlow Architecture
+
+Let's consider how to implement this **graph structure** in `MiniFlow`. We'll use a Python class to represent a generic node.
+
+```python
+class Node(object):
+    def __init__(self):
+        # Properties will go here!
+```
+
+We know that each node might receive input from multiple other nodes. We also know that each node **creates a single output**, which will likely be passed to other nodes. Let's add two lists: 
+
+- one to store references to the inbound nodes, 
+- and the other to store references to the outbound nodes.
+
+```python
+class Node(object):
+    def __init__(self, inbound_nodes=[]):
+        # Node(s) from which this Node receives values
+        self.inbound_nodes = inbound_nodes
+        # Node(s) to which this Node passes values
+        self.outbound_nodes = []
+        # For each inbound Node here, add this Node as an outbound Node to _that_ Node.
+        for n in self.inbound_nodes:
+            n.outbound_nodes.append(self)
+```
+
+Each node will eventually calculate a value that represents its output. Let's initialize the `value` to `None` to indicate that it exists but hasn't been set yet.
+
+```python
+class Node(object):
+    def __init__(self, inbound_nodes=[]):
+        ...
+
+        self.value = None
+```
+
+Each node will need to be able to pass values forward and perform backpropagation (more on that later). For now, let's add a placeholder method for forward propagation. We'll deal with backpropagation later on.
+
+```python
+class Node(object):
+    ...
+
+    def forward(self):
+        """
+        Forward propagation.
+
+        Compute the output value based on `inbound_nodes` and
+        store the result in self.value.
+        """
+        raise NotImplemented
+```
+
+#### Nodes that Calculate
+
+While `Node` defines the base set of properties that every node holds, only specialized [subclasses](https://docs.python.org/3/tutorial/classes.html#inheritance) of `Node` will end up in the graph. As part of this lab, you'll build the subclasses of `Node` that can perform calculations and hold values. For example, consider the `Input` subclass of `Node`.
+
+```python
+class Input(Node):
+    def __init__(self):
+        # An Input node has no inbound nodes,
+        # so no need to pass anything to the Node instantiator.
+        Node.__init__(self)
+
+    # NOTE: Input node is the only node where the value
+    # may be passed as an argument to forward().
+    #
+    # All other node implementations should get the value
+    # of the previous node from self.inbound_nodes
+    #
+    # Example:
+    # val0 = self.inbound_nodes[0].value
+    def forward(self, value=None):
+        # Overwrite the value if one is passed in.
+        if value is not None:
+            self.value = value
+```
+
+Unlike the other subclasses of `Node`, the `Input` subclass does not actually calculate anything. The `Input` subclass just holds a `value`, such as a data feature or a model parameter (weight/bias).
+
+You can set `value` either explicitly or with the `forward()` method. This value is then fed through the rest of the neural network.
+
+#### The Add Subclass
+
+`Add`, which is another subclass of `Node`, actually can perform a calculation (addition).
+
+```python
+class Add(Node):
+    def __init__(self, x, y):
+        Node.__init__(self, [x, y])
+
+    def forward(self):
+        """
+        You'll be writing code here in the next quiz!
+        """
+```
+
+Notice the difference in the `__init__` method, `Add.__init__(self, [x, y])`. Unlike the `Input` class, which has no inbound nodes, the `Add` class takes 2 inbound nodes, `x` and `y`, and adds the values of those nodes.
+
+### 4.4 Forward Propagation
+
+#### Topological sort
+
+`MiniFlow` has two methods to help you define and then run values through your graphs: `topological_sort()` and `forward_pass()`.
+
+<img src=assets/4_4_1.jpeg width=400>
+
+In order to define your network, you'll need to define **the order of operations** for your nodes. Given that the input to some node depends on the outputs of others, you need to flatten the graph in such a way where all the input dependencies for each node are resolved before trying to run its calculation. This is a technique called a [topological sort](https://en.wikipedia.org/wiki/Topological_sorting).
+
+- The `topological_sort()` function implements topological sorting using [Kahn's Algorithm](https://en.wikipedia.org/wiki/Topological_sorting#Kahn.27s_algorithm). The details of this method are not important, the result is; `topological_sort()` returns **a sorted list of nodes in which all of the calculations can run in series**.
+- `topological_sort()` takes in a `feed_dict`, which is how we initially set a value for an `Input` node. The `feed_dict` is represented by the Python dictionary data structure. Here's an example use case:
+
+```python
+# Define 2 `Input` nodes.
+x, y = Input(), Input()
+
+# Define an `Add` node, the two above`Input` nodes being the input.
+add = Add(x, y)
+
+# The value of `x` and `y` will be set to 10 and 20 respectively.
+feed_dict = {x: 10, y: 20}
+
+# Sort the nodes with topological sort.
+sorted_nodes = topological_sort(feed_dict=feed_dict)
+```
+
+- You can find the source code for `topological_sort()` in miniflow.py in the programming quiz below.
+
+#### Forward pass
+
+The other method at your disposal is `forward_pass()`, which actually runs the network and outputs a value.
+
+```python
+def forward_pass(output_node, sorted_nodes):
+    """
+    Performs a forward pass through a list of sorted nodes.
+
+    Arguments:
+
+        `output_node`: The output node of the graph (no outgoing edges).
+        `sorted_nodes`: a topologically sorted list of nodes.
+
+    Returns the output node's value
+    """
+
+    for n in sorted_nodes:
+        n.forward()
+
+    return output_node.value
+```
+
+#### Code - Passing Values Forward
+
+Create and run this graph!
+
+<img src=assets/4_4_2.png width=200 >
+
+**Setup:**
+
+Review `nn.py` and `miniflow.py`.
+
+The neural network architecture is already there for you in nn.py. It's your job to finish `MiniFlow` to make it work.
+
+For this quiz, I want you to:
+
+1. Open `nn.py` below. **You don't need to change anything.** I just want you to see how `MiniFlow` works.
+2. Open `miniflow.py`. **Finish the `forward` method on the `Add` class. All that's required to pass this quiz is a correct implementation of `forward`.**
+3. Test your network by hitting "Test Run!" When the output looks right, hit "Submit!"
+
+
+
+- **See `scripts/04.MiniFlow/05_Forward_Propagation` for more details.**
+
+- **See `scripts/04.MiniFlow/06_Forward_Propagation` for more details.**
+
+
+
+### 4.5 Learning and Loss
+
+The output, *o*, is just the weighted sum of the inputs plus the bias:
+$$
+o = \sum_i x_iw_i + b
+$$
+Remember, by varying the weights, you can vary the amount of influence any given input has on the output. The learning aspect of neural networks takes place during a process known as backpropagation. In backpropogation, the network modifies the weights to improve the network's output accuracy. You'll be applying all of this shortly.
+
+In this next quiz, you'll try to build a linear neuron that generates an output by applying a simplified version of Equation (1). `Linear` should take an list of inbound nodes of length *n*, a list of weights of length *n*, and a bias.
+
+**Instructions**
+
+1. Open nn.py below. Read through the neural network to see the expected output of `Linear`.
+2. Open miniflow.py below. Modify `Linear`, which is a subclass of `Node`, to generate an output with Equation (1).
+
+#### Code
+
+- **See `scripts/04.MiniFlow/07_Linear` for more details.**
+
+
+
+### 4.6 Linear Transform
+
+$$
+Z = X W + b
+$$
+
+- X is now an `m by n` matrix. Each row has n inputs/features.
+- W is now a `n by k` matrix.	
+
+- b is a row matrix of biases, one for each output. `1 by k`
+
+*Equation (2) can also be viewed as Z = XW + B where B is the biases vector, b, stacked m times as a row. Due to broadcasting it's abbreviated to Z = XW + b.*
+
+
+
+I want you to rebuild `Linear` to handle matrices and vectors using the venerable Python math package `numpy` to make your life easier.
+
+I used `np.array` ([documentation](https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html)) to create the matrices and vectors. You'll want to use `np.dot`, which functions as matrix multiplication for 2D arrays ([documentation](https://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html)), to multiply the input and weights matrices from Equation (2). It's also worth noting that numpy actually overloads the `__add__` operator so you can use it directly with `np.array` (eg. `np.array() + np.array()`).
+
+**Instructions:**
+
+1. Open nn.py. See how the neural network implements the `Linear` node.
+2. Open miniflow.py. Implement Equation (2) within the forward pass for the `Linear` node.
+3. Test your work!
+
+#### Code
+
+- **See `scripts/04.MiniFlow/08_Linear_Transform` for more details.**
+
+
+
+### 4.7 Sigmoid Function
+
+Linear transforms are great for simply *shifting* values, but neural networks often require a more nuanced transform. 
+
+- For instance, one of the original designs for an artificial neuron, [the perceptron](https://en.wikipedia.org/wiki/Perceptron), exhibit binary output behavior. **Perceptrons** compare a weighted input to a threshold. When the weighted input exceeds the threshold, the perceptron is **activated** and outputs `1`, otherwise it outputs `0`.
+
+  You could model a perceptron's behavior as a step function.
+
+  <img src=assets/4_7_1.png width=200 >
+
+- but step functions are not continuous and not differentiable, which is *very bad*. Differentiation is what makes gradient descent possible.
+
+The sigmoid function:
+$$
+sigmoid(x)= \frac{1}{1+e^{-x}}
+$$
+
+
+replaces thresholding with a beautiful S-shaped curve that mimics the activation behavior of a perceptron while being differentiable. 
+
+<img src=assets/4_7_2.png width=200 >
+
+As a bonus, the sigmoid function has a very simple derivative that that can be calculated from the sigmoid function itself.
+
+$$
+\sigma'(x) = \sigma(x)*(1-\sigma(x))
+$$
+
+- Conceptually, the sigmoid function makes decisions. When given weighted features from some data, it indicates whether or not the features contribute to a classification. 
+- In that way, a sigmoid activation works well following a linear transformation. As it stands right now with random weights and bias, the sigmoid node's output is also random. The process of learning through backpropagation and gradient descent, which you will implement soon, modifies the weights and bias such that activation of the sigmoid node begins to match expected outputs.
+
+#### Code
+
+- **See `scripts/04.MiniFlow/09_Sigmoid` for more details.**
+
+
+
+### 4.8 Cost
+
+As you may recall, neural networks improve the **accuracy** of their outputs by modifying weights and biases in response to training against labeled datasets.
+
+People use different names for this accuracy measurement, often terming it **loss** or **cost**. I'll use the term *cost* most often.
+
+For this lab, you will calculate the cost using the mean squared error (MSE). It looks like so:
+$$
+C(w,b)=\frac{1}{m}\sum_x||y(x)−a||^2
+$$
+
+- Here *w* denotes the collection of all weights in the network, *b* all the biases, *m* is the total number of training examples, *a* is the approximation of *y(x)* by the network, both *a* and *y(x)* are vectors of the same length.
+
+The collection of weights is all the weight matrices **flattened into vectors** and concatenated to one big vector. The same goes for the collection of biases except they're already vectors so there's no need to flatten them prior to the concatenation.
+
+Here's an example of creating *w* in code:
+
+```python
+# 2 by 2 matrices
+w1  = np.array([[1, 2], [3, 4]])
+w2  = np.array([[5, 6], [7, 8]])
+
+# flatten
+w1_flat = np.reshape(w1, -1)
+w2_flat = np.reshape(w2, -1)
+
+w = np.concatenate((w1_flat, w2_flat))
+# array([1, 2, 3, 4, 5, 6, 7, 8])
+```
+
+It's a nice way to abstract all the weights and biases used in the neural network and makes some things easier to write as we'll see soon in the upcoming gradient descent sections.
+
+**NOTE:** It's not required you do this in your code! It's just easier to do this talk about the weights and biases as a collective than consider them invidually.
+
+#### Code
+
+- **See `scripts/04.MiniFlow/10_cost` for more details.**
+
+
+
+### 4.9 Gradient Descent
+
+- Gradient descent works by first calculating the slope of the plane at the current point, which includes calculating the partial derivatives of the loss with respect to **all of the parameters**. This set of partial derivatives is called the **gradient**. 
+
+- Technically, the gradient actually points uphill, in the direction of **steepest ascent**. But if we put a `-` sign at the front this value, we get the direction of **steepest descent**, which is what we want.
+
+-  *learning rate* empirically values in the range 0.1 to 0.0001 work well. The range 0.001 to 0.0001 is popular, as 0.1 and 0.01 are sometimes too large.
+
+- Here's the formula for gradient descent (pseudocode):
+
+  ```python
+  x = x - learning_rate * gradient_of_x
+  ```
+
+#### Code
+
+- **See `scripts/04.MiniFlow/12_Gradient_Descent` for more details.**
+
+
+
+### 4.10 Backpropagation
+
+#### Derivatives
+
+In calculus, the derivative tells us how something changes with respect to something else. Or, put differently, how *sensitive* something is to something else.
+
+Let's take the function *f*(*x*)=*x*2 as an example. In this case, the derivative of *f*(*x*) is 2*x*. Another way to state this is, "the derivative of *f*(*x*) with respect to *x* is 2*x*".
+
+Using the derivative, we can say *how much* a change in *x* effects *f*(*x*). For example, when *x* is 4, the derivative is 8 (2*x*=2∗4=8). This means that if *x* is increased or decreased by 1 unit, then *f*(*x*) will increase or decrease by 8. *(the slope (or derivative) itself changes as x changes)*
+
+#### Chain Rule
+
+We simply calculate the derivative of the cost with respect to each parameter in the network. The gradient is a vector of all these derivatives.
+
+In reality, neural networks are a composition of functions, so computing the derivative of the cost w.r.t a parameter isn't quite as straightforward as calculating the derivative of a polynomial function like *f*(*x*)=*x*2. This is where the chain rule comes into play.
+
+*I highly recommend checking out [Khan Academy's lessons on partial derivatives](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivatives/v/partial-derivatives-introduction) and [gradients](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/gradient-and-directional-derivatives/v/gradient) if you need more of a refresher.*
+
+Say we have a new function *f*∘*g*(*x*)=*f*(*g*(*x*)). We can calculate the derivative of *f*∘*g* w.r.t *x* , denoted by applying the chain rule.
+$$
+\frac{∂f∘g}{∂x}=\frac{∂g}{∂x}\frac{∂f}{∂g}
+$$
+The way to think about this is:
+
+> In order to know the effect *x* has on *f*, we first need to know the effect *x* has on *g*, and then the effect *g* has on *f*.
+
+
+
+Let's now look at a more complex example. Consider the following neural network in MiniFlow:
+
+```python
+X, y = Input(), Input()
+W1, b1 = Input(), Input()
+W2, b2 = Input(), Input()
+
+l1 = Linear(X, W1, b1)
+s1 = Sigmoid(l1)
+l2 = Linear(s1, W2, b2)
+cost = MSE(l2, y)
+```
+
+This also can be written as a composition of functions `MSE(Linear(Sigmoid(Linear(X, W1, b1)), W2, b2), y)`. Our goal is to adjust the weights and biases represented by the `Input` nodes `W1, b1, W2, b2`, such that the cost is minimized.
+
+#### Additional Resources
+
+- [Yes you should understand backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b#.fowl6fvfk) by Andrej Karpathy
+- [Vector, Matrix, and Tensor Derivatives](http://cs231n.stanford.edu/vecDerivs.pdf) by Erik Learned-Miller.
+
+#### Code
+
+- **See `scripts/04.MiniFlow/13_Backpropagation` for more details.**
+
+
+
+### 4.11 Stochastic Gradient Descent
+
+Stochastic Gradient Descent (SGD) is a version of Gradient Descent where on each forward pass **a batch of data** is randomly sampled from total dataset. 
+
+A naïve implementation of SGD involves:
+
+1. Randomly sample a batch of data from the total dataset.
+2. Running the network forward and backward to calculate the gradient (with data from (1)).
+3. Apply the gradient descent update.
+4. Repeat steps 1-3 until convergence or the loop is stopped by another mechanism (i.e. the number of epochs).
+
+As a reminder, here's the gradient descent update equation, where *α* represents the learning rate:
+$$
+x = x - \alpha * \frac{\partial cost}{\partial x}
+$$
+We're also going to use an actual dataset for this quiz, the [Boston Housing dataset](https://archive.ics.uci.edu/ml/datasets/Housing). After training the network will be able to predict prices of Boston housing!
+
+#### Code
+
+- **See `scripts/04.MiniFlow/14_SGD` for more details.**
 

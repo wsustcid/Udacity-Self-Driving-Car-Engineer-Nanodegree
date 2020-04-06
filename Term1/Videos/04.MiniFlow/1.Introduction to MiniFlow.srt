@@ -1,0 +1,45 @@
+1
+00:00:00,430 --> 00:00:04,280
+Now that you've seen the concepts
+behind regression, classification and
+
+2
+00:00:04,280 --> 00:00:07,490
+neural networks,
+you're ready to start building.
+
+3
+00:00:07,490 --> 00:00:08,420
+&gt;&gt; In the next lab,
+
+4
+00:00:08,420 --> 00:00:12,080
+you're going to move from the high level
+concepts down to the low level details.
+
+5
+00:00:12,080 --> 00:00:14,300
+You'll build your own
+neural network library and
+
+6
+00:00:14,300 --> 00:00:15,979
+implement back propagation by hand.
+
+7
+00:00:17,080 --> 00:00:20,000
+&gt;&gt; Back propagation is
+a pretty mind bending concept.
+
+8
+00:00:20,000 --> 00:00:22,170
+And I remember how coding it up myself,
+
+9
+00:00:22,170 --> 00:00:25,590
+for the first time, really helped
+me get a better grasp of it.
+
+10
+00:00:25,590 --> 00:00:26,440
+I hope it helps you too.
