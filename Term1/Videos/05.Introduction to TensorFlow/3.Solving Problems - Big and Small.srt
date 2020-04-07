@@ -1,0 +1,136 @@
+1
+00:00:00,290 --> 00:00:01,650
+Many companies today,
+
+2
+00:00:01,649 --> 00:00:04,919
+have made deep learning a central part
+of their mission learning toolkit.
+
+3
+00:00:04,919 --> 00:00:09,400
+Facebook, Baidu, Microsoft and Google,
+are all using deep learning in their
+
+4
+00:00:09,400 --> 00:00:11,980
+products and
+pushing the research forward.
+
+5
+00:00:11,980 --> 00:00:15,919
+It's easy to understand why, deep
+learning shines wherever there is lots
+
+6
+00:00:15,919 --> 00:00:18,379
+of data and complex problems to solve.
+
+7
+00:00:18,379 --> 00:00:21,379
+And all these companies are facing
+lots of complicated problems.
+
+8
+00:00:21,379 --> 00:00:24,099
+Understanding what's in an image,
+to help you find it.
+
+9
+00:00:24,100 --> 00:00:27,230
+Or translating a document into
+another language that you can speak.
+
+10
+00:00:28,710 --> 00:00:33,259
+This class will explore a continuum
+of complexity from very simple models
+
+11
+00:00:33,259 --> 00:00:36,179
+to very large ones that you will
+still be able to train in minutes
+
+12
+00:00:36,179 --> 00:00:39,600
+on your personal computer
+to very elaborate tasks.
+
+13
+00:00:39,600 --> 00:00:41,750
+Predicting the meaning of words or
+classifying images.
+
+14
+00:00:42,960 --> 00:00:45,740
+One of the nice things about deep
+learning is it's really a family of
+
+15
+00:00:45,740 --> 00:00:49,390
+techniques that adapts to all sorts
+of data and all sorts of problems.
+
+16
+00:00:49,390 --> 00:00:52,689
+All using a common infrastructure and
+a common langauge to describe things.
+
+17
+00:00:53,929 --> 00:00:55,920
+When I began working
+in machine learning,
+
+18
+00:00:55,920 --> 00:00:58,340
+I was doing research
+on speech recognition.
+
+19
+00:00:58,340 --> 00:01:00,910
+Whenever I met someone
+working on computer vision or
+
+20
+00:01:00,909 --> 00:01:04,450
+natural langauge processing, we had
+very little in common to talk about.
+
+21
+00:01:04,450 --> 00:01:07,409
+We used different acronyms,
+different techniques, and
+
+22
+00:01:07,409 --> 00:01:09,759
+collaboration was
+pretty much impossible.
+
+23
+00:01:09,760 --> 00:01:11,660
+Deep learning really changed that.
+
+24
+00:01:11,659 --> 00:01:14,479
+The basic things that you will learn
+in this class are applicable to
+
+25
+00:01:14,480 --> 00:01:18,469
+almost everything and will give you
+a foundation that you can apply to many,
+
+26
+00:01:18,469 --> 00:01:20,239
+many different fields.
+
+27
+00:01:20,239 --> 00:01:24,009
+You'll be part of a fast growing
+community of researchers, engineers and
+
+28
+00:01:24,010 --> 00:01:27,780
+data scientists who share a common,
+very powerful set of tools.
+

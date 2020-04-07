@@ -1,0 +1,134 @@
+1
+00:00:00,000 --> 00:00:03,593
+So let’s get started training
+a logistic classifier.
+
+2
+00:00:03,593 --> 00:00:08,256
+A logistic classifier is what’s
+called the linear classifier,.
+
+3
+00:00:08,256 --> 00:00:12,219
+It takes the input, for example,
+the pixels in an image, and
+
+4
+00:00:12,218 --> 00:00:16,347
+applies a linear function to them
+to generate its predictions.
+
+5
+00:00:16,347 --> 00:00:19,767
+A linear function is just
+a giant matrix multiplier.
+
+6
+00:00:19,766 --> 00:00:24,850
+It takes all the inputs as a big vector
+that will denote x and multiplies
+
+7
+00:00:24,850 --> 00:00:30,037
+them with a matrix to generate its
+predictions, one per output class.
+
+8
+00:00:30,036 --> 00:00:37,661
+Throughout we'll denote the inputs by x,
+the weights by w and the bias term by b.
+
+9
+00:00:37,661 --> 00:00:41,769
+The weights of that matrix and the bias
+is where the machine learning comes in.
+
+10
+00:00:41,770 --> 00:00:43,670
+We're going to train that model.
+
+11
+00:00:43,670 --> 00:00:45,850
+That means we're going to
+try to find the values for
+
+12
+00:00:45,850 --> 00:00:50,399
+the weights and bias which are good
+at performing those predictions.
+
+13
+00:00:50,399 --> 00:00:54,649
+How are we going to use those scores
+to perform the classification?
+
+14
+00:00:54,649 --> 00:00:56,539
+Well, let's recap our task.
+
+15
+00:00:56,539 --> 00:01:03,350
+Each image that we have as an input can
+have one and only one possible label.
+
+16
+00:01:03,350 --> 00:01:06,439
+So we're going to turn those
+scores into probabilities.
+
+17
+00:01:06,439 --> 00:01:09,909
+We're going to want the probability of
+the correct class to be very close to 1.
+
+18
+00:01:09,909 --> 00:01:14,194
+And the probability for
+every other class to be close to 0.
+
+19
+00:01:14,194 --> 00:01:17,760
+The way to turn scores into
+probabilities is to use a softmax
+
+20
+00:01:17,760 --> 00:01:18,483
+function.
+
+21
+00:01:18,483 --> 00:01:20,910
+Which I'll denote here by S.
+
+22
+00:01:20,909 --> 00:01:22,409
+This is what it looks like.
+
+23
+00:01:22,409 --> 00:01:25,090
+But beyond the formula what's
+important to know about it
+
+24
+00:01:25,090 --> 00:01:30,719
+is that it can take any kind of scores
+and turn them into proper probabilities.
+
+25
+00:01:30,719 --> 00:01:36,900
+Proper probabilities sum to 1 and they
+will be large when the scores are large.
+
+26
+00:01:36,900 --> 00:01:39,740
+And small, when the scores
+are comparatively smaller.
+
+27
+00:01:40,909 --> 00:01:43,560
+Scores, in the context
+of logistic regression,
+
+28
+00:01:43,560 --> 00:01:44,980
+are often also called logits.
+

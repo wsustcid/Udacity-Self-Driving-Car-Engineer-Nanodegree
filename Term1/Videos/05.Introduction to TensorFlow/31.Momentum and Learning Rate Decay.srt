@@ -1,0 +1,133 @@
+1
+00:00:00,014 --> 00:00:02,109
+You've already seen
+some of these tricks.
+
+2
+00:00:02,109 --> 00:00:05,840
+I asked you to make your inputs zero
+mean and equal variance earlier.
+
+3
+00:00:05,841 --> 00:00:07,958
+It's very important for SGD.
+
+4
+00:00:07,958 --> 00:00:11,868
+I also told you to initialize with
+random weights that have relatively
+
+5
+00:00:11,868 --> 00:00:14,140
+small variance, same thing.
+
+6
+00:00:14,140 --> 00:00:17,109
+I'm going to talk about a few more
+of those important tricks and
+
+7
+00:00:17,109 --> 00:00:21,109
+that should cover all you really need
+to worry about to implement SGD.
+
+8
+00:00:21,109 --> 00:00:23,480
+The first one is momentum.
+
+9
+00:00:23,480 --> 00:00:28,160
+Remember that at each step, we're taking
+a very small step in a random direction.
+
+10
+00:00:29,199 --> 00:00:33,130
+But on aggregate, those steps take
+us towards the minimum of the loss.
+
+11
+00:00:33,130 --> 00:00:35,820
+We can take advantage of
+the knowledge that we've accumulated
+
+12
+00:00:35,820 --> 00:00:38,740
+from previous steps about
+where we should be headed.
+
+13
+00:00:39,850 --> 00:00:43,550
+A cheap way to do that is to keep
+a running average of the gradients and
+
+14
+00:00:43,549 --> 00:00:46,779
+to use that running average instead
+of the direction of the current
+
+15
+00:00:46,780 --> 00:00:48,329
+batch of the data.
+
+16
+00:00:48,329 --> 00:00:52,019
+This momentum technique works very well
+and often leads to better convergence.
+
+17
+00:00:53,189 --> 00:00:55,619
+The second one is learning rate decay.
+
+18
+00:00:55,619 --> 00:01:00,129
+Remember, when replacing radiant
+decent with SGD, I said that we were
+
+19
+00:01:00,130 --> 00:01:04,430
+going to take smaller,
+noisier steps towards our objective.
+
+20
+00:01:04,430 --> 00:01:06,610
+How small should that step be?
+
+21
+00:01:06,609 --> 00:01:08,170
+That's a whole area of research,
+as well.
+
+22
+00:01:09,290 --> 00:01:12,609
+One thing that's always the case,
+however is that it's beneficial to make
+
+23
+00:01:12,609 --> 00:01:16,000
+that step smaller and
+smaller as you train.
+
+24
+00:01:16,000 --> 00:01:18,948
+Some like to apply an exponential
+decay to their learning rate.
+
+25
+00:01:18,948 --> 00:01:22,552
+Some like to make it smaller every
+time the loss reaches a plateau.
+
+26
+00:01:22,552 --> 00:01:24,849
+There are lots of ways to go about it,
+but
+
+27
+00:01:24,849 --> 00:01:27,768
+lowering it over time is
+the key thing to remember.
+
+28
+00:01:27,768 --> 00:01:27,817
+[BLANK_AUDIO]
+

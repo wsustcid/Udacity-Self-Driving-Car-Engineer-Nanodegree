@@ -1,0 +1,42 @@
+1
+00:00:00,200 --> 00:00:03,450
+This is where we have to talk
+a bit about numerical stability.
+
+2
+00:00:03,450 --> 00:00:07,100
+When you do numerical computations,
+you always have to worry a bit about
+
+3
+00:00:07,100 --> 00:00:10,650
+calculating values that are too large or
+too small.
+
+4
+00:00:10,650 --> 00:00:14,300
+In particular, adding very small values
+
+5
+00:00:14,300 --> 00:00:18,300
+to a very large value can
+introduce a lot of errors.
+
+6
+00:00:18,300 --> 00:00:19,640
+Try this in Python.
+
+7
+00:00:19,640 --> 00:00:24,205
+Take the value 1,000,000,000 and then
+add to it the value 10 to the minus 6
+
+8
+00:00:24,205 --> 00:00:28,760
+1,000,000 times,
+then subtract 1,000,000,000 again.
+
+9
+00:00:28,760 --> 00:00:29,270
+What do you get?
+

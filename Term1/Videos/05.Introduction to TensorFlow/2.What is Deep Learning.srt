@@ -1,0 +1,85 @@
+1
+00:00:00,610 --> 00:00:02,659
+Welcome to this Deep Learning lecture.
+
+2
+00:00:02,660 --> 00:00:05,200
+My name is Vincent, and
+I'm a research scientist at Google,
+
+3
+00:00:05,200 --> 00:00:07,519
+working on machine learning and
+artificial intelligence.
+
+4
+00:00:08,599 --> 00:00:11,809
+Deep Learning is an exciting branch
+of machine learning that uses data,
+
+5
+00:00:11,810 --> 00:00:12,870
+lots of data,
+
+6
+00:00:12,869 --> 00:00:16,939
+to teach computers how to do things
+only humans were capable of before.
+
+7
+00:00:16,940 --> 00:00:19,800
+Myself, I'm very interested in
+solving the problem of perception,
+
+8
+00:00:19,800 --> 00:00:23,105
+recognizing what's in an image what
+people are saying when they're talking
+
+9
+00:00:23,105 --> 00:00:27,329
+on their phone, helping robots explore
+the world and interact with it.
+
+10
+00:00:27,329 --> 00:00:30,449
+Deep Learning has emerged as
+a central tool to solve perception
+
+11
+00:00:30,449 --> 00:00:32,339
+problems in recent years.
+
+12
+00:00:32,340 --> 00:00:35,550
+It's the state of the art on everything
+having to do with computer vision and
+
+13
+00:00:35,549 --> 00:00:37,089
+speech recognition.
+
+14
+00:00:37,090 --> 00:00:38,370
+But there is more.
+
+15
+00:00:38,369 --> 00:00:41,250
+Increasingly, people are finding
+that Deep Learning is a much better
+
+16
+00:00:41,250 --> 00:00:45,149
+tool to solve problems, like discovering
+new medicines, understanding natural
+
+17
+00:00:45,149 --> 00:00:49,949
+language, understanding documents, and,
+for example, ranking them for search.
+
+18
+00:00:49,950 --> 00:00:52,050
+So let's take a look at what
+you'll be doing during this class.
+

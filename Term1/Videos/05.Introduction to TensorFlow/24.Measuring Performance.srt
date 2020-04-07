@@ -1,0 +1,338 @@
+1
+00:00:00,470 --> 00:00:01,970
+Now that you have trained
+your first model,
+
+2
+00:00:01,970 --> 00:00:04,799
+there is something very
+important I want to discuss.
+
+3
+00:00:04,799 --> 00:00:08,129
+You might have seen in the assignment
+that we had a training set,
+
+4
+00:00:08,130 --> 00:00:11,530
+as well as a validation set,
+and a test set.
+
+5
+00:00:11,529 --> 00:00:13,299
+What is that all about?
+
+6
+00:00:13,300 --> 00:00:14,380
+Don't skip that part.
+
+7
+00:00:14,380 --> 00:00:17,109
+It has to do with measuring
+how well you're doing
+
+8
+00:00:17,109 --> 00:00:19,559
+without accidentally shooting
+yourself in the foot, and
+
+9
+00:00:19,559 --> 00:00:22,299
+it is a lot more subtle then
+you might initially think.
+
+10
+00:00:22,300 --> 00:00:25,500
+It's also very important because
+as we will discover later,
+
+11
+00:00:25,500 --> 00:00:28,519
+once you know how to measure
+your performance on a problem,
+
+12
+00:00:28,519 --> 00:00:30,789
+you've already solved half of it.
+
+13
+00:00:30,789 --> 00:00:33,560
+Let me explain why measuring
+performance is subtle.
+
+14
+00:00:33,560 --> 00:00:35,870
+Let's go back to our
+classification task.
+
+15
+00:00:35,869 --> 00:00:38,459
+You've got a whole lot
+of images with labels.
+
+16
+00:00:38,460 --> 00:00:42,560
+You could say, okay, I'm going to run
+my classifier on those images, and
+
+17
+00:00:42,560 --> 00:00:44,170
+see how many I got right.
+
+18
+00:00:44,170 --> 00:00:45,560
+That's my error measure.
+
+19
+00:00:45,560 --> 00:00:48,800
+And then you go out and
+use your classifier on new images,
+
+20
+00:00:48,799 --> 00:00:51,199
+images that you've never
+seen in the past, and
+
+21
+00:00:51,200 --> 00:00:54,810
+you measure how many you get right,
+and your performance gets worse.
+
+22
+00:00:54,810 --> 00:00:56,929
+The classifier doesn't do as well.
+
+23
+00:00:56,929 --> 00:00:57,554
+So what happened?
+
+24
+00:00:57,554 --> 00:01:02,369
+Well, imagine I construct a classifier
+that simply compares the new
+
+25
+00:01:02,369 --> 00:01:06,829
+image to any of the other images that
+I've already seen in my training set,
+
+26
+00:01:06,829 --> 00:01:08,530
+and just returns the label.
+
+27
+00:01:08,530 --> 00:01:11,500
+By the measure we defined earlier,
+it's a great classifier.
+
+28
+00:01:11,500 --> 00:01:14,689
+It would get 100% accuracy
+on the training set.
+
+29
+00:01:14,689 --> 00:01:17,950
+But as soon as it sees a new image,
+it's lost.
+
+30
+00:01:17,950 --> 00:01:19,829
+It has no idea what to do.
+
+31
+00:01:19,829 --> 00:01:21,579
+It's not a great classifier.
+
+32
+00:01:21,579 --> 00:01:25,409
+The problem is that your classifier
+has memorized the training set, and
+
+33
+00:01:25,409 --> 00:01:28,079
+it fails to generalize to new examples.
+
+34
+00:01:28,079 --> 00:01:30,280
+It's not just a theoretical problem.
+
+35
+00:01:30,280 --> 00:01:33,390
+Every classifier that you will
+build will tend to try and
+
+36
+00:01:33,390 --> 00:01:35,250
+memorize the training set.
+
+37
+00:01:35,250 --> 00:01:37,750
+And it will usually do that very,
+very well.
+
+38
+00:01:37,750 --> 00:01:42,280
+Your job though, is to help it
+generalize to new data instead.
+
+39
+00:01:42,280 --> 00:01:45,560
+So, how do we measure
+generalization instead of measuring
+
+40
+00:01:45,560 --> 00:01:48,590
+how well the classifier
+memorized the data?
+
+41
+00:01:48,590 --> 00:01:52,620
+The simplest way is to take a small
+subset of the training set,
+
+42
+00:01:52,620 --> 00:01:56,090
+not use it in training, and
+measure the error on that test data.
+
+43
+00:01:57,170 --> 00:01:59,989
+Problem solved,
+now your classifier cannot cheat
+
+44
+00:01:59,989 --> 00:02:03,717
+because it never sees the test data,
+so it can't memorize it.
+
+45
+00:02:03,718 --> 00:02:04,859
+But there is still a problem,
+
+46
+00:02:04,859 --> 00:02:08,949
+because training a classifier is
+usually a process of trial and error.
+
+47
+00:02:08,949 --> 00:02:12,190
+You try a classifier,
+you measure its performance and
+
+48
+00:02:12,189 --> 00:02:14,859
+then you try another one and
+you measure again.
+
+49
+00:02:14,860 --> 00:02:19,500
+And another, and another, you tweak
+the model, you explore the parameters,
+
+50
+00:02:19,500 --> 00:02:23,759
+you measure, and finally, you have what
+you think is the perfect classifier.
+
+51
+00:02:24,800 --> 00:02:28,500
+And then after all this care you've
+taken to separate your test data from
+
+52
+00:02:28,500 --> 00:02:32,610
+your training data and only measuring
+your performance on the test data,
+
+53
+00:02:32,610 --> 00:02:35,530
+now you deploy your system in
+a real production environment.
+
+54
+00:02:35,530 --> 00:02:39,520
+And you get more data and you score
+your performance on that new data and
+
+55
+00:02:39,520 --> 00:02:42,010
+it doesn't do nearly as well.
+
+56
+00:02:42,009 --> 00:02:43,979
+What can possibly have happened?
+
+57
+00:02:43,979 --> 00:02:48,579
+What happened is that your classifier
+has seen your test data, indirectly,
+
+58
+00:02:48,580 --> 00:02:49,910
+through your own eyes.
+
+59
+00:02:49,909 --> 00:02:54,009
+Every time you made a decision about
+which classifier to use, which parameter
+
+60
+00:02:54,009 --> 00:02:59,090
+to tune, you actually give information
+to your classifier about the test set.
+
+61
+00:02:59,090 --> 00:03:01,610
+Just a tiny bit, but it adds up.
+
+62
+00:03:01,610 --> 00:03:03,560
+So over time, as you run many, and
+
+63
+00:03:03,560 --> 00:03:07,629
+many experiments, your test data
+bleeds into your training data.
+
+64
+00:03:07,629 --> 00:03:09,150
+So what can you do?
+
+65
+00:03:09,150 --> 00:03:11,120
+There are many ways to deal with this.
+
+66
+00:03:11,120 --> 00:03:12,610
+I'll give you the simplest one.
+
+67
+00:03:12,610 --> 00:03:16,340
+Take another chunk of you training
+set and hide it under a rock.
+
+68
+00:03:16,340 --> 00:03:19,340
+Never look at it until you
+have made your final decision.
+
+69
+00:03:19,340 --> 00:03:23,460
+You can use your validation set
+to measure your actual error, and
+
+70
+00:03:23,460 --> 00:03:26,870
+maybe the validation set will
+bleed into the training sets.
+
+71
+00:03:26,870 --> 00:03:29,870
+But that's okay because you'll
+always have this test set
+
+72
+00:03:29,870 --> 00:03:32,509
+that you can rely on to actually
+measure your real performance.
+

@@ -1,0 +1,54 @@
+1
+00:00:00,118 --> 00:00:03,831
+If your accuracy changes
+from 80% to 80.1%,
+
+2
+00:00:03,831 --> 00:00:08,045
+that's only at most three
+examples changing their labels.
+
+3
+00:00:08,045 --> 00:00:11,330
+It's 0.1 x 3000 divided by 100.
+
+4
+00:00:11,330 --> 00:00:13,360
+That's very few.
+
+5
+00:00:13,360 --> 00:00:15,190
+It could just be noise.
+
+6
+00:00:15,190 --> 00:00:19,030
+And it definitely doesn't meet my
+rule of thumb of 30 examples minimum.
+
+7
+00:00:19,030 --> 00:00:23,048
+Same thing going from 80% to 80.5%.
+
+8
+00:00:23,048 --> 00:00:26,580
+At worst,
+only 15 examples are changing then.
+
+9
+00:00:26,580 --> 00:00:31,260
+When you get an improvement of 1%
+going from 80% to 81%, that's now
+
+10
+00:00:31,260 --> 00:00:37,940
+a more robust 30 examples that
+are going from incorrect to correct.
+
+11
+00:00:37,940 --> 00:00:41,450
+That's a stronger signal that whatever
+you're doing is indeed improving your
+
+12
+00:00:41,450 --> 00:00:41,970
+accuracy.

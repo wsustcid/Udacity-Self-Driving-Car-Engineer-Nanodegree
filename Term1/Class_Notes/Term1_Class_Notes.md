@@ -1164,3 +1164,383 @@ We're also going to use an actual dataset for this quiz, the [Boston Housing dat
 
 - **See `scripts/04.MiniFlow/14_SGD` for more details.**
 
+
+
+## 5. Introduction to Tensorflow
+
+At the end of the this section, you will use the TensorFlow deep library to build your own convolutional neural network.
+
+### 5.1 Introduction  to Deep Neural Networks
+
+<img src=assets/5_1_1.png width=500 >
+
+<img src=assets/5_1_2.png width=500 >
+
+### 5.2 Installing Tensorflow
+
+Throughout this lesson, you'll apply your knowledge of neural networks on real datasets using [TensorFlow](https://www.tensorflow.org/) [(link for China)](http://www.tensorfly.cn/), an open source Deep Learning library created by Google.
+
+You’ll use TensorFlow to classify images from the notMNIST dataset - a dataset of images of English letters from A to J. You can see a few example images below.
+
+Your goal is to automatically detect the letter based on the image in the dataset. You’ll be working on your own computer for this lab, so, first things first, install TensorFlow!
+
+#### OS X, Linux, Windows
+
+**Prerequisites**
+
+*Intro to TensorFlow* requires [Python 3.4 or higher](https://www.python.org/downloads/) and [Anaconda](https://www.continuum.io/downloads). If you don't meet all of these requirements, please install the appropriate package(s).
+
+**Install TensorFlow**
+
+You're going to use an Anaconda environment for this class. If you're unfamiliar with Anaconda environments, check out the [official documentation](http://conda.pydata.org/docs/using/envs.html). More information, tips, and troubleshooting for installing tensorflow on Windows can be found [here](https://www.tensorflow.org/install/install_windows).
+
+Run the following commands to setup your environment:
+
+```sh
+conda create --name=IntroToTensorFlow python=3 anaconda
+source activate IntroToTensorFlow
+conda install -c conda-forge tensorflow
+```
+
+That's it! You have a working environment with TensorFlow. Test it out with the code in the *Hello, world!* section below.
+
+#### Docker on Windows
+
+Docker instructions were offered prior to the availability of a stable Windows installation via pip or Anaconda. Please try Anaconda first, Docker instructions have been retained as an alternative to an installation via Anaconda.
+
+**Install Docker**
+
+Download and install Docker from the [official Docker website](https://docs.docker.com/engine/installation/windows/).
+
+**Run the Docker Container**
+
+Run the command below to start a jupyter notebook server with TensorFlow:
+
+```sh
+docker run -it -p 8888:8888 gcr.io/tensorflow/tensorflow
+```
+
+*Users in China should use the `b.gcr.io/tensorflow/tensorflow` instead of `gcr.io/tensorflow/tensorflow`*
+
+You can access the jupyter notebook at [localhost:8888](http://localhost:8888/). The server includes 3 examples of TensorFlow notebooks, but you can create a new notebook to test all your code.
+
+#### Hello, world!
+
+Try running the following code in your Python console to make sure you have TensorFlow properly installed. The console will print "Hello, world!" if TensorFlow is installed. Don’t worry about understanding what it does. You’ll learn about it in the next section.
+
+```python
+import tensorflow as tf
+
+# Create TensorFlow object called tensor
+hello_constant = tf.constant('Hello World!')
+
+with tf.Session() as sess:
+    # Run the tf.constant operation in the session
+    output = sess.run(hello_constant)
+    print(output)
+```
+
+**Errors**
+
+If you're getting the error `tensorflow.python.framework.errors.InvalidArgumentError: Placeholder:0 is both fed and fetched`, you're running an older version of TensorFlow. Uninstall TensorFlow, and reinstall it using the instructions above. For more solutions, check out the [Common Problems](https://www.tensorflow.org/get_started/os_setup#common_problems) section.
+
+### 5.3 TF Basis
+
+#### Input
+
+In TensorFlow, data isn’t stored as integers, floats, or strings. These values are encapsulated in an object called a tensor. In the case of `hello_constant = tf.constant('Hello World!')`, `hello_constant` is a 0-dimensional string tensor, but tensors come in a variety of sizes as shown below:
+
+```python
+# A is a 0-dimensional int32 tensor
+A = tf.constant(1234) 
+# B is a 1-dimensional int32 tensor
+B = tf.constant([123,456,789]) 
+# C is a 2-dimensional int32 tensor
+C = tf.constant([ [123,456,789], [222,333,444] ])
+```
+
+[`tf.constant()`](https://www.tensorflow.org/api_docs/python/tf/constant) is one of many TensorFlow operations you will use in this lesson. The tensor returned by [`tf.constant()`](https://www.tensorflow.org/api_docs/python/tf/constant) is called a constant tensor, **because the value of the tensor never changes.**
+
+**Session**
+
+TensorFlow’s api is built around the idea of a **computational graph**, a way of visualizing a mathematical process which you learned about in the MiniFlow lesson. Let’s take the TensorFlow code you ran and turn that into a graph:
+
+<img src=assets/5_2_1.png width=400 >
+
+A "TensorFlow Session", as shown above, is an environment for running a graph. **The session is in charge of allocating the operations to GPU(s) and/or CPU(s),** including remote machines. 
+
+**Input**
+
+In the last section, you passed a tensor into a session and it returned the result. What if you want to use a non-constant? This is where [`tf.placeholder()`](https://www.tensorflow.org/api_docs/python/tf/placeholder) and `feed_dict` come into place. In this section, you'll go over the basics of **feeding data into TensorFlow.**
+
+**tf.placeholder()**
+
+Sadly you can’t just set `x` to your dataset and put it in TensorFlow, because over time you'll want your TensorFlow model to take in different datasets with different parameters. You need [`tf.placeholder()`](https://www.tensorflow.org/api_docs/python/tf/placeholder)!
+
+- [`tf.placeholder()`](https://www.tensorflow.org/api_docs/python/tf/placeholder) returns a tensor that gets its value from data passed to the [`tf.session.run()`](https://www.tensorflow.org/api_docs/python/tf/Session#run) function, allowing you to set the input right before the session runs.
+
+**Session’s feed_dict**
+
+Use the `feed_dict` parameter in [`tf.session.run()`](https://www.tensorflow.org/api_docs/python/tf/Session#run) to set the placeholder tensor. 
+
+```python
+x = tf.placeholder(tf.string)
+y = tf.placeholder(tf.int32)
+z = tf.placeholder(tf.float32)
+
+with tf.Session() as sess:
+    output = sess.run(x, feed_dict={x: 'Test String', y: 123, z: 45.67})
+```
+
+**Note:** If the data passed to the `feed_dict` doesn’t match the tensor type and can’t be cast into the tensor type, you’ll get the error “`ValueError: invalid literal for`...”.
+
+
+
+#### Math
+
+Getting the input is great, but now you need to use it. You're going to use basic math functions that everyone knows and loves - add, subtract, multiply, and divide - with tensors. (There's many more math functions you can check out in the [documentation](https://www.tensorflow.org/api_docs/python/math_ops/).)
+
+**Addition**
+
+```python
+x = tf.add(5, 2)  # 7
+```
+
+You’ll start with the add function. The [`tf.add()`](https://www.tensorflow.org/api_guides/python/math_ops) function does exactly what you expect it to do. It takes in two numbers, two tensors, or one of each, and returns their sum as a tensor.
+
+**Subtraction and Multiplication**
+
+Here’s an example with subtraction and multiplication.
+
+```python
+x = tf.subtract(10, 4) # 6
+y = tf.multiply(2, 5)  # 10
+```
+
+**Converting types**
+
+It may be necessary to convert between types to make certain operators work together. For example, if you tried the following, it would fail with an exception:
+
+```python
+tf.subtract(tf.constant(2.0),tf.constant(1))  # Fails with ValueError: Tensor conversion requested dtype float32 for Tensor with dtype int32:
+```
+
+That's because the constant `1` is an integer but the constant `2.0` is a floating point value and `subtract` expects them to match.
+
+In cases like these, you can either make sure your data is all of the same type, or you can cast a value to another type. In this case, converting the `2.0` to an integer before subtracting, like so, will give the correct result:
+
+```python
+tf.subtract(tf.cast(tf.constant(2.0), tf.int32), tf.constant(1))   # 1
+```
+
+
+
+#### Varibale
+
+In order to use weights and bias, you'll need a Tensor that can be modified. This leaves out [`tf.placeholder()`](https://www.tensorflow.org/api_docs/python/tf/placeholder) and [`tf.constant()`](https://www.tensorflow.org/api_docs/python/tf/constant), since those Tensors can't be modified. This is where [`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable) class comes in.
+
+**tf.Variable()**
+
+```python
+x = tf.Variable(5)
+```
+
+The [`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable) class creates a tensor **with an initial value that can be modified**, much like a normal Python variable. 
+
+- This tensor stores its state in the session, so you must initialize the state of the tensor manually. You'll use the [`tf.global_variables_initializer()`](https://www.tensorflow.org/programmers_guide/variables) function to **initialize the state of all the Variable tensors.**
+
+**Initialization**
+
+```python
+init = tf.global_variables_initializer()
+with tf.Session() as sess:
+    sess.run(init)
+```
+
+- The [`tf.global_variables_initializer()`](https://www.tensorflow.org/programmers_guide/variables) call returns an operation that will initialize all TensorFlow variables from the graph. You call the operation using a session to initialize all the variables as shown above. 
+- Initializing the weights with random numbers from a normal distribution is good practice. Randomizing the weights helps the model from becoming stuck in the same place every time you train it. 
+- Similarly, choosing weights from a normal distribution prevents any one weight from overwhelming other weights. You'll use the [`tf.truncated_normal()`](https://www.tensorflow.org/api_docs/python/tf/truncated_normal) function to generate random numbers from a normal distribution.
+
+**tf.truncated_normal()**
+
+```python
+n_features = 120
+n_labels = 5
+weights = tf.Variable(tf.truncated_normal((n_features, n_labels)))
+```
+
+- The [`tf.truncated_normal()`](https://www.tensorflow.org/api_docs/python/tf/truncated_normal) function returns a tensor with random values from a normal distribution whose magnitude is no more than 2 standard deviations from the mean.
+
+- Since the weights are already helping prevent the model from getting stuck, you don't need to randomize the bias. Let's use the simplest solution, **setting the bias to 0.**
+
+**tf.zeros()**
+
+```python
+n_labels = 5
+bias = tf.Variable(tf.zeros(n_labels))
+```
+
+- The [`tf.zeros()`](https://www.tensorflow.org/api_docs/python/tf/zeros) function returns a tensor with all zeros**.**
+
+**tf.matmul()**
+
+- Since `xW` in `xW + b` is matrix multiplication, you have to use the [`tf.matmul()`](https://www.tensorflow.org/api_docs/python/tf/matmul) function instead of [`tf.multiply()`](https://www.tensorflow.org/api_docs/python/tf/multiply).
+
+#### Softmax
+
+$$
+S(y_i) = \frac{e^{y_i}}{\sum_j e^{y_j}}
+$$
+
+In the one dimensional case, the array is just a single set of logits. In the two dimensional case, each column in the array is a set of logits. The `softmax(x)` function should return a NumPy array of the same shape as `x`.
+
+- [`tf.nn.softmax()`](https://www.tensorflow.org/api_docs/python/tf/nn/softmax) implements the softmax function for you. It takes in logits and returns softmax activations.
+
+#### **One-hot Encoding**
+
+#### Cross-Entropy
+
+<img src=assets/5_3_1.png width=400 >
+
+**Reduce Sum**
+
+```python
+x = tf.reduce_sum([1, 2, 3, 4, 5])  # 15
+```
+
+The [`tf.reduce_sum()`](https://www.tensorflow.org/api_docs/python/tf/reduce_sum) function takes an array of numbers and sums them together.
+
+**Natural Log**
+
+```python
+x = tf.log(100)  # 4.60517
+```
+
+This function does exactly what you would expect it to do. [`tf.log()`](https://www.tensorflow.org/api_docs/python/tf/log) takes the natural log of a number.
+
+#### Logistic Classifier
+
+<img src=assets/5_3_2.png width=400 >
+
+#### Numerical Stability
+
+<img src=assets/5_3_3.png width=400 >
+
+0.953674316406
+
+**Solution:**
+
+- One good guiding principle is that we always want our variables to have 0 mean and equal variance whenever possible.
+  $$
+  \mu(X_i) = 0 \\
+  \sigma(X_i) = \sigma(x_j)
+  $$
+  <img src=assets/5_3_4.png width=400 >
+
+- For image:
+  $$
+  pixel = \frac{R/G/B - 128}/128
+  $$
+  it makes it much easier for the optimization to processed numerically.
+
+#### Normalized Inputs and Initial Weights
+
+<img src=assets/5_3_5.png width=400 >
+
+#### Measuring Performance
+
+- Training Data
+- Validation Data
+- Test Data
+
+Note:
+
+- 在调试完成之前永远不要接触测试集，如果没有验证集，你根据测试集去调试，你的观察，调试的导向都是在将测试集的信息添加到模型中，这样模型还是没有泛化能力。
+- 精度指标的提升也取决于测试集的大小，测试集很大，及时0.1%的提升也是有效的。
+
+#### SGD
+
+<img src=assets/5_3_6.png width=400 >
+
+**Momentum**
+
+- take advantages of the knowledge that we’ve accumulated from previous steps about where we should be heading. 
+
+- A cheap way to do that is to keep a running average of the gradients and to use that running average instead of the direction of the current.
+  $$
+  M <- 0.9M + \Delta
+  $$
+  
+
+  
+
+**Learning rate decay**
+
+- apply an exponential decay to the lr
+- or make lr smaller every time the loss reaches a plateau.
+
+Note:
+
+较大的学习率，刚开始训练快，但不一代表能训练的好，不要被刚开始的结果欺骗！！
+
+<img src=assets/5_3_7.png width=400 >
+
+**Parameter Hyperspace**
+
+<img src=assets/5_3_8.png width=400 >
+
+#### Mini-batching
+
+Mini-batching is a technique for training on subsets of the dataset instead of all the data at one time. This provides the ability to train a model, even if a computer lacks the memory to store the entire dataset.
+
+It's also quite useful combined with SGD. The idea is to **randomly shuffle the data at the start of each epoch**, then create the mini-batches. For each mini-batch, you train the network weights with gradient descent. Since these batches are random, you're performing SGD with each batch.
+
+Unfortunately, it's sometimes impossible to divide the data into batches of exactly equal size. For example, imagine you'd like to create batches of 128 samples each from a dataset of 1000 samples. Since 128 does not evenly divide into 1000, you'd wind up with 7 batches of 128 samples, and 1 batch of 104 samples. (7*128 + 1*104 = 1000)
+
+In that case, the size of the batches would vary, so you need to take advantage of TensorFlow's [`tf.placeholder()`](https://www.tensorflow.org/api_docs/python/tf/placeholder) function to receive the varying batch sizes.
+
+Continuing the example, if each sample had `n_input = 784` features and `n_classes = 10` possible labels, the dimensions for `features` would be `[None, n_input]` and `labels` would be `[None, n_classes]`.
+
+```python
+# Features and Labels
+features = tf.placeholder(tf.float32, [None, n_input])
+labels = tf.placeholder(tf.float32, [None, n_classes])
+```
+
+What does `None` do here?
+
+The `None` dimension is a placeholder for the batch size. At runtime, TensorFlow will accept any batch size greater than 0.
+
+
+
+### 5.4 AWS GPU Instances
+
+See **Videos/05.Introduction to Tensorflow/35.AWS GPU Instances.html** for more details.
+
+### 5.5 TensorFlow Neural Network Lab
+
+We've prepared a Jupyter notebook that will guide you through the process of creating a single layer neural network in TensorFlow.
+
+**Setup**
+
+If you haven't already setup the Term1 Starter Kit go [here](https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/83ec35ee-1e02-48a5-bdb7-d244bd47c2dc/lessons/8c82408b-a217-4d09-b81d-1bda4c6380ef/concepts/4f1870e0-3849-43e4-b670-12e6f2d4b7a7).
+
+**Clone the Repository and Run the Notebook**
+
+Run the commands below to clone the Lab Repository and then run the notebook:
+
+```sh
+git clone https://github.com/udacity/CarND-TensorFlow-Lab.git
+# Make sure the starter kit environment is activated!
+jupyter notebook
+
+# See Projects/TensorFlow_Lab for my implementation
+```
+
+**View The Notebook**
+
+Open a browser window and go [here](http://localhost:8888/notebooks/CarND-TensorFlow-Lab/lab.ipynb). This is the notebook you'll be working on. The notebook has 3 problems for you to solve:
+
+- Problem 1: Normalize the features
+- Problem 2: Use TensorFlow operations to create features, labels, weight, and biases tensors
+- Problem 3: Tune the learning rate, number of steps, and batch size for the best accuracy

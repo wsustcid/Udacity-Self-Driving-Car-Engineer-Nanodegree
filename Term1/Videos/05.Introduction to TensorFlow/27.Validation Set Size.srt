@@ -1,0 +1,28 @@
+1
+00:00:00,230 --> 00:00:02,680
+Let's do some back of
+the envelope calculations.
+
+2
+00:00:02,680 --> 00:00:06,459
+Imagine you have 3,000 examples
+in your variation set, and
+
+3
+00:00:06,459 --> 00:00:09,008
+assume you trust my
+hand wavey rule of 30.
+
+4
+00:00:09,008 --> 00:00:14,006
+Which level of accuracy improvement
+can you trust to not be in the notice?
+
+5
+00:00:14,006 --> 00:00:19,326
+A difference from 80% to 81%,
+a difference from 80%
+
+6
+00:00:19,326 --> 00:00:24,151
+to 80.5%, a difference of 80% to 80.1%?

@@ -1,0 +1,85 @@
+1
+00:00:00,380 --> 00:00:03,000
+Once again we're in the fortunate
+position to be able to bring
+
+2
+00:00:03,000 --> 00:00:04,998
+a world expert into the classroom.
+
+3
+00:00:04,998 --> 00:00:08,342
+Vincent Vanhoucke is the the principal
+scientist of Google's deep learning
+
+4
+00:00:08,342 --> 00:00:11,440
+team, and he'll teach you the
+fundamentals of deep neural networks.
+
+5
+00:00:12,490 --> 00:00:16,450
+&gt;&gt; Vincent will cover the jump from
+machine learning to deep learning,
+
+6
+00:00:16,450 --> 00:00:19,880
+the architecture of multilayer
+deep neural networks and
+
+7
+00:00:19,880 --> 00:00:23,560
+the concepts underpinning
+convolutional neural networks.
+
+8
+00:00:23,560 --> 00:00:27,607
+A convolutional neural network is a
+specialized type of deep neural network
+
+9
+00:00:27,607 --> 00:00:31,347
+that turns out to be particularly
+important for self-driving cars.
+
+10
+00:00:31,347 --> 00:00:34,633
+At the end of the this section,
+you'll use the TensorFlow deep
+
+11
+00:00:34,633 --> 00:00:38,169
+learning library to build your
+own convolutional neural network.
+
+12
+00:00:38,169 --> 00:00:41,658
+&gt;&gt; Within the course, you'll see
+optional assignments which are designed
+
+13
+00:00:41,658 --> 00:00:43,490
+to familiarize you with TensorFlow.
+
+14
+00:00:43,490 --> 00:00:45,750
+These assignments are a great
+way to get more practice and
+
+15
+00:00:45,750 --> 00:00:46,860
+stand out to employers.
+
+16
+00:00:47,880 --> 00:00:51,610
+&gt;&gt; First things first, let's learn from
+Vincent about how to take what you know
+
+17
+00:00:51,610 --> 00:00:55,660
+about machine learning and use it
+as an entry point to deep learning.
+
+18
+00:00:55,660 --> 00:00:56,570
+We'll see you when you finish.

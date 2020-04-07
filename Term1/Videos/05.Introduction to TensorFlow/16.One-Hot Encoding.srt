@@ -1,0 +1,38 @@
+1
+00:00:00,000 --> 00:00:03,678
+Next, we need a way to represent
+our labels mathematically.
+
+2
+00:00:03,678 --> 00:00:07,749
+We just said, let's have the
+probabilities for the correct class be
+
+3
+00:00:07,748 --> 00:00:11,762
+close to one and the probability for
+all the others be close to zero.
+
+4
+00:00:11,762 --> 00:00:13,663
+We can write down exactly that.
+
+5
+00:00:13,663 --> 00:00:16,548
+Each label will be
+represented by a vector,
+
+6
+00:00:16,548 --> 00:00:20,760
+that is as long as there are classes and
+it has the value 1.0 for
+
+7
+00:00:20,760 --> 00:00:24,339
+the correct class and
+zero everywhere else.
+
+8
+00:00:24,339 --> 00:00:26,269
+This is often called one-hot encoding.
+

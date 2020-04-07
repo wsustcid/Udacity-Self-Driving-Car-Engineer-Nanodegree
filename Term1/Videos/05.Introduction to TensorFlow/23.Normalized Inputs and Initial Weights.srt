@@ -1,0 +1,242 @@
+1
+00:00:00,630 --> 00:00:04,179
+In the example in the quiz,
+the math says the result should be 1.0.
+
+2
+00:00:04,179 --> 00:00:07,184
+But, the code says 0.15.
+
+3
+00:00:07,184 --> 00:00:09,119
+That's a big difference.
+
+4
+00:00:09,119 --> 00:00:12,179
+Go ahead, replace the one
+billion with just one, and
+
+5
+00:00:12,179 --> 00:00:14,890
+you'll see that the error
+becomes very tiny.
+
+6
+00:00:14,890 --> 00:00:17,660
+We're going to want the values
+involved in the calculation of this
+
+7
+00:00:17,660 --> 00:00:22,379
+big lost function that we care about,
+to never get too big or too small.
+
+8
+00:00:23,379 --> 00:00:28,489
+One good guiding principle is that we
+always want our variables to have 0 mean
+
+9
+00:00:28,489 --> 00:00:31,349
+and equal variance whenever possible.
+
+10
+00:00:31,350 --> 00:00:34,250
+On top of the numerical issues,
+there are also a really good
+
+11
+00:00:34,250 --> 00:00:39,109
+mathematical reasons to keep values you
+compute roughly around a mean of zero.
+
+12
+00:00:39,109 --> 00:00:42,200
+In equal variance when
+you're doing optimization.
+
+13
+00:00:42,200 --> 00:00:45,109
+A badly conditioned problem means
+that the optimizer has to do
+
+14
+00:00:45,109 --> 00:00:48,409
+a lot of searching to go and
+find a good solution.
+
+15
+00:00:48,409 --> 00:00:51,029
+A well conditioned problems
+makes it a lot easier for
+
+16
+00:00:51,030 --> 00:00:53,079
+the optimizer to do its job.
+
+17
+00:00:53,079 --> 00:00:55,809
+If you're dealing with
+images it's simple.
+
+18
+00:00:55,810 --> 00:00:59,050
+You can take the pixel values of your
+image, they are usually between 0 and
+
+19
+00:00:59,049 --> 00:00:59,759
+255.
+
+20
+00:00:59,759 --> 00:01:03,829
+And simply subtract 128 and
+divide by 128.
+
+21
+00:01:03,829 --> 00:01:07,659
+It doesn't change the content of your
+image, but it makes it much easier for
+
+22
+00:01:07,659 --> 00:01:09,409
+the optimization to proceed numerically.
+
+23
+00:01:10,599 --> 00:01:13,780
+You also want your weights and
+biases to be initialized at
+
+24
+00:01:13,780 --> 00:01:16,879
+a good enough starting point for
+the gradient ascent to proceed.
+
+25
+00:01:16,879 --> 00:01:20,459
+There are lots of fancy schemes to
+find good initialization values.
+
+26
+00:01:20,459 --> 00:01:23,989
+But we're going to focus
+on a simple general method.
+
+27
+00:01:23,989 --> 00:01:27,899
+Draw the weights randomly from a gelson
+distribution would mean zero and
+
+28
+00:01:27,900 --> 00:01:29,140
+standard deviation sigma.
+
+29
+00:01:30,230 --> 00:01:34,350
+The sigma value determines the order
+of magnitude of your out puts
+
+30
+00:01:34,349 --> 00:01:37,549
+at the initial point
+of your optimization.
+
+31
+00:01:37,549 --> 00:01:41,829
+Because of the softmax on top of it,
+the order of magnitude also determines
+
+32
+00:01:41,829 --> 00:01:45,560
+the peakiness of your initial
+probability distribution.
+
+33
+00:01:45,560 --> 00:01:49,350
+A large sigma will mean that your
+distribution will have large peaks,
+
+34
+00:01:49,349 --> 00:01:51,399
+it's going to be very opinionated.
+
+35
+00:01:51,400 --> 00:01:54,710
+A small sigma means that your
+distribution is very uncertain about
+
+36
+00:01:54,709 --> 00:01:55,339
+things.
+
+37
+00:01:55,340 --> 00:01:58,980
+It's usually better to begin with
+an uncertain distribution, and
+
+38
+00:01:58,980 --> 00:02:02,540
+let the optimization become more
+confident as the training progress.
+
+39
+00:02:02,540 --> 00:02:05,230
+So, use a small sigma to begin with.
+
+40
+00:02:05,230 --> 00:02:05,790
+Okay, so
+
+41
+00:02:05,790 --> 00:02:09,879
+now we actually have everything we need
+to actually train this classifier.
+
+42
+00:02:09,879 --> 00:02:13,537
+We've got our training data, which
+is normalized to have zero mean and
+
+43
+00:02:13,538 --> 00:02:15,270
+you need variance.
+
+44
+00:02:15,270 --> 00:02:20,230
+We multiply it by a large matrix, which
+is initialized with random weights.
+
+45
+00:02:20,229 --> 00:02:24,409
+We apply the softmax then
+the cross-entropy loss and
+
+46
+00:02:24,409 --> 00:02:29,409
+we calculate the average of this
+loss over the entire training data.
+
+47
+00:02:29,409 --> 00:02:31,990
+Then our magical optimization
+package computes
+
+48
+00:02:31,990 --> 00:02:36,735
+the derivative of this loss with respect
+to the weights in to the biases, and
+
+49
+00:02:36,735 --> 00:02:40,965
+takes a step back in the direction
+opposite to that derivative.
+
+50
+00:02:40,965 --> 00:02:42,215
+And then, we start all over again,
+
+51
+00:02:42,215 --> 00:02:45,495
+we repeat the process until we
+reach medium of the loss function.
+

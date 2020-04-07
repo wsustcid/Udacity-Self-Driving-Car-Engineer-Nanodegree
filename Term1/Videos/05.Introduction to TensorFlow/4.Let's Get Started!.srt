@@ -1,0 +1,70 @@
+1
+00:00:00,630 --> 00:00:04,490
+A lot of the important work on neural
+networks happen in the 80s and
+
+2
+00:00:04,490 --> 00:00:09,269
+in the 90s, but back then computers
+were slow and data sets very tiny.
+
+3
+00:00:09,269 --> 00:00:13,059
+The research didn't really find many
+applications in the real world.
+
+4
+00:00:13,060 --> 00:00:17,500
+As a result, in the first decade of
+the 21st century, neural networks have
+
+5
+00:00:17,500 --> 00:00:20,670
+completely disappeared from
+the world of machine learning.
+
+6
+00:00:20,670 --> 00:00:23,910
+Working on neural networks
+was definitely fringe.
+
+7
+00:00:23,910 --> 00:00:27,920
+It's only in the last few years,
+first in speech recognition around 2009,
+
+8
+00:00:27,920 --> 00:00:29,929
+and then in computer vision around 2012,
+
+9
+00:00:29,929 --> 00:00:32,850
+that neural networks
+made a big comeback.
+
+10
+00:00:33,880 --> 00:00:35,179
+What changed?
+
+11
+00:00:35,179 --> 00:00:38,850
+Lots of data, and cheap and fast GPUs.
+
+12
+00:00:38,850 --> 00:00:40,649
+Today, neural networks are everywhere.
+
+13
+00:00:40,649 --> 00:00:43,460
+So if you're doing anything with data,
+analytics, or
+
+14
+00:00:43,460 --> 00:00:47,179
+prediction, they're definitely something
+that you want to get familiar with.
+
+15
+00:00:47,179 --> 00:00:47,950
+So let's get started.
+

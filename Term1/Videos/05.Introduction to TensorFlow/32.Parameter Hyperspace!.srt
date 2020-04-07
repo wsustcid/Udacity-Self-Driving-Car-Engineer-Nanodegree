@@ -1,0 +1,128 @@
+1
+00:00:00,260 --> 00:00:02,849
+Learning rate training
+can be very strange.
+
+2
+00:00:02,850 --> 00:00:05,679
+For example, you might think that
+using a higher learning rate
+
+3
+00:00:05,679 --> 00:00:10,279
+means that you learn more or that you
+learn faster, that's just not true.
+
+4
+00:00:10,279 --> 00:00:14,289
+In fact, you can often take a model,
+lower the learning rate and
+
+5
+00:00:14,289 --> 00:00:16,390
+get to a better model faster.
+
+6
+00:00:16,390 --> 00:00:17,850
+It gets even worse.
+
+7
+00:00:17,850 --> 00:00:21,090
+You might be tempted to look at
+the curve that shows the loss
+
+8
+00:00:21,089 --> 00:00:22,998
+over time to see how quickly you learn.
+
+9
+00:00:24,160 --> 00:00:26,399
+Here the higher learning
+rate starts faster but
+
+10
+00:00:26,399 --> 00:00:31,299
+then it plateaus when the lower learning
+rate keeps on going and gets better.
+
+11
+00:00:31,300 --> 00:00:35,439
+It is a very familiar picture for
+anyone who's trained neural networks.
+
+12
+00:00:35,439 --> 00:00:37,369
+Never trust how quickly you learn,
+
+13
+00:00:37,369 --> 00:00:39,739
+it has often little to do
+with how well you train.
+
+14
+00:00:40,969 --> 00:00:44,560
+This is where SGD gets its
+reputation for being Black Magic.
+
+15
+00:00:44,560 --> 00:00:48,350
+You have many, many hyperparameters
+that you could play with.
+
+16
+00:00:48,350 --> 00:00:51,910
+Initialization parameters,
+learning rate parameters, decay,
+
+17
+00:00:51,909 --> 00:00:54,889
+momentum and you have to get them right.
+
+18
+00:00:54,890 --> 00:00:59,289
+In practice, it's not that bad but if
+you have to remember just one thing is
+
+19
+00:00:59,289 --> 00:01:03,769
+that when things don't work, always
+try to lower your learning rate first.
+
+20
+00:01:03,770 --> 00:01:06,150
+There are lots of good solutions for
+small models.
+
+21
+00:01:06,150 --> 00:01:09,840
+But sadly, none that's completely
+satisfactory, so far, for
+
+22
+00:01:09,840 --> 00:01:11,909
+the very large models that
+we really care about.
+
+23
+00:01:13,060 --> 00:01:17,640
+I mentioned one approach called ADAGRAD
+that makes things a little bit easier.
+
+24
+00:01:17,640 --> 00:01:21,680
+ADAGRAD is a modification of SGD
+which implicitly does momentum and
+
+25
+00:01:21,680 --> 00:01:23,630
+learning rate decay for you.
+
+26
+00:01:23,629 --> 00:01:28,144
+Using ADAGRAD, often makes learning
+less sensitive to hyperparameters.
+
+27
+00:01:28,144 --> 00:01:29,100
+[BLANK_AUDIO]
+
