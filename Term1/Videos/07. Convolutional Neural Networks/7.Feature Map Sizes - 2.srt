@@ -1,0 +1,57 @@
+1
+00:00:00,890 --> 00:00:03,960
+If you're using the so
+called same padding in a stride of 1,
+
+2
+00:00:03,960 --> 00:00:07,009
+the output width and
+height are the same as the input.
+
+3
+00:00:08,300 --> 00:00:12,440
+We just add zeros to the input
+image to make the sizes match.
+
+4
+00:00:13,449 --> 00:00:14,119
+If you use th so
+
+5
+00:00:14,119 --> 00:00:19,009
+called valid padding in a stride of one,
+then there is no padding at all.
+
+6
+00:00:19,010 --> 00:00:22,400
+So if you want to fit your little filter
+on the input image without doing and
+
+7
+00:00:22,399 --> 00:00:25,449
+padding, you're going to
+have to remove one row and
+
+8
+00:00:25,449 --> 00:00:29,239
+one column of the image on each side.
+
+9
+00:00:29,239 --> 00:00:32,929
+So you're left with 26 features in
+each of the maps at the output.
+
+10
+00:00:34,109 --> 00:00:36,409
+If in addition you use a stride of two,
+
+11
+00:00:36,409 --> 00:00:41,739
+then you only get half as many outputs
+So, 13 in width and 13 in height.
+
+12
+00:00:41,740 --> 00:00:44,039
+In all cases,
+the output depth isn't changed.
+

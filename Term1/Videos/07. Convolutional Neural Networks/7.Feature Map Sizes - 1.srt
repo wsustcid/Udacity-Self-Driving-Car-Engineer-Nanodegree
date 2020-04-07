@@ -1,0 +1,33 @@
+1
+00:00:01,030 --> 00:00:04,070
+Imagine that you have a 28 by 28 image.
+
+2
+00:00:04,070 --> 00:00:08,730
+You run a 3 by 3 convolution on it,
+with an input depth of 3,
+
+3
+00:00:08,730 --> 00:00:10,370
+and an output depth of 8.
+
+4
+00:00:10,369 --> 00:00:14,029
+What other dimensions
+are your output feature maps?
+
+5
+00:00:15,160 --> 00:00:18,359
+When you're using same
+padding with a stride of 1.
+
+6
+00:00:18,359 --> 00:00:22,289
+When you're using valid
+padding with a stride of 1.
+
+7
+00:00:22,289 --> 00:00:25,009
+And when you're using valid
+padding with a stride of two.
+

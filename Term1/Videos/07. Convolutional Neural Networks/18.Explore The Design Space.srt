@@ -1,0 +1,188 @@
+1
+00:00:00,370 --> 00:00:03,060
+Now that you've seen what
+a simple covnet looks like,
+
+2
+00:00:03,060 --> 00:00:05,550
+there are many things that
+we can do to improve it.
+
+3
+00:00:05,549 --> 00:00:10,330
+We're going to talk about three of them,
+pooling, 1x1 convolutions, and
+
+4
+00:00:10,330 --> 00:00:12,960
+something a bit more advanced
+called the inception architecture.
+
+5
+00:00:14,130 --> 00:00:18,109
+The first improvement is a better way to
+reduce the spatial extent of your future
+
+6
+00:00:18,109 --> 00:00:20,809
+maps in the convolutional pyramid.
+
+7
+00:00:20,809 --> 00:00:25,429
+Until now, we've used striding to shift
+the filters by a few pixels each time
+
+8
+00:00:25,429 --> 00:00:27,589
+and reduce the feature map size.
+
+9
+00:00:27,589 --> 00:00:30,879
+This is a very aggressive
+way to down sample an image.
+
+10
+00:00:30,879 --> 00:00:32,298
+It removes a lot of information.
+
+11
+00:00:33,619 --> 00:00:36,669
+What if instead of skipping
+one in every two convolutions,
+
+12
+00:00:36,670 --> 00:00:40,810
+we still run with a very small stride,
+say for example, one but
+
+13
+00:00:40,810 --> 00:00:45,030
+then took all the convolutions in
+a neighborhood and combine them somehow?
+
+14
+00:00:46,560 --> 00:00:50,790
+That operation is called pooling, and
+there are a few ways to go about it.
+
+15
+00:00:50,789 --> 00:00:52,606
+The most common is the max pooling.
+
+16
+00:00:52,606 --> 00:00:56,768
+At every point of on the feature map,
+look at a small neighborhood around
+
+17
+00:00:56,768 --> 00:01:00,603
+that point and compute the maximum
+of all the responses around it.
+
+18
+00:01:00,603 --> 00:01:03,548
+There are some advantages
+to using max pooling.
+
+19
+00:01:03,548 --> 00:01:06,426
+First, it doesn't add to
+your number of parameters,
+
+20
+00:01:06,426 --> 00:01:08,936
+so you don't risk
+an increase in over fitting.
+
+21
+00:01:08,936 --> 00:01:12,688
+Second, it simply often
+yields a more accurate model.
+
+22
+00:01:12,688 --> 00:01:16,813
+However, since the convolutions that
+went below run at lower stride,
+
+23
+00:01:16,813 --> 00:01:20,123
+the muddle then becomes a lot
+more expensive to compute.
+
+24
+00:01:20,123 --> 00:01:23,588
+And now, you have even more
+hyper parameters to worry about,
+
+25
+00:01:23,588 --> 00:01:26,331
+the pooling region size and
+the pooling stride.
+
+26
+00:01:26,331 --> 00:01:27,890
+And no, they don't have to be the same.
+
+27
+00:01:28,920 --> 00:01:33,810
+A very typical architecture for a covnet
+is a few layers alternating convolutions
+
+28
+00:01:33,810 --> 00:01:37,680
+and max pooling, followed by a few
+fully connected layers at the top.
+
+29
+00:01:38,689 --> 00:01:42,730
+The first famous model to use
+this architecture was Lenet-5
+
+30
+00:01:42,730 --> 00:01:47,323
+designed by Yan Lecun to do
+character recogniztion back in 1998.
+
+31
+00:01:47,323 --> 00:01:51,524
+Modern convolutional networks,
+such as AlexNet, which famously won
+
+32
+00:01:51,525 --> 00:01:55,727
+the competitive ImagNnet object
+recognition challengei n 2012,
+
+33
+00:01:55,727 --> 00:01:58,609
+used the same architecture
+with a few wrinkles.
+
+34
+00:01:58,608 --> 00:02:02,108
+Another notable form of
+pooling is average pooling.
+
+35
+00:02:02,108 --> 00:02:03,695
+Instead of taking the max,
+
+36
+00:02:03,695 --> 00:02:08,990
+just take an average over the window
+of pixels around a specific location.
+
+37
+00:02:08,990 --> 00:02:12,270
+It's a little bit like providing
+a blurred low resolution view of
+
+38
+00:02:12,270 --> 00:02:13,860
+the feature map below.
+
+39
+00:02:13,860 --> 00:02:15,530
+We're going to take
+advantage of that shortly.
+

@@ -1,0 +1,38 @@
+1
+00:00:00,430 --> 00:00:02,310
+The idea is very simple.
+
+2
+00:00:02,310 --> 00:00:05,129
+If your data has some structure,
+and your network doesn't
+
+3
+00:00:05,129 --> 00:00:08,699
+have to learn that structure from
+scratch, it's going to perform better.
+
+4
+00:00:09,730 --> 00:00:12,850
+Imagine, for example, that you're
+trying to classify those letters, and
+
+5
+00:00:12,849 --> 00:00:18,119
+you know that color is really not
+a factor in what makes an A an A.
+
+6
+00:00:18,120 --> 00:00:21,289
+What do you think would be easier for
+your classifier to learn?
+
+7
+00:00:21,289 --> 00:00:26,190
+A model that uses the color image, or a
+model that only looks at the gray scale?
+
+8
+00:00:26,190 --> 00:00:30,738
+[BLANK_AUDIO]
+

@@ -1,0 +1,138 @@
+1
+00:00:00,550 --> 00:00:02,439
+Here's another example.
+
+2
+00:00:02,439 --> 00:00:03,649
+You have an image, and
+
+3
+00:00:03,649 --> 00:00:07,179
+you want your network to say
+it's an image with a cat in it.
+
+4
+00:00:07,179 --> 00:00:10,410
+It doesn't really matter where the cat
+is, it's still an image with a cat.
+
+5
+00:00:11,859 --> 00:00:15,000
+If your network has to learn about
+kittens in the left corner, and
+
+6
+00:00:15,000 --> 00:00:17,565
+about kittens in the right
+corner independently,
+
+7
+00:00:17,565 --> 00:00:20,429
+that's a lot of work that it has to do.
+
+8
+00:00:20,429 --> 00:00:24,719
+How about you telling it, instead
+explicitly, that objects and images
+
+9
+00:00:24,719 --> 00:00:29,000
+are largely the same whether they're on
+the left or on the right of the picture.
+
+10
+00:00:29,000 --> 00:00:31,216
+That's what's called
+translation invariance.
+
+11
+00:00:31,216 --> 00:00:34,550
+Different positions, same kitten.
+
+12
+00:00:34,549 --> 00:00:36,219
+Yet another example.
+
+13
+00:00:36,219 --> 00:00:39,780
+Imagine you had a long text
+that talks about kittens.
+
+14
+00:00:39,780 --> 00:00:43,280
+Does the meaning of kitten change
+depending on whether it's in the first
+
+15
+00:00:43,280 --> 00:00:44,740
+sentence or in the second one?
+
+16
+00:00:45,750 --> 00:00:50,380
+Mostly not, so if you're trying to
+network on text, maybe you want the part
+
+17
+00:00:50,380 --> 00:00:55,140
+of the network that learns what a kitten
+is to be reused every time you see
+
+18
+00:00:55,140 --> 00:00:58,140
+the word kitten, and
+not have to re-learn it every time.
+
+19
+00:00:59,640 --> 00:01:01,829
+The way you achieve this
+in your own networks,
+
+20
+00:01:01,829 --> 00:01:03,899
+is using what's called weight sharing.
+
+21
+00:01:03,899 --> 00:01:07,840
+When you know that two inputs can
+contain the same kind of information,
+
+22
+00:01:07,840 --> 00:01:09,760
+then you share their weights.
+
+23
+00:01:09,760 --> 00:01:12,740
+And train the weights jointly for
+those inputs.
+
+24
+00:01:12,739 --> 00:01:14,530
+It's a very important idea.
+
+25
+00:01:14,530 --> 00:01:19,269
+Statistical invariants, things that
+don't change on average across time or
+
+26
+00:01:19,269 --> 00:01:20,849
+space, are everywhere.
+
+27
+00:01:21,859 --> 00:01:23,040
+For images,
+
+28
+00:01:23,040 --> 00:01:27,100
+the idea of weight sharing will get
+us to study convolutional networks.
+
+29
+00:01:27,099 --> 00:01:30,709
+For text and sequences in general,
+it will lead us to embeddings and
+
+30
+00:01:30,709 --> 00:01:31,949
+recurrent neural networks.
+
