@@ -1,0 +1,99 @@
+1
+00:00:00,000 --> 00:00:01,705
+That's the case in general,
+
+2
+00:00:01,705 --> 00:00:04,709
+if you have any inputs and k outputs,
+
+3
+00:00:04,709 --> 00:00:09,865
+you have n+1 time K parameters to use, not one more.
+
+4
+00:00:09,865 --> 00:00:14,894
+The thing is, you might want to use many many more parameters in practice.
+
+5
+00:00:14,894 --> 00:00:16,675
+Also it's linear.
+
+6
+00:00:16,675 --> 00:00:19,155
+This means that the kind of interactions that you're capable
+
+7
+00:00:19,155 --> 00:00:22,375
+of representing with that model is somewhat limited.
+
+8
+00:00:22,375 --> 00:00:26,760
+For example, if two inputs interact in an additive way,
+
+9
+00:00:26,760 --> 00:00:29,785
+your model can represent them well as a matrix multiply.
+
+10
+00:00:29,785 --> 00:00:34,420
+But if two inputs interact in a way that the outcome depends on the product of the two,
+
+11
+00:00:34,420 --> 00:00:38,835
+for example, you won't be able to model that efficiently with a linear model.
+
+12
+00:00:38,835 --> 00:00:41,700
+Linear operations are really nice though.
+
+13
+00:00:41,700 --> 00:00:45,810
+Big matrix multiplies are exactly what GPUs were designed for.
+
+14
+00:00:45,810 --> 00:00:48,750
+They're relatively cheap and very very fast.
+
+15
+00:00:48,750 --> 00:00:52,560
+Numerically linear operations are very stable.
+
+16
+00:00:52,560 --> 00:00:55,049
+You can show mathematically that small changes in
+
+17
+00:00:55,049 --> 00:00:59,365
+the input can never yield big changes in the output.
+
+18
+00:00:59,365 --> 00:01:01,365
+The derivatives are very nice too.
+
+19
+00:01:01,365 --> 00:01:04,560
+The derivative of a linear function is constant.
+
+20
+00:01:04,560 --> 00:01:07,920
+You can't get more stable numerically than a constant.
+
+21
+00:01:07,920 --> 00:01:11,605
+So we would like to keep our parameters inside big linear functions,
+
+22
+00:01:11,605 --> 00:01:15,420
+but we would also want the entire model to be non-linear.
+
+23
+00:01:15,420 --> 00:01:18,060
+We can't just keep multiplying our inputs by
+
+24
+00:01:18,060 --> 00:01:22,750
+linear functions because that's just equivalent to one big linear function.
+
+25
+00:01:22,750 --> 00:01:26,000
+So we're going to have to introduce non-linearities.

@@ -1,0 +1,81 @@
+1
+00:00:01,159 --> 00:00:03,370
+The first way we prevent over fitting,
+
+2
+00:00:03,370 --> 00:00:06,099
+is by looking at the performance
+on our validation set.
+
+3
+00:00:06,099 --> 00:00:09,539
+And stopping to train,
+as soon as we stop improving.
+
+4
+00:00:09,539 --> 00:00:12,219
+It's called early termination,
+and it's still the best way to
+
+5
+00:00:12,220 --> 00:00:15,110
+prevent your network from over
+optimizing on the training set.
+
+6
+00:00:16,359 --> 00:00:19,210
+Another way is to apply regularization.
+
+7
+00:00:19,210 --> 00:00:23,429
+Regularizing means applying artificial
+constraints on your network,
+
+8
+00:00:23,429 --> 00:00:26,649
+that implicitly reduce
+the number of free parameters.
+
+9
+00:00:26,649 --> 00:00:29,642
+While not making it more
+difficult to optimize.
+
+10
+00:00:29,643 --> 00:00:33,170
+In the skinny jeans analogy,
+think stretch pants.
+
+11
+00:00:33,170 --> 00:00:34,620
+They fit just as well, but
+
+12
+00:00:34,619 --> 00:00:38,570
+because they're flexible,
+they don't make things harder to fit in.
+
+13
+00:00:38,570 --> 00:00:42,570
+The stretch pants of deep learning
+are called L2 Regularization.
+
+14
+00:00:42,570 --> 00:00:48,149
+The idea is to add another term to
+the loss, which penalizes large weights.
+
+15
+00:00:48,149 --> 00:00:52,039
+It's typically achieved by adding the L2
+norm of your weights to the loss,
+
+16
+00:00:52,039 --> 00:00:54,570
+multiplied by a small constant.
+
+17
+00:00:54,570 --> 00:00:58,179
+And yes, yet another hyper parameter
+to tune in, sorry about that
+

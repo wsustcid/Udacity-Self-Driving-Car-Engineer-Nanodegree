@@ -1,0 +1,37 @@
+1
+00:00:00,800 --> 00:00:04,640
+Yes, I could talk about neural
+networks as metaphors for the brain.
+
+2
+00:00:04,640 --> 00:00:09,210
+It's nice and it might even be true,
+but it comes with a lot of baggage and
+
+3
+00:00:09,210 --> 00:00:11,420
+it can sometimes lead you astray.
+
+4
+00:00:11,420 --> 00:00:13,200
+So I'm not going to talk about
+it at all in this course.
+
+5
+00:00:14,305 --> 00:00:16,114
+No need to be a wizard nor a scientist.
+
+6
+00:00:16,114 --> 00:00:20,405
+New networks naturally make sense
+if you're simply a lazy engineer
+
+7
+00:00:20,405 --> 00:00:23,355
+with a big GPU who just wants
+machine learning to work better.
+
+8
+00:00:24,395 --> 00:00:26,275
+Now, though,
+is a good time to talk about the math.

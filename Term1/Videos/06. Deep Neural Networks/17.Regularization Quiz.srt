@@ -1,0 +1,33 @@
+1
+00:00:00,270 --> 00:00:04,410
+The nice thing about L2 Regularization
+is that it’s very, very simple.
+
+2
+00:00:04,410 --> 00:00:06,689
+Because you just add it your loss,
+
+3
+00:00:06,689 --> 00:00:09,580
+the structure of your network
+doesn’t have to change.
+
+4
+00:00:09,580 --> 00:00:12,370
+You can even compute
+its derivative by hand.
+
+5
+00:00:12,369 --> 00:00:14,549
+Remember that the L2 norm stands for
+
+6
+00:00:14,550 --> 00:00:18,800
+the sum of the squares of
+the individual elements in a vector.
+
+7
+00:00:18,800 --> 00:00:22,908
+Which of these formulas gives you
+the derivative of L2 norm of a vector?
+

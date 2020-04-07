@@ -1,0 +1,26 @@
+1
+00:00:00,760 --> 00:00:03,310
+The simple model that you've trained so
+far is nice, but
+
+2
+00:00:03,310 --> 00:00:05,450
+it's also relatively limited.
+
+3
+00:00:05,450 --> 00:00:07,080
+Here is a question for you.
+
+4
+00:00:07,080 --> 00:00:09,940
+How many train parameters
+did it actually have?
+
+5
+00:00:09,940 --> 00:00:16,680
+As a reminder, each input was a 28 by 28
+image, and the output was 10 classes.
+
+6
+00:00:16,680 --> 00:00:18,040
+Enter the number of parameters here.

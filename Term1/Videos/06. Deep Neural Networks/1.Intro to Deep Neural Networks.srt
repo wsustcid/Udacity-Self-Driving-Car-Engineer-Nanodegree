@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:05,280
+In the last lesson we've trained a simple logistic classifier on images.
+
+2
+00:00:05,280 --> 00:00:07,650
+Now we're going to take this classifier and turn
+
+3
+00:00:07,650 --> 00:00:10,199
+it into a deep network and it's going to be
+
+4
+00:00:10,199 --> 00:00:12,689
+just a few lines of code so make sure you
+
+5
+00:00:12,689 --> 00:00:16,175
+understand well what was going on in the previous model.
+
+6
+00:00:16,175 --> 00:00:19,149
+In the second part you're going to take a small peek
+
+7
+00:00:19,149 --> 00:00:22,524
+into how our optimizer does all the hard work for you,
+
+8
+00:00:22,524 --> 00:00:25,379
+computing gradients for arbitrary functions.
+
+9
+00:00:25,379 --> 00:00:28,910
+And then we're going to look together at the important topic of
+
+10
+00:00:28,910 --> 00:00:34,380
+regularisation which will enable us to train much much larger models.

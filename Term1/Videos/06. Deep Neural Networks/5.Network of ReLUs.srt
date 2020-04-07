@@ -1,0 +1,63 @@
+1
+00:00:00,000 --> 00:00:02,035
+Because we're lazy engineers,
+
+2
+00:00:02,035 --> 00:00:03,825
+we're going to take something that works-
+
+3
+00:00:03,825 --> 00:00:08,065
+our logistic classifier and do the minimal amount of change to make it nonlinear.
+
+4
+00:00:08,065 --> 00:00:12,832
+We're going to construct our new function in the simplest way that we can think of.
+
+5
+00:00:12,832 --> 00:00:16,680
+Instead of having a single matrix multiply as our classifier,
+
+6
+00:00:16,680 --> 00:00:19,845
+we're going to insert a ReLU right in the middle.
+
+7
+00:00:19,845 --> 00:00:21,555
+We now have two matrices,
+
+8
+00:00:21,555 --> 00:00:24,420
+one going from the inputs to the ReLUs
+
+9
+00:00:24,420 --> 00:00:27,815
+and another one connecting the ReLUs to the classifier.
+
+10
+00:00:27,815 --> 00:00:29,700
+We've solved two of our problems.
+
+11
+00:00:29,700 --> 00:00:31,350
+Our function is now nonlinear,
+
+12
+00:00:31,350 --> 00:00:33,045
+thanks to the ReLU in the middle,
+
+13
+00:00:33,045 --> 00:00:36,795
+and we now have a new knob that we can tune this number H
+
+14
+00:00:36,795 --> 00:00:41,040
+which corresponds to the number of ReLU units that we have in the classifier.
+
+15
+00:00:41,040 --> 00:00:42,900
+We can make it as big as we want.
+
+16
+00:00:42,900 --> 00:00:45,480
+Congratulations you've built your first neural network.

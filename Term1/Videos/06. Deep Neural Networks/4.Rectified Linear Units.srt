@@ -1,0 +1,28 @@
+1
+00:00:00,570 --> 00:00:04,550
+Let me introduce you to the lazy
+engineer's favorite non-linear function:
+
+2
+00:00:04,550 --> 00:00:07,060
+the rectified linear units,
+or RELU for short.
+
+3
+00:00:08,240 --> 00:00:12,440
+RELUs are literally the simplest
+non-linear functions you can think of.
+
+4
+00:00:12,440 --> 00:00:17,960
+They're linear if x is greater than 0,
+and they're the 0 everywhere else.
+
+5
+00:00:17,960 --> 00:00:20,830
+RELUs have nice derivatives, as well.
+
+6
+00:00:20,830 --> 00:00:24,390
+Which of these plots do you think best
+represents the derivative of a RELU?

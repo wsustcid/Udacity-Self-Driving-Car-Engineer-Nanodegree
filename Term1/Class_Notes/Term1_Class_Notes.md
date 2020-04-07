@@ -1544,3 +1544,649 @@ Open a browser window and go [here](http://localhost:8888/notebooks/CarND-Tensor
 - Problem 1: Normalize the features
 - Problem 2: Use TensorFlow operations to create features, labels, weight, and biases tensors
 - Problem 3: Tune the learning rate, number of steps, and batch size for the best accuracy
+
+## 6. Deep Neural Networks
+
+### 6.1 Introduction to DNN
+
+**Linear Models:**
+
+<img src=assets/6_1_1.png width=400 >
+
+**Network of ReLUs:**
+
+<img src=assets/6_1_2.png width=400 >
+
+- make the function into nonlinear by introducing ReLU, 
+- and the number of ReLU  units can be tuned compared to the Logistic Classifier.
+
+**TensorFlow ReLUs:**
+
+A Rectified linear unit (ReLU) is type of [activation function](https://en.wikipedia.org/wiki/Activation_function) that is defined as `f(x) = max(0, x)`. The function returns 0 if `x` is negative, otherwise it returns `x`. TensorFlow provides the ReLU function as [`tf.nn.relu()`](https://www.tensorflow.org/api_docs/python/tf/nn/relu), as shown below.
+
+```python
+# Hidden Layer with ReLU activation function
+hidden_layer = tf.add(tf.matmul(features, hidden_weights), hidden_biases)
+hidden_layer = tf.nn.relu(hidden_layer)
+
+output = tf.add(tf.matmul(hidden_layer, output_weights), output_biases)
+```
+
+### 6.2 Deep Neural Network in TensorFlow
+
+You've seen how to build a logistic classifier using TensorFlow. Now you're going to see how to use the logistic classifier to build a deep neural network.
+
+In the following walkthrough, we'll step through TensorFlow code written to classify the letters in the MNIST database. If you would like to run the network on your computer, the file is provided [here](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58a61a3a_multilayer-perceptron/multilayer-perceptron.zip). You can find this and many more examples of TensorFlow at [Aymeric Damien's GitHub repository](https://github.com/aymericdamien/TensorFlow-Examples).
+
+#### Code
+
+**TensorFlow MNIST**
+
+```python
+from tensorflow.examples.tutorials.mnist import input_data
+mnist = input_data.read_data_sets(".", one_hot=True, reshape=False)
+```
+
+**Learning Parameters**
+
+```python
+import tensorflow as tf
+
+# Parameters
+learning_rate = 0.001
+training_epochs = 20
+batch_size = 128  # Decrease batch size if you don't have enough memory
+display_step = 1
+
+n_input = 784  # MNIST data input (img shape: 28*28)
+n_classes = 10  # MNIST total classes (0-9 digits)
+```
+
+The focus here is on the architecture of multilayer neural networks, not parameter tuning, so here we'll just give you the learning parameters.
+
+**Hidden Layer Parameters**
+
+```python
+n_hidden_layer = 256 # layer number of features
+```
+
+The variable `n_hidden_layer` determines the size of the hidden layer in the neural network. This is also known as the width of a layer.
+
+**Weights and Biases**
+
+```python
+# Store layers weight & bias
+weights = {
+    'hidden_layer': tf.Variable(tf.random_normal([n_input, n_hidden_layer])),
+    'out': tf.Variable(tf.random_normal([n_hidden_layer, n_classes]))
+}
+biases = {
+    'hidden_layer': tf.Variable(tf.random_normal([n_hidden_layer])),
+    'out': tf.Variable(tf.random_normal([n_classes]))
+}
+```
+
+Deep neural networks use multiple layers with each layer requiring it's own weight and bias. The `'hidden_layer'` weight and bias is for the hidden layer. The `'out'` weight and bias is for the output layer. If the neural network were deeper, there would be weights and biases for each additional layer.
+
+**Input**
+
+```python
+# tf Graph input
+x = tf.placeholder("float", [None, 28, 28, 1])
+y = tf.placeholder("float", [None, n_classes])
+
+x_flat = tf.reshape(x, [-1, n_input])
+```
+
+The MNIST data is made up of 28px by 28px images with a single [channel](https://en.wikipedia.org/wiki/Channel_(digital_image)). The [`tf.reshape()`](https://www.tensorflow.org/versions/master/api_docs/python/tf/reshape) function above reshapes the 28px by 28px matrices in `x` into row vectors of 784px.
+
+**Multilayer Perceptron**
+
+```python
+# Hidden layer with RELU activation
+layer_1 = tf.add(tf.matmul(x_flat, weights['hidden_layer']),\
+    biases['hidden_layer'])
+layer_1 = tf.nn.relu(layer_1)
+# Output layer with linear activation
+logits = tf.add(tf.matmul(layer_1, weights['out']), biases['out'])
+```
+
+You've seen the linear function `tf.add(tf.matmul(x_flat, weights['hidden_layer']), biases['hidden_layer'])` before, also known as `xw + b`. Combining linear functions together using a ReLU will give you a two layer network.
+
+**Optimizer**
+
+```python
+# Define loss and optimizer
+cost = tf.reduce_mean(\
+    tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=y))
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)\
+    .minimize(cost)
+```
+
+This is the same optimization technique used in the Intro to TensorFLow lab.
+
+**Session**
+
+```python
+# Initializing the variables
+init = tf.global_variables_initializer()
+
+
+# Launch the graph
+with tf.Session() as sess:
+    sess.run(init)
+    # Training cycle
+    for epoch in range(training_epochs):
+        total_batch = int(mnist.train.num_examples/batch_size)
+        # Loop over all batches
+        for i in range(total_batch):
+            batch_x, batch_y = mnist.train.next_batch(batch_size)
+            # Run optimization op (backprop) and cost op (to get loss value)
+            sess.run(optimizer, feed_dict={x: batch_x, y: batch_y})
+```
+
+The MNIST library in TensorFlow provides the ability to receive the dataset in batches. Calling the `mnist.train.next_batch()` function returns a subset of the training data.
+
+
+
+### 6.3 Save and Restore TensorFlow Models
+
+Training a model can take hours. But once you close your TensorFlow session, you lose all the trained weights and biases. If you were to reuse the model in the future, you would have to train it all over again!
+
+Fortunately, TensorFlow gives you the ability to save your progress using a class called [`tf.train.Saver`](https://www.tensorflow.org/api_docs/python/tf/train/Saver). This class provides the functionality to save any [`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable) to your file system.
+
+#### Saving Variables
+
+Let's start with a simple example of saving `weights` and `bias` Tensors. For the first example you'll just save two variables. Later examples will save all the weights in a practical model.
+
+```python
+import tensorflow as tf
+
+# The file path to save the data
+save_file = './model.ckpt'
+
+# Two Tensor Variables: weights and bias
+weights = tf.Variable(tf.truncated_normal([2, 3]))
+bias = tf.Variable(tf.truncated_normal([3]))
+
+# Class used to save and/or restore Tensor Variables
+saver = tf.train.Saver()
+
+with tf.Session() as sess:
+    # Initialize all the Variables
+    sess.run(tf.global_variables_initializer())
+
+    # Show the values of weights and bias
+    print('Weights:')
+    print(sess.run(weights))
+    print('Bias:')
+    print(sess.run(bias))
+
+    # Save the model
+    saver.save(sess, save_file)
+```
+
+- The Tensors `weights` and `bias` are set to random values using the [`tf.truncated_normal()`](https://www.tensorflow.org/api_docs/python/tf/truncated_normal) function. The values are then saved to the `save_file` location, "model.ckpt", using the [`tf.train.Saver.save()`](https://www.tensorflow.org/api_docs/python/tf/train/Saver#save) function. (The ".ckpt" extension stands for "checkpoint".)
+
+- If you're using TensorFlow 0.11.0RC1 or newer, a file called "model.ckpt.meta" will also be created. **This file contains the TensorFlow graph.**
+
+#### Loading Variables
+
+Now that the Tensor Variables are saved, let's load them back into a new model.
+
+```python
+# Remove the previous weights and bias
+tf.reset_default_graph()
+
+# Two Variables: weights and bias
+weights = tf.Variable(tf.truncated_normal([2, 3]))
+bias = tf.Variable(tf.truncated_normal([3]))
+
+# Class used to save and/or restore Tensor Variables
+saver = tf.train.Saver()
+
+with tf.Session() as sess:
+    # Load the weights and bias
+    saver.restore(sess, save_file)
+
+    # Show the values of weights and bias
+    print('Weight:')
+    print(sess.run(weights))
+    print('Bias:')
+    print(sess.run(bias))
+```
+
+- You'll notice you still need to create the `weights` and `bias` Tensors in Python. The [`tf.train.Saver.restore()`](https://www.tensorflow.org/api_docs/python/tf/train/Saver#restore) function loads the saved data into `weights` and `bias`.
+
+- Since [`tf.train.Saver.restore()`](https://www.tensorflow.org/api_docs/python/tf/train/Saver#restore) sets all the TensorFlow Variables, you don't need to call [`tf.global_variables_initializer()`](https://www.tensorflow.org/api_docs/python/tf/global_variables_initializer).
+
+#### Save a Trained Model
+
+Let's see how to train a model and save its weights. First start with a model:
+
+```python
+# Remove previous Tensors and Operations
+tf.reset_default_graph()
+
+from tensorflow.examples.tutorials.mnist import input_data
+import numpy as np
+
+learning_rate = 0.001
+n_input = 784  # MNIST data input (img shape: 28*28)
+n_classes = 10  # MNIST total classes (0-9 digits)
+
+# Import MNIST data
+mnist = input_data.read_data_sets('.', one_hot=True)
+
+# Features and Labels
+features = tf.placeholder(tf.float32, [None, n_input])
+labels = tf.placeholder(tf.float32, [None, n_classes])
+
+# Weights & bias
+weights = tf.Variable(tf.random_normal([n_input, n_classes]))
+bias = tf.Variable(tf.random_normal([n_classes]))
+
+# Logits - xW + b
+logits = tf.add(tf.matmul(features, weights), bias)
+
+# Define loss and optimizer
+cost = tf.reduce_mean(\
+    tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels))
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)\
+    .minimize(cost)
+
+# Calculate accuracy
+correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(labels, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+```
+
+Let's train that model, then save the weights:
+
+```python
+import math
+
+save_file = './train_model.ckpt'
+batch_size = 128
+n_epochs = 100
+
+saver = tf.train.Saver()
+
+# Launch the graph
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+
+    # Training cycle
+    for epoch in range(n_epochs):
+        total_batch = math.ceil(mnist.train.num_examples / batch_size)
+
+        # Loop over all batches
+        for i in range(total_batch):
+            batch_features, batch_labels = mnist.train.next_batch(batch_size)
+            sess.run(
+                optimizer,
+                feed_dict={features: batch_features, labels: batch_labels})
+
+        # Print status for every 10 epochs
+        if epoch % 10 == 0:
+            valid_accuracy = sess.run(
+                accuracy,
+                feed_dict={
+                    features: mnist.validation.images,
+                    labels: mnist.validation.labels})
+            print('Epoch {:<3} - Validation Accuracy: {}'.format(
+                epoch,
+                valid_accuracy))
+
+    # Save the model
+    saver.save(sess, save_file)
+    print('Trained Model Saved.')
+```
+
+#### Load a Trained Model
+
+Let's load the weights and bias from memory, then check the test accuracy.
+
+```python
+saver = tf.train.Saver()
+
+# Launch the graph
+with tf.Session() as sess:
+    saver.restore(sess, save_file)
+
+    test_accuracy = sess.run(
+        accuracy,
+        feed_dict={features: mnist.test.images, labels: mnist.test.labels})
+
+print('Test Accuracy: {}'.format(test_accuracy))
+```
+
+> Test Accuracy: 0.7229999899864197
+
+That's it! You now know how to save and load a trained model in TensorFlow. Let's look at loading weights and biases into modified models in the next section.
+
+### 6.4 Finetuning
+
+#### Loading the Weights and Biases into a New Model
+
+Sometimes you might want to adjust, or "finetune" a model that you have already trained and saved.
+
+However, loading saved Variables directly into a modified model can generate errors. Let's go over how to avoid these problems.
+
+**Naming Error**
+
+TensorFlow uses a string identifier for Tensors and Operations called `name`. If a name is not given, TensorFlow will create one automatically. TensorFlow will give the first node the name `<Type>`, and then give the name `<Type>_<number>` for the subsequent nodes. Let's see how this can affect loading a model with a different order of `weights` and `bias`:
+
+```python
+import tensorflow as tf
+
+# Remove the previous weights and bias
+tf.reset_default_graph()
+
+save_file = 'model.ckpt'
+
+# Two Tensor Variables: weights and bias
+weights = tf.Variable(tf.truncated_normal([2, 3]))
+bias = tf.Variable(tf.truncated_normal([3]))
+
+saver = tf.train.Saver()
+
+# Print the name of Weights and Bias
+print('Save Weights: {}'.format(weights.name))
+print('Save Bias: {}'.format(bias.name))
+
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    saver.save(sess, save_file)
+
+# Remove the previous weights and bias
+tf.reset_default_graph()
+
+# Two Variables: weights and bias
+bias = tf.Variable(tf.truncated_normal([3]))
+weights = tf.Variable(tf.truncated_normal([2, 3]))
+
+saver = tf.train.Saver()
+
+# Print the name of Weights and Bias
+print('Load Weights: {}'.format(weights.name))
+print('Load Bias: {}'.format(bias.name))
+
+with tf.Session() as sess:
+    # Load the weights and bias - ERROR
+    saver.restore(sess, save_file)
+```
+
+The code above prints out the following:
+
+> Save Weights: Variable:0
+>
+> Save Bias: Variable_1:0
+>
+> Load Weights: Variable_1:0
+>
+> Load Bias: Variable:0
+>
+> ...
+>
+> InvalidArgumentError (see above for traceback): Assign requires shapes of both tensors to match.
+>
+> ...
+
+You'll notice that the `name` properties for `weights` and `bias` are different than when you saved the model. This is why the code produces the "Assign requires shapes of both tensors to match" error. The code `saver.restore(sess, save_file)` is trying to load weight data into `bias` and bias data into `weights`.
+
+Instead of letting TensorFlow set the `name` property, **let's set it manually:**
+
+```python
+import tensorflow as tf
+
+tf.reset_default_graph()
+
+save_file = 'model.ckpt'
+
+# Two Tensor Variables: weights and bias
+weights = tf.Variable(tf.truncated_normal([2, 3]), name='weights_0')
+bias = tf.Variable(tf.truncated_normal([3]), name='bias_0')
+
+saver = tf.train.Saver()
+
+# Print the name of Weights and Bias
+print('Save Weights: {}'.format(weights.name))
+print('Save Bias: {}'.format(bias.name))
+
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    saver.save(sess, save_file)
+
+# Remove the previous weights and bias
+tf.reset_default_graph()
+
+# Two Variables: weights and bias
+bias = tf.Variable(tf.truncated_normal([3]), name='bias_0')
+weights = tf.Variable(tf.truncated_normal([2, 3]) ,name='weights_0')
+
+saver = tf.train.Saver()
+
+# Print the name of Weights and Bias
+print('Load Weights: {}'.format(weights.name))
+print('Load Bias: {}'.format(bias.name))
+
+with tf.Session() as sess:
+    # Load the weights and bias - No Error
+    saver.restore(sess, save_file)
+
+print('Loaded Weights and Bias successfully.')
+```
+
+
+
+> Save Weights: weights_0:0
+>
+> Save Bias: bias_0:0
+>
+> Load Weights: weights_0:0
+>
+> Load Bias: bias_0:0
+>
+> Loaded Weights and Bias successfully.
+
+That worked! The Tensor names match and the data loaded correctly.
+
+### 6.5 Prevent Over fitting
+
+**Early Stopping**
+
+The first way we **prevent over fitting** is by looking at the performance on our validation set. And stopping to train, as soon as we stop improving. It’s called **early termination.** Another way is to apply regularization.
+
+**Regularization**
+
+- Regularizing means applying artificial constraints on your network, that implicitly reduce
+  the number of free parameters. While not making it more difficult to optimize.
+- The idea is to add another term to the loss, which penalizes large weights. It's typically achieved by adding the L2 norm of your weights to the loss, multiplied by a small constant.
+
+**Dropout**
+
+
+
+## 7. Convolutional Neural Networks
+
+### 7.1 Introduction to CNN
+
+- CovNets are neural networks that share their parameters across space.
+- The first step for a CNN is to break up the image into smaller pieces. We do this by selecting a width and height that defines a filter.
+- What's important here is that we are **grouping together adjacent pixels** and treating them as a collective. By taking advantage of this local structure, our CNN learns to classify local patterns, like shapes and objects, in an image.
+- Having multiple neurons for a given patch ensures that our CNN can learn to capture whatever characteristics the CNN learns are important.
+- Remember that the CNN isn't "programmed" to look for certain characteristics. Rather, it learns **on its own** which characteristics to notice.
+
+#### Parameter Sharing
+
+- The weights, `w`, are shared across patches for a given layer in a CNN to detect the cat above regardless of where in the image it is located.
+-  Note that as we increase the depth of our filter, the number of weights and biases we have to learn still increases, as the weights aren't shared across the output channels.
+
+- There’s an additional benefit to sharing our parameters. If we did not reuse the same weights across all patches, we would have to learn new parameters for every single patch and hidden layer neuron pair. This does not scale well, especially for **higher fidelity images.** Thus, sharing parameters not only helps us with translation invariance, but also gives us a smaller, more scalable model.
+
+
+
+#### Padding
+
+As we can see, the width and height of each subsequent layer decreases in the above scheme.
+
+One way is to simply add a border of `0`s to our original `5x5` image. 
+
+
+
+#### Dimensionality
+
+From what we've learned so far, how can we calculate the number of neurons of each layer in our CNN?
+
+Given:
+
+- our input layer has a width of `W` and a height of `H`
+- our convolutional layer has a filter size `F`
+- we have a stride of `S`
+- a padding of `P`
+- and the number of filters `K`,
+
+the following formula gives us the width of the next layer: `W_out =[ (W−F+2P)/S] + 1`.
+
+The output height would be `H_out = [(H-F+2P)/S] + 1`.
+
+And the output depth would be equal to the number of filters `D_out = K`.
+
+The output volume would be `W_out * H_out * D_out`.
+
+Knowing the dimensionality of each additional layer helps us understand how large our model is and how our decisions around filter size and stride affect the size of our network.
+
+**Code Example**
+
+```python
+input = tf.placeholder(tf.float32, (None, 32, 32, 3))
+filter_weights = tf.Variable(tf.truncated_normal((8, 8, 3, 20))) # (height, width, input_depth, output_depth)
+filter_bias = tf.Variable(tf.zeros(20))
+strides = [1, 2, 2, 1] # (batch, height, width, depth)
+padding = 'SAME'
+conv = tf.nn.conv2d(input, filter_weights, strides, padding) + filter_bias
+```
+
+Note the output shape of `conv` will be [1, 16, 16, 20]. It's 4D to account for batch size, but more importantly, it's not [1, 14, 14, 20]. This is because the padding algorithm TensorFlow uses is not exactly the same as the one above. An alternative algorithm is to switch `padding` from `'SAME'` to `'VALID'` which would result in an output shape of [1, 13, 13, 20]. If you're curious how padding works in TensorFlow, read [this document](https://www.tensorflow.org/api_guides/python/nn#Convolution).
+
+In summary TensorFlow uses the following equation for 'SAME' vs 'VALID'
+
+**SAME Padding**, the output height and width are computed as:
+
+`out_height` = ceil(float(in_height) / float(strides[1]))
+
+`out_width` = ceil(float(in_width) / float(strides[2]))
+
+**VALID Padding**, the output height and width are computed as:
+
+`out_height` = ceil(float(in_height - filter_height + 1) / float(strides[1]))
+
+`out_width` = ceil(float(in_width - filter_width + 1) / float(strides[2]))
+
+
+
+### 7.2 Visualizing CNNs
+
+The CNN we will look at is trained on ImageNet as described in [this paper](http://www.matthewzeiler.com/pubs/arxive2013/eccv2014.pdf) by Zeiler and Fergus. In the images below (from the same paper), we’ll see *what* each layer in this network detects and see *how* each layer detects more and more complex ideas.
+
+**Layer 1**
+
+<img src=assets/7_2_1.png width=100 >
+
+Example patterns that cause activations in the first layer of the network. These range from simple diagonal **lines** (top left) to green **blobs** (bottom middle).
+
+The images above are from Matthew Zeiler and Rob Fergus' [deep visualization toolbox](https://www.youtube.com/watch?v=ghEmQSxT6tw), which lets us visualize what each layer in a CNN focuses on.
+
+Each image in the above grid represents a pattern that causes the neurons in the first layer to activate - in other words, they are patterns that the first layer recognizes. The top left image shows a -45 degree line, while the middle top square shows a +45 degree line. 
+
+**Layer 2**
+
+<img src=assets/7_2_2.png width=400 >
+
+A visualization of the second layer in the CNN. Notice how we are picking up more complex ideas like **circles and stripes**. The gray grid on the left represents how this layer of the CNN activates (or "what it sees") based on the corresponding images from the grid on the right.
+
+**The CNN learns to do this on its own.** There is no special instruction for the CNN to focus on more complex objects in deeper layers. That's just how it normally works out when you feed training data into a CNN.
+
+**Layer 3:**
+
+<img src=assets/7_2_3.png width=500 >
+
+A visualization of the third layer in the CNN. The gray grid on the left represents how this layer of the CNN activates (or "what it sees") based on the corresponding images from the grid on the right.
+
+The third layer picks out complex combinations of features from the second layer. These include things like **grids**, and **honeycombs** (top left), wheels (second row, second column), and even faces (third row, third column).
+
+**Layer 5:**
+
+<img src=assets/7_2_4.png width=300 >
+
+
+
+The last layer picks out the highest order ideas that we care about for classification, like dog faces, bird faces, and bicycles.
+
+### 7.3 TF Conv layer
+
+TensorFlow provides the [`tf.nn.conv2d()`](https://www.tensorflow.org/api_docs/python/tf/nn/conv2d) and [`tf.nn.bias_add()`](https://www.tensorflow.org/api_docs/python/tf/nn/bias_add) functions to create your own convolutional layers.
+
+```python
+# Output depth
+k_output = 64
+
+# Image Properties
+image_width = 10
+image_height = 10
+color_channels = 3
+
+# Convolution filter
+filter_size_width = 5
+filter_size_height = 5
+
+# Input/Image
+input = tf.placeholder(
+    tf.float32,
+    shape=[None, image_height, image_width, color_channels])
+
+# Weight and bias
+weight = tf.Variable(tf.truncated_normal(
+    [filter_size_height, filter_size_width, color_channels, k_output]))
+bias = tf.Variable(tf.zeros(k_output))
+
+# Apply Convolution
+conv_layer = tf.nn.conv2d(input, weight, strides=[1, 2, 2, 1], padding='SAME')
+# Add bias
+conv_layer = tf.nn.bias_add(conv_layer, bias)
+# Apply activation function
+conv_layer = tf.nn.relu(conv_layer)
+```
+
+The code above uses the [`tf.nn.conv2d()`](https://www.tensorflow.org/api_docs/python/tf/nn/conv2d) function to compute the convolution with `weight` as the filter and `[1, 2, 2, 1]` for the strides. TensorFlow uses a stride for each `input` dimension, `[batch, input_height, input_width, input_channels]`. We are generally always going to set the stride for `batch` and `input_channels` (i.e. the first and fourth element in the `strides` array) to be `1`.
+
+You'll focus on changing `input_height` and `input_width` while setting `batch` and `input_channels` to 1. The `input_height` and `input_width` strides are for striding the filter over `input`. This example code uses a stride of 2 with 5x5 filter over `input`.
+
+The [`tf.nn.bias_add()`](https://www.tensorflow.org/api_docs/python/tf/nn/bias_add) function adds a 1-d bias to the last dimension in a matrix.
+
+### 7.4 TF Max Pooling
+
+The image above is an example of [max pooling](https://en.wikipedia.org/wiki/Convolutional_neural_network#Pooling_layer) with a 2x2 filter and stride of 2. The four 2x2 colors represent each time the filter was applied to find the maximum value.
+
+For example, `[[1, 0], [4, 6]]` becomes `6`, because `6` is the maximum value in this set. Similarly, `[[2, 3], [6, 8]]` becomes `8`.
+
+Conceptually, the benefit of the max pooling operation is to reduce the size of the input, and allow the neural network to focus on only the most important elements. Max pooling does this by only retaining the maximum value for each filtered area, and removing the remaining values.
+
+TensorFlow provides the [`tf.nn.max_pool()`](https://www.tensorflow.org/api_docs/python/tf/nn/max_pool) function to apply [max pooling](https://en.wikipedia.org/wiki/Convolutional_neural_network#Pooling_layer) to your convolutional layers.
+
+```python
+...
+conv_layer = tf.nn.conv2d(input, weight, strides=[1, 2, 2, 1], padding='SAME')
+conv_layer = tf.nn.bias_add(conv_layer, bias)
+conv_layer = tf.nn.relu(conv_layer)
+# Apply Max Pooling
+conv_layer = tf.nn.max_pool(
+    conv_layer,
+    ksize=[1, 2, 2, 1],
+    strides=[1, 2, 2, 1],
+    padding='SAME')
+```
+
+The [`tf.nn.max_pool()`](https://www.tensorflow.org/api_docs/python/tf/nn/max_pool) function performs max pooling with the `ksize` parameter as the size of the filter and the `strides` parameter as the length of the stride. 2x2 filters with a stride of 2x2 are common in practice.
+
+The `ksize` and `strides` parameters are structured as 4-element lists, with each element corresponding to a dimension of the input tensor (`[batch, height, width, channels]`). For both `ksize` and `strides`, the batch and channel dimensions are typically set to `1`.

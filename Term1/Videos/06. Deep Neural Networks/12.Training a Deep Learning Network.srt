@@ -1,0 +1,117 @@
+1
+00:00:00,370 --> 00:00:02,520
+So now you have a small neural network.
+
+2
+00:00:02,520 --> 00:00:05,359
+It's not particularly deep,
+just 2 layers.
+
+3
+00:00:05,360 --> 00:00:06,610
+You can make it bigger,
+
+4
+00:00:06,610 --> 00:00:10,429
+more complex by increasing the size of
+that hidden layer in the middle, but
+
+5
+00:00:10,429 --> 00:00:15,000
+it turns out that increasing this H is
+not particularly efficient in general.
+
+6
+00:00:15,000 --> 00:00:19,160
+You need to make it very, very big,
+and then it gets really hard to train.
+
+7
+00:00:19,160 --> 00:00:22,809
+This is where the central idea of
+deep learning comes into play,
+
+8
+00:00:22,809 --> 00:00:26,369
+instead you can also add more layers and
+make your model deeper.
+
+9
+00:00:26,370 --> 00:00:28,560
+There are lots of good
+reasons to do that.
+
+10
+00:00:28,559 --> 00:00:30,559
+One is parameter efficiency.
+
+11
+00:00:30,559 --> 00:00:34,908
+You can typically get much more
+performance with pure parameters by
+
+12
+00:00:34,908 --> 00:00:37,201
+going deeper, rather than wider.
+
+13
+00:00:37,201 --> 00:00:39,618
+Another one is that a lot
+of natural phenomena,
+
+14
+00:00:39,618 --> 00:00:41,310
+that you might be interested in,
+
+15
+00:00:41,310 --> 00:00:45,917
+tend to have a hierarchical structure
+which deep models naturally capture.
+
+16
+00:00:45,917 --> 00:00:47,539
+If you poke at a model for images, for
+
+17
+00:00:47,539 --> 00:00:50,229
+example, and
+visualize what the model learns
+
+18
+00:00:50,229 --> 00:00:55,339
+you'll often find very simple things at
+the lowest layers, like lines or edges.
+
+19
+00:00:55,340 --> 00:00:56,440
+Once you move up,
+
+20
+00:00:56,439 --> 00:00:59,820
+you tend to see more complicated
+things like geometric shapes.
+
+21
+00:00:59,820 --> 00:01:03,640
+Go further up, and you start
+seeing things like objects, faces.
+
+22
+00:01:03,640 --> 00:01:07,188
+This is very powerful, because
+the model structure matches the kind
+
+23
+00:01:07,188 --> 00:01:10,368
+of abstractions that you might
+expect to see in your data, and
+
+24
+00:01:10,367 --> 00:01:13,197
+as a result the model has
+an easier time learning them.
+
+25
+00:01:13,197 --> 00:01:15,068
+[BLANK_AUDIO]
+

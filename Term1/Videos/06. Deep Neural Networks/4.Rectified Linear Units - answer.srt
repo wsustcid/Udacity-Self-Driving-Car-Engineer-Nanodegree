@@ -1,0 +1,21 @@
+1
+00:00:00,580 --> 00:00:03,680
+When x is less than zero,
+the value is 0.
+
+2
+00:00:03,680 --> 00:00:05,790
+So, the derivative is 0 as well.
+
+3
+00:00:06,810 --> 00:00:10,720
+When x is greater than 0,
+the value is equal to x.
+
+4
+00:00:10,720 --> 00:00:13,500
+So, the derivative is equal to 1.
+
+5
+00:00:13,500 --> 00:00:15,360
+The second answer is the right answer.

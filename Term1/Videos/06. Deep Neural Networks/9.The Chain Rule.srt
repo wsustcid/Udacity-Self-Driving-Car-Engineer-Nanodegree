@@ -1,0 +1,27 @@
+1
+00:00:00,000 --> 00:00:01,945
+That's very powerful.
+
+2
+00:00:01,945 --> 00:00:05,684
+As long as you know how to write the derivatives of your individual functions,
+
+3
+00:00:05,684 --> 00:00:08,009
+there is a simple graphical way to combine them
+
+4
+00:00:08,009 --> 00:00:12,044
+together and compute the derivative for the whole function.
+
+5
+00:00:12,044 --> 00:00:15,039
+There's even better news for the computer scientist than you.
+
+6
+00:00:15,039 --> 00:00:18,899
+There is a way to write this chain rule that is very efficient computationally,
+
+7
+00:00:18,899 --> 00:00:23,000
+with lots of data reuse and that looks like a very simple data pipeline.

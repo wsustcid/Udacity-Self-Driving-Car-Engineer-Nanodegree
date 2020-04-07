@@ -1,0 +1,22 @@
+1
+00:00:00,460 --> 00:00:05,850
+The matrix, W, here, takes, as an input,
+the entire image, so 28x28 pixels.
+
+2
+00:00:07,730 --> 00:00:12,358
+The output is of size 10, so
+the other dimension of the matrix is 10.
+
+3
+00:00:12,358 --> 00:00:15,090
+The biases are just 1x10.
+
+4
+00:00:15,090 --> 00:00:19,750
+So the total number of
+parameters are 28x28x10,
+
+5
+00:00:19,750 --> 00:00:23,724
+plus another ten, that gives you 7,850.
