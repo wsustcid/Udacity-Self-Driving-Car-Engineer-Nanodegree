@@ -2190,3 +2190,170 @@ conv_layer = tf.nn.max_pool(
 The [`tf.nn.max_pool()`](https://www.tensorflow.org/api_docs/python/tf/nn/max_pool) function performs max pooling with the `ksize` parameter as the size of the filter and the `strides` parameter as the length of the stride. 2x2 filters with a stride of 2x2 are common in practice.
 
 The `ksize` and `strides` parameters are structured as 4-element lists, with each element corresponding to a dimension of the input tensor (`[batch, height, width, channels]`). For both `ksize` and `strides`, the batch and channel dimensions are typically set to `1`.
+
+
+
+## 8. [Project] Traffic Sign Classifier
+
+In this project, you will use what you've learned about deep neural networks and convolutional neural networks to classify traffic signs. Specifically, you'll train a model to classify traffic signs from the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).
+
+### Set Up Your Environment
+
+**CarND Starter Kit**
+
+Install the car nanodegree starter kit if you have not already done so: [carnd starter kit](https://github.com/udacity/CarND-Term1-Starter-Kit)
+
+**TensorFlow**
+
+If you have access to a GPU, you should follow the TensorFlow instructions for [installing TensorFlow with GPU support](https://www.tensorflow.org/get_started/os_setup#optional_install_cuda_gpus_on_linux).
+
+Once you've installed all of the necessary dependencies, you can install the `tensorflow-gpu` package:
+
+```
+pip install tensorflow-gpu
+```
+
+**Amazon Web Services**
+
+Instead of a local GPU, you could use Amazon Web Services to launch an EC2 GPU instance. (This costs money.)
+
+1. [Follow the Udacity instructions](https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/6df7ae49-c61c-4bb2-a23e-6527e69209ec/lessons/614d4728-0fad-4c9d-a6c3-23227aef8f66/concepts/f6fccba8-0009-4d05-9356-fae428b6efb4) to launch an EC2 GPU instance with the `udacity-carnd` AMI.
+2. Complete the **Setup** instructions.
+
+### Start the Project
+
+1. [Download the dataset](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/5898cd6f_traffic-signs-data/traffic-signs-data.zip). This is a pickled dataset in which we've already resized the images to 32x32.
+
+2. Clone the project and start the notebook.
+
+   ```
+   git clone https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project
+   cd CarND-Traffic-Sign-Classifier-Project
+   ```
+
+3. Launch the Jupyter notebook: `jupyter notebook Traffic_Sign_Classifier.ipynb`
+
+4. Check out the [project rubric](https://review.udacity.com/#!/rubrics/481/view)
+
+5. Follow the instructions in the notebook
+
+6. Write your project report
+
+### Submission
+
+Before submitting, make sure your project covers all of the rubric points, which can be found [here](https://review.udacity.com/#!/rubrics/481/view).
+
+When you are ready to submit your project, collect the following files and compress them into a single archive for upload. Alternatively, upload your files to github to link to the project repository:
+
+- The Traffic_Sign_Classifier.ipynb notebook file with all questions answered and all code cells executed and displaying output.
+- An HTML or PDF export of the project notebook with the name report.html or report.pdf.
+- Any additional datasets or images used for the project that are not from the German Traffic Sign Dataset. ***Please do not include the project data set provided in the `traffic-sign-data.zip` file.\***
+- Your writeup report as a markdown or pdf file
+
+If you are unfamiliar with GitHub , Udacity has a brief [GitHub tutorial](http://blog.udacity.com/2015/06/a-beginners-git-github-tutorial.html) to get you started. Udacity also provides a more detailed free [course on git and GitHub](https://www.udacity.com/course/how-to-use-git-and-github--ud775).
+
+To learn about REAMDE files and Markdown, Udacity provides a free [course on READMEs](https://www.udacity.com/courses/ud777), as well.
+
+GitHub also provides a [tutorial](https://guides.github.com/features/mastering-markdown/) about creating Markdown files.
+
+
+
+## 9. Keras
+
+[Keras](https://keras.io/) makes coding deep neural networks simpler. To demonstrate just how easy it is, you're going to build a simple fully-connected network in a few dozen lines of code.
+
+We’ll be connecting the concepts that you’ve learned in the previous lessons to the methods that Keras provides.
+
+The network you will build is similar to Keras’s [sample network](https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py) that builds out a convolutional neural network for [MNIST](http://yann.lecun.com/exdb/mnist/). However for the network you will build you're going to use a small subset of the [German Traffic Sign Recognition Benchmark](http://benchmark.ini.rub.de/?section=gtsrb&subsection=news) dataset that you've used previously.
+
+The general idea for this example is that you'll first load the data, then define the network, and then finally train the network.
+
+### 9.1 Neural Networks in Keras
+
+Here are some core concepts you need to know for working with Keras.
+
+#### Sequential Model
+
+```python
+from keras.models import Sequential
+
+#Create the Sequential model
+model = Sequential()
+```
+
+The [keras.models.Sequential](https://keras.io/models/sequential/) class is a wrapper for the neural network model. It provides common functions like `fit()`, `evaluate()`, and `compile()`. We'll cover these functions as we get to them. Let's start looking at the layers of the model.
+
+#### Layers
+
+A Keras layer is just like a neural network layer. There are fully connected layers, max pool layers, and activation layers. You can add a layer to the model using the model's `add()` function. For example, a simple model would look like this:
+
+```python
+from keras.models import Sequential
+from keras.layers.core import Dense, Activation, Flatten
+
+#Create the Sequential model
+model = Sequential()
+
+#1st Layer - Add a flatten layer
+model.add(Flatten(input_shape=(32, 32, 3)))
+
+#2nd Layer - Add a fully connected layer
+model.add(Dense(100))
+
+#3rd Layer - Add a ReLU activation layer
+model.add(Activation('relu'))
+
+#4th Layer - Add a fully connected layer
+model.add(Dense(60))
+
+#5th Layer - Add a ReLU activation layer
+model.add(Activation('relu'))
+```
+
+Keras will automatically infer the shape of all layers after the first layer. This means you only have to set the input dimensions for the first layer.
+
+The first layer from above, `model.add(Flatten(input_shape=(32, 32, 3)))`, sets the input dimension to (32, 32, 3) and output dimension to (3072=32 x 32 x 3). The second layer takes in the output of the first layer and sets the output dimensions to (100). This chain of passing output to the next layer continues until the last layer, which is the output of the model.
+
+#### Code
+
+In this quiz you will build a multi-layer feedforward neural network to classify traffic sign images using Keras.
+
+To get started, review the Keras documentation about models and layers. The Keras example of a [Multi-Layer Perceptron](https://github.com/fchollet/keras/blob/master/examples/mnist_mlp.py) network is similar to what you need to do here. Use that as a guide, but keep in mind that there are a number of differences.
+
+- **See `Scripts\09.Keras\5_MLP` for more details.**
+
+**Data Download**
+
+The data set used in these quizzes can be downloaded [here](https://d17h27t6h515a5.cloudfront.net/topher/2017/March/58dbf6d5_small-traffic-set/small-traffic-set.zip).
+
+
+
+#### Convolutions
+
+1. Build from the previous network.
+2. Add a [convolutional layer](https://keras.io/layers/convolutional/#convolution2d) with 32 filters, a 3x3 kernel, and valid padding before the flatten layer.
+3. Add a ReLU activation after the convolutional layer.
+4. Train for 3 epochs again, should be able to get over 50% accuracy.
+
+Hint 1: The Keras example of a [convolutional neural](https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py) network for MNIST would be a good example to review.
+
+- **See `Scripts\09.Keras\06_conv` for more details.**
+
+#### Pooling
+
+1. Build from the previous network
+2. Add a 2x2 [max pooling layer](https://keras.io/layers/pooling/#maxpooling2d) immediately following your convolutional layer.
+3. Train for 3 epochs again. You should be able to get over 50% training accuracy.
+
+#### Dropout
+
+1. Build from the previous network.
+2. Add a [dropout](https://keras.io/layers/core/#dropout) layer after the pooling layer. Set the dropout rate to 50%.
+
+#### Test
+
+Once you've picked out your best model, it's time to test it!
+
+1. Try to get the highest validation accuracy possible. Feel free to use all the previous concepts and train for as many epochs as needed.
+2. Select your best model and train it one more time.
+3. Use the test data and the [Keras `evaluate()`](https://keras.io/models/model/#evaluate) method to see how well the model does.

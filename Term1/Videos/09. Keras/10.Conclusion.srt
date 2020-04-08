@@ -1,0 +1,60 @@
+1
+00:00:00,430 --> 00:00:02,060
+The work we just did, building and
+
+2
+00:00:02,060 --> 00:00:04,740
+training a multi-layer
+convolutional neural network,
+
+3
+00:00:04,740 --> 00:00:07,640
+would have taken hundreds of lines
+of code just a few years ago.
+
+4
+00:00:07,640 --> 00:00:08,340
+&gt;&gt; That's right.
+
+5
+00:00:08,340 --> 00:00:10,840
+As deep neural networks become
+increasingly important to everything
+
+6
+00:00:10,840 --> 00:00:14,170
+from self driving cars to voice
+recognition, new libraries are making it
+
+7
+00:00:14,170 --> 00:00:16,990
+much easier to use deep learning
+to solve real problems.
+
+8
+00:00:16,990 --> 00:00:20,000
+&gt;&gt; Next up, you are going to learn
+how to take networks that have
+
+9
+00:00:20,000 --> 00:00:23,870
+already been trained and fine tune
+them to accelerate your own work.
+
+10
+00:00:23,870 --> 00:00:25,620
+This is called transfer learning.
+
+11
+00:00:25,620 --> 00:00:27,900
+&gt;&gt; Transfer learning is
+a standard tool in deep learning.
+
+12
+00:00:27,900 --> 00:00:30,820
+It can really reduce your training
+time and improve your results.
+
+13
+00:00:30,820 --> 00:00:31,350
+&gt;&gt; See you soon.

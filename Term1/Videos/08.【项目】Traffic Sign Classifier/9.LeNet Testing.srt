@@ -1,0 +1,43 @@
+1
+00:00:00,000 --> 00:00:04,635
+The very last code cell evaluates the model on our test dataset.
+
+2
+00:00:04,635 --> 00:00:09,120
+Remember, we should only run the model on the test dataset one time,
+
+3
+00:00:09,120 --> 00:00:11,540
+once we are completely done with training.
+
+4
+00:00:11,540 --> 00:00:16,080
+Otherwise, we would be using the test dataset to choose the best model and
+
+5
+00:00:16,080 --> 00:00:17,850
+then the test dataset wouldn't provide
+
+6
+00:00:17,850 --> 00:00:21,050
+a good estimate of how well the model would do in the real world.
+
+7
+00:00:21,050 --> 00:00:24,755
+So I'm not going to run this model on the test dataset right now.
+
+8
+00:00:24,755 --> 00:00:27,150
+You can do it when you're ready.
+
+9
+00:00:27,150 --> 00:00:29,730
+That's the entire LeNet Lab end to end,
+
+10
+00:00:29,730 --> 00:00:32,310
+and if you understand how this lab works,
+
+11
+00:00:32,310 --> 00:00:36,000
+then you're ready to apply LeNet to the traffic sign classifier project.

@@ -1,0 +1,79 @@
+1
+00:00:00,000 --> 00:00:03,135
+Great! Now that everything else is set up,
+
+2
+00:00:03,135 --> 00:00:06,360
+we can build a function to train and validate our model.
+
+3
+00:00:06,360 --> 00:00:11,850
+First, we create the TensorFlow session and initialize the variables.
+
+4
+00:00:11,850 --> 00:00:16,455
+We train over whatever number of epochs has been set in the EPOCHS hyperparameter.
+
+5
+00:00:16,455 --> 00:00:18,405
+At the beginning of each epoch,
+
+6
+00:00:18,405 --> 00:00:20,730
+we shuffle our training data to ensure that
+
+7
+00:00:20,730 --> 00:00:23,730
+our training isn't biased by the order of the images.
+
+8
+00:00:23,730 --> 00:00:28,750
+Then, we break our training data into batches and train the model on each batch.
+
+9
+00:00:28,750 --> 00:00:30,330
+At the end of each epoch,
+
+10
+00:00:30,330 --> 00:00:33,270
+we evaluate the model on our validation data.
+
+11
+00:00:33,270 --> 00:00:36,360
+Once we have completely trained the model, we save it.
+
+12
+00:00:36,360 --> 00:00:39,120
+That way, we can load it up later and modify
+
+13
+00:00:39,120 --> 00:00:42,540
+it or evaluate the model on our test dataset.
+
+14
+00:00:42,540 --> 00:00:44,180
+As we train the model,
+
+15
+00:00:44,180 --> 00:00:48,570
+we see that the validation accuracy starts off really high and stays there.
+
+16
+00:00:48,570 --> 00:00:53,360
+Partly, this is the result of a powerful convolutional network architecture like LeNet,
+
+17
+00:00:53,360 --> 00:00:57,750
+and partly, this is because we've already chosen good hyperparameters.
+
+18
+00:00:57,750 --> 00:00:59,550
+When you experiment with your own models,
+
+19
+00:00:59,550 --> 00:01:01,605
+you'll probably have to spend a fair bit of time
+
+20
+00:01:01,605 --> 00:01:04,440
+tuning the hyperparameters to give the best results.

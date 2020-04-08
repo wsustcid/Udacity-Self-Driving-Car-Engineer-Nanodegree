@@ -1,0 +1,48 @@
+1
+00:00:00,420 --> 00:00:03,730
+I hope you enjoyed learning about
+neural networks and convolutions.
+
+2
+00:00:03,730 --> 00:00:07,830
+So far you've been learning about deep
+neural networks at the conceptual level,
+
+3
+00:00:07,830 --> 00:00:12,410
+and applying these techniques to
+a range of image classification tasks.
+
+4
+00:00:12,410 --> 00:00:16,260
+In the next project you are going
+to return to autonomous driving.
+
+5
+00:00:16,260 --> 00:00:19,160
+That's right, next you are going
+to build a deep neural network
+
+6
+00:00:19,160 --> 00:00:20,990
+to classify traffic signs.
+
+7
+00:00:20,990 --> 00:00:24,600
+Your network should be able to take
+an image and decide if it's a stop sign,
+
+8
+00:00:24,600 --> 00:00:27,360
+a yield sign, a different type of sign,
+or maybe no sign at all.
+
+9
+00:00:28,450 --> 00:00:31,550
+&gt;&gt; This will be a terrific portfolio
+project to demonstrate for
+
+10
+00:00:31,550 --> 00:00:35,620
+employers your hands-on practical
+experience with deep neural network.

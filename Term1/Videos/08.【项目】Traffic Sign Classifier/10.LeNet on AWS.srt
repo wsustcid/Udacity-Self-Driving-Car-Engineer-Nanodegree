@@ -1,0 +1,207 @@
+1
+00:00:00,000 --> 00:00:05,595
+Let's update this Jupyter notebook to train LeNet to classify traffic signs.
+
+2
+00:00:05,595 --> 00:00:09,985
+LeNet turns out to be a pretty good network for traffic sign classification,
+
+3
+00:00:09,985 --> 00:00:12,980
+so I encourage you to try this out on your own first.
+
+4
+00:00:12,980 --> 00:00:16,775
+If you have trouble, you can come back and use this video as a guide.
+
+5
+00:00:16,775 --> 00:00:19,525
+The traffic sign dataset is in color,
+
+6
+00:00:19,525 --> 00:00:22,620
+so it is a more complex dataset than MNIST,
+
+7
+00:00:22,620 --> 00:00:25,940
+and you might want to use a GPU to train it.
+
+8
+00:00:25,940 --> 00:00:31,045
+You can use Amazon Web Services which has a service called Elastic Compute Cloud,
+
+9
+00:00:31,045 --> 00:00:32,903
+often referred to as EC2,
+
+10
+00:00:32,903 --> 00:00:35,894
+which allows you to launch a virtual server,
+
+11
+00:00:35,894 --> 00:00:37,385
+also known as an instance,
+
+12
+00:00:37,385 --> 00:00:39,140
+with a GPU attached.
+
+13
+00:00:39,140 --> 00:00:41,461
+When you want an EC2 instance,
+
+14
+00:00:41,461 --> 00:00:45,155
+you have to choose an Amazon Machine Image or AMI.
+
+15
+00:00:45,155 --> 00:00:50,540
+This AMI determines the operating system and pre-installed software for your instance.
+
+16
+00:00:50,540 --> 00:00:53,060
+Udacity has already created
+
+17
+00:00:53,060 --> 00:00:55,820
+a udacity-carnd AMI that comes with
+
+18
+00:00:55,820 --> 00:00:59,660
+all the software you need pre-installed, so you can select that.
+
+19
+00:00:59,660 --> 00:01:02,855
+Next, you have to choose an instance type,
+
+20
+00:01:02,855 --> 00:01:06,755
+which defines the hardware on which the AMI will run.
+
+21
+00:01:06,755 --> 00:01:08,385
+There are a lot of instance types,
+
+22
+00:01:08,385 --> 00:01:12,425
+so filter them by type and focus on GPU instances.
+
+23
+00:01:12,425 --> 00:01:16,160
+You can select the g2.2xlarge
+
+24
+00:01:16,160 --> 00:01:20,465
+instance because it's big enough for this project but not too expensive.
+
+25
+00:01:20,465 --> 00:01:22,995
+Before you actually launch your instance,
+
+26
+00:01:22,995 --> 00:01:27,375
+edit the security group so that you can connect to port 8888,
+
+27
+00:01:27,375 --> 00:01:30,170
+that's the default port for Jupyter notebooks.
+
+28
+00:01:30,170 --> 00:01:34,970
+Add a rule to allow you to connect to port 8888 from anywhere.
+
+29
+00:01:34,970 --> 00:01:40,655
+Be aware that this means anybody anywhere can connect to port 8888 on your instance.
+
+30
+00:01:40,655 --> 00:01:42,845
+And if you have a Jupyter notebook running,
+
+31
+00:01:42,845 --> 00:01:46,940
+they can use that notebook to run any code they want on your instance.
+
+32
+00:01:46,940 --> 00:01:50,540
+So be careful with this and make sure to turn off your instance when you're done.
+
+33
+00:01:50,540 --> 00:01:52,115
+When you launch your instance,
+
+34
+00:01:52,115 --> 00:01:55,160
+AWS asks you how you're going to log in.
+
+35
+00:01:55,160 --> 00:02:00,090
+In this case, the udacity-carnd AMI comes with a user already set up,
+
+36
+00:02:00,090 --> 00:02:02,585
+so you can proceed without a key pair.
+
+37
+00:02:02,585 --> 00:02:06,691
+Wait for the instance to pass its initialization checks,
+
+38
+00:02:06,691 --> 00:02:09,860
+then note the IP address and log in.
+
+39
+00:02:09,860 --> 00:02:15,010
+Connect to the instance via SSH with the username carnd.
+
+40
+00:02:15,010 --> 00:02:16,975
+The password is also carnd.
+
+41
+00:02:16,975 --> 00:02:19,660
+Once you've logged in,
+
+42
+00:02:19,660 --> 00:02:22,910
+activate the carnd-term1 Anaconda environment,
+
+43
+00:02:22,910 --> 00:02:24,800
+which comes pre-installed on the AMI.
+
+44
+00:02:24,800 --> 00:02:27,515
+It includes all the software you need for this project.
+
+45
+00:02:27,515 --> 00:02:30,990
+Clone the LeNet Lab,
+
+46
+00:02:32,050 --> 00:02:37,800
+download and unzip the traffic sign dataset as well.
+
+47
+00:02:37,800 --> 00:02:42,789
+Now, launch the LeNet Lab solution Jupyter notebook.
+
+48
+00:02:42,789 --> 00:02:47,570
+Connect to the notebook using the IP address of the EC2 instance along with
+
+49
+00:02:47,570 --> 00:02:54,575
+the port number 8888.
+
+50
+00:02:54,575 --> 00:02:59,405
+Now, run the entire notebook to verify that everything works.
+
+51
+00:02:59,405 --> 00:03:02,160
+Congratulations.
+
+52
+00:03:02,160 --> 00:03:08,000
+You are now able to edit the LeNet notebook using the power of the GPU on AWS.

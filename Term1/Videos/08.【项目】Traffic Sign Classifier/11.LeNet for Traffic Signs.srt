@@ -1,0 +1,251 @@
+1
+00:00:00,000 --> 00:00:02,740
+Now that the Jupyter notebook is up and running,
+
+2
+00:00:02,740 --> 00:00:05,215
+you can use it to classify traffic signs.
+
+3
+00:00:05,215 --> 00:00:10,675
+First, reset the kernel and clear the output to ensure you have a fresh start.
+
+4
+00:00:10,675 --> 00:00:12,880
+Next, clear the cell that loads
+
+5
+00:00:12,880 --> 00:00:18,040
+the MNIST data and replace it with code to load the traffic sign data.
+
+6
+00:00:18,040 --> 00:00:22,495
+You can find that code in the notebook for the traffic sign classifier project.
+
+7
+00:00:22,495 --> 00:00:25,690
+You should also delete the code that pads the images since
+
+8
+00:00:25,690 --> 00:00:29,425
+the traffic sign images are already 32x32 pixels.
+
+9
+00:00:29,425 --> 00:00:31,770
+One problem to solve though is that
+
+10
+00:00:31,770 --> 00:00:35,485
+the traffic sign data does not come with a validation set.
+
+11
+00:00:35,485 --> 00:00:38,440
+You can use the train test split function in
+
+12
+00:00:38,440 --> 00:00:43,955
+the sklearn library though to slice off a validation set from the training set.
+
+13
+00:00:43,955 --> 00:00:46,680
+You can allocate as much of the training set as you want,
+
+14
+00:00:46,680 --> 00:00:49,200
+20% is a good rule of thumb.
+
+15
+00:00:49,200 --> 00:00:53,320
+Now, you can visualize an image from the dataset but remember that
+
+16
+00:00:53,320 --> 00:00:58,040
+the traffic sign images are in color not grayscale like the MNIST images.
+
+17
+00:00:58,040 --> 00:01:01,570
+It's worth looking in the GitHub repo to compare the image label to
+
+18
+00:01:01,570 --> 00:01:05,990
+the CSV file that matches numeric labels to text descriptions.
+
+19
+00:01:05,990 --> 00:01:09,920
+In this case, the numeric label is 35
+
+20
+00:01:09,920 --> 00:01:14,770
+which corresponds to a head only which looks correct.
+
+21
+00:01:14,770 --> 00:01:20,720
+You can proceed to preprocess the data and set up TensorFlow just as we did for MNIST.
+
+22
+00:01:20,720 --> 00:01:24,810
+You'll have to make a few changes to the LeNet architecture though.
+
+23
+00:01:24,810 --> 00:01:28,815
+First, remember that the traffic sign images are in color,
+
+24
+00:01:28,815 --> 00:01:35,320
+not grayscale so the input depth should be three to match the three RGB color channels.
+
+25
+00:01:35,320 --> 00:01:39,405
+The new input depth won't affect the rest of the network architecture.
+
+26
+00:01:39,405 --> 00:01:41,438
+Also, if the output layer
+
+27
+00:01:41,438 --> 00:01:47,015
+the traffic sign classifier has 43 classes where is MNIST only had 10,
+
+28
+00:01:47,015 --> 00:01:48,900
+so you'll have to change that.
+
+29
+00:01:48,900 --> 00:01:51,920
+When you set up the TensorFlow placeholders,
+
+30
+00:01:51,920 --> 00:01:53,940
+you'll have to update the input and output
+
+31
+00:01:53,940 --> 00:01:57,150
+shapes again to match the shapes of the new dataset.
+
+32
+00:01:57,150 --> 00:02:00,045
+Training the network should be the same as well.
+
+33
+00:02:00,045 --> 00:02:05,573
+So let's run it and see how it does.
+
+34
+00:02:05,573 --> 00:02:10,545
+96% validation accuracy.
+
+35
+00:02:10,545 --> 00:02:13,280
+That's pretty good for the first shot.
+
+36
+00:02:13,280 --> 00:02:16,570
+Remember, don't run the test set until you're done
+
+37
+00:02:16,570 --> 00:02:20,500
+tuning the model and you're ready to stop training and submit the project.
+
+38
+00:02:20,500 --> 00:02:23,590
+For now, remember to stop or terminate
+
+39
+00:02:23,590 --> 00:02:27,640
+your AWS instance so that AWS stops billing you for it.
+
+40
+00:02:27,640 --> 00:02:30,355
+You don't want to leave your instance on and forget about it.
+
+41
+00:02:30,355 --> 00:02:33,550
+Otherwise, you'll wind up with a huge bill.
+
+42
+00:02:33,550 --> 00:02:38,605
+If you select, stop the instance will shut down but you can run it again later.
+
+43
+00:02:38,605 --> 00:02:41,020
+AWS will stop charging you for running
+
+44
+00:02:41,020 --> 00:02:45,245
+the instance but there will still be some small charges for data storage.
+
+45
+00:02:45,245 --> 00:02:46,945
+If you select terminate,
+
+46
+00:02:46,945 --> 00:02:50,140
+AWS will completely delete your instance.
+
+47
+00:02:50,140 --> 00:02:51,378
+So before you terminate,
+
+48
+00:02:51,378 --> 00:02:54,790
+make sure to download any data that you want to save.
+
+49
+00:02:54,790 --> 00:02:56,425
+Once you terminated instance,
+
+50
+00:02:56,425 --> 00:02:59,250
+all charges for it will cease.
+
+51
+00:02:59,250 --> 00:03:04,720
+So, looking at where to go next what could you do to further improve this model?
+
+52
+00:03:04,720 --> 00:03:06,805
+There are several broad categories,
+
+53
+00:03:06,805 --> 00:03:09,880
+you could experiment with different network architectures,
+
+54
+00:03:09,880 --> 00:03:13,260
+or just change the dimensions of the LeNet layers.
+
+55
+00:03:13,260 --> 00:03:16,770
+You could add regularization features like drop out or L2
+
+56
+00:03:16,770 --> 00:03:21,100
+regularization to make sure the network doesn't overfit the training data.
+
+57
+00:03:21,100 --> 00:03:23,695
+You could tune the hyperparameters.
+
+58
+00:03:23,695 --> 00:03:25,990
+You could improve the data pre-processing with
+
+59
+00:03:25,990 --> 00:03:29,110
+steps like normalization and setting a zero mean.
+
+60
+00:03:29,110 --> 00:03:31,540
+You could even augment the training data by
+
+61
+00:03:31,540 --> 00:03:34,930
+rotating or shifting images or by changing colors.
+
+62
+00:03:34,930 --> 00:03:37,600
+There are a lot of fun experiments you can run on this network so give it
+
+63
+00:03:37,600 --> 00:03:41,000
+a shot and see how well you can do. Good luck.

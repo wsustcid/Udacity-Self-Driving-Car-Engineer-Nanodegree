@@ -1,0 +1,67 @@
+1
+00:00:00,000 --> 00:00:01,300
+In this code cell,
+
+2
+00:00:01,300 --> 00:00:02,838
+we set up another pipeline,
+
+3
+00:00:02,838 --> 00:00:04,740
+this time for evaluating the model.
+
+4
+00:00:04,740 --> 00:00:08,200
+The training pipeline we just set up is what trains the model,
+
+5
+00:00:08,200 --> 00:00:13,155
+but the evaluation pipeline we create here will evaluate how good the model is.
+
+6
+00:00:13,155 --> 00:00:16,440
+The first step in this pipeline is to measure whether a given prediction is
+
+7
+00:00:16,440 --> 00:00:21,700
+correct by comparing the logit prediction to the one-hot encoded ground truth label.
+
+8
+00:00:21,700 --> 00:00:24,210
+The second step in the pipeline is to calculate
+
+9
+00:00:24,210 --> 00:00:29,460
+the model's overall accuracy by averaging the individual prediction accuracies.
+
+10
+00:00:29,460 --> 00:00:33,025
+These two lines are the entire evaluation pipeline.
+
+11
+00:00:33,025 --> 00:00:35,790
+But in order to run this evaluation pipeline,
+
+12
+00:00:35,790 --> 00:00:38,460
+we have to build an evaluate function.
+
+13
+00:00:38,460 --> 00:00:40,725
+This function takes a dataset as input,
+
+14
+00:00:40,725 --> 00:00:42,870
+sets some initial variables,
+
+15
+00:00:42,870 --> 00:00:47,175
+and then batches the dataset and runs it through the evaluation pipeline.
+
+16
+00:00:47,175 --> 00:00:50,040
+The evaluate function averages the accuracy of
+
+17
+00:00:50,040 --> 00:00:53,270
+each batch to calculate the total accuracy of the model.

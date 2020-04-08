@@ -1,0 +1,67 @@
+1
+00:00:00,000 --> 00:00:03,600
+The LeNet lab from the convolutional neural networks lesson is
+
+2
+00:00:03,600 --> 00:00:07,700
+a great starting point for building a network to classify traffic signs.
+
+3
+00:00:07,700 --> 00:00:10,575
+But before you adapt LeNet for the project,
+
+4
+00:00:10,575 --> 00:00:15,510
+let's walk through the lab solution and review what happens on each line.
+
+5
+00:00:15,510 --> 00:00:18,780
+This first cell in the Jupyter notebook shows
+
+6
+00:00:18,780 --> 00:00:24,175
+the original drawing of the LeNet architecture from Yan LeCun's 1998 journal article.
+
+7
+00:00:24,175 --> 00:00:28,290
+The network takes a 32x32 images input.
+
+8
+00:00:28,290 --> 00:00:31,503
+Then, that image goes through a convolutional layer,
+
+9
+00:00:31,503 --> 00:00:35,635
+C1, followed by a subsampling layer, S2.
+
+10
+00:00:35,635 --> 00:00:37,815
+Since LeNet was originally designed,
+
+11
+00:00:37,815 --> 00:00:40,920
+subsampling layers have mostly given way to what we now
+
+12
+00:00:40,920 --> 00:00:44,845
+call pooling layers which is actually what we use in this lab.
+
+13
+00:00:44,845 --> 00:00:47,817
+Then there's another sequence of convolutional layer,
+
+14
+00:00:47,817 --> 00:00:51,280
+C3, followed by a pooling layer, S4.
+
+15
+00:00:51,280 --> 00:00:57,075
+Finally, there are three fully connected layers including the output layer at the end.
+
+16
+00:00:57,075 --> 00:00:58,875
+That's the architecture of LeNet.
+
+17
+00:00:58,875 --> 00:01:02,530
+The rest of the notebook implements this architecture in TensorFlow.

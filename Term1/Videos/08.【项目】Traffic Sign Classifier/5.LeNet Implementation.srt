@@ -1,0 +1,223 @@
+1
+00:00:00,000 --> 00:00:02,960
+Until this point, everything we've done has been
+
+2
+00:00:02,960 --> 00:00:05,643
+related to loading and preparing the data.
+
+3
+00:00:05,643 --> 00:00:09,420
+In this cell, We start actually building our deep neutral network.
+
+4
+00:00:09,420 --> 00:00:12,215
+First, we load TensorFlow.
+
+5
+00:00:12,215 --> 00:00:14,840
+Later we will use this Epic's variable,
+
+6
+00:00:14,840 --> 00:00:19,400
+to tell TensorFlow how many times to run our training data through the network.
+
+7
+00:00:19,400 --> 00:00:21,080
+In general, the more epix,
+
+8
+00:00:21,080 --> 00:00:22,740
+the better our model will train,
+
+9
+00:00:22,740 --> 00:00:25,055
+but also the longer training will take.
+
+10
+00:00:25,055 --> 00:00:28,160
+Later we'll also use the batch size variable,
+
+11
+00:00:28,160 --> 00:00:33,205
+to tell TensorFlow, how many training images to run through the network at a time.
+
+12
+00:00:33,205 --> 00:00:34,580
+The larger the batch size,
+
+13
+00:00:34,580 --> 00:00:36,435
+the faster our model will train,
+
+14
+00:00:36,435 --> 00:00:40,450
+but our processor may have a memory limit on how large a batch it can run.
+
+15
+00:00:40,450 --> 00:00:42,860
+Now we come to the net,
+
+16
+00:00:42,860 --> 00:00:44,615
+which is the core of the lab.
+
+17
+00:00:44,615 --> 00:00:47,440
+First we set more hyper parameters.
+
+18
+00:00:47,440 --> 00:00:52,100
+In this case both hyper parameters relate to how we initialize our weights.
+
+19
+00:00:52,100 --> 00:00:56,585
+You can experiment with these values and see if you can do better than what we have here.
+
+20
+00:00:56,585 --> 00:00:59,810
+Then, we build the first convolutional layer.
+
+21
+00:00:59,810 --> 00:01:02,465
+This layer has a five by five filter,
+
+22
+00:01:02,465 --> 00:01:04,175
+with an input depth of one,
+
+23
+00:01:04,175 --> 00:01:06,255
+and an output depth of six.
+
+24
+00:01:06,255 --> 00:01:08,230
+We also initialize the bias,
+
+25
+00:01:08,230 --> 00:01:13,442
+then we use the conv2D function to convolve the filter over the images,
+
+26
+00:01:13,442 --> 00:01:15,765
+and we add the bias at the end.
+
+27
+00:01:15,765 --> 00:01:19,985
+The formula for convolutions tells us that the output height equals,
+
+28
+00:01:19,985 --> 00:01:22,385
+the input height minus the filter height,
+
+29
+00:01:22,385 --> 00:01:25,500
+plus one all divided by the vertical stride.
+
+30
+00:01:25,500 --> 00:01:29,285
+In this case, that means 32, minus five,
+
+31
+00:01:29,285 --> 00:01:33,910
+plus one, all divided by one, which equals 28.
+
+32
+00:01:33,910 --> 00:01:36,730
+The formula works the same way for the output with,
+
+33
+00:01:36,730 --> 00:01:39,160
+which also equals 28.
+
+34
+00:01:39,160 --> 00:01:46,230
+So our convolutional layer output is 28 by 28 by 6.That's our first convolutional layer.
+
+35
+00:01:46,230 --> 00:01:49,715
+Next, we activate the output of the convolutional layer,
+
+36
+00:01:49,715 --> 00:01:52,730
+in this case with a reLU activation function.
+
+37
+00:01:52,730 --> 00:01:54,875
+Then we pool the output,
+
+38
+00:01:54,875 --> 00:01:58,100
+using the two by two kernel with a two by two stride,
+
+39
+00:01:58,100 --> 00:02:02,800
+which gives us a pooling output of fourteen by fourteen by six.
+
+40
+00:02:02,800 --> 00:02:07,865
+The network then runs through another set of convolutional activation and pooling layers,
+
+41
+00:02:07,865 --> 00:02:10,920
+giving an output of five by five by sixteen.
+
+42
+00:02:10,920 --> 00:02:14,120
+Then we flatten this output into a factor.
+
+43
+00:02:14,120 --> 00:02:19,790
+The length of the factor is five times five times sixteen, which equals 400.
+
+44
+00:02:19,790 --> 00:02:22,370
+We pass this vector into a fully connected layer,
+
+45
+00:02:22,370 --> 00:02:24,855
+with a width of 120.
+
+46
+00:02:24,855 --> 00:02:29,865
+Then we apply a reLU activation to the output of this fully connected layer.
+
+47
+00:02:29,865 --> 00:02:34,930
+We repeat that pattern again this time with a layer width of 84.
+
+48
+00:02:34,930 --> 00:02:37,990
+Finally, we attach a fully connected output layer,
+
+49
+00:02:37,990 --> 00:02:42,265
+with a width, equal to the number of classes in our label set.
+
+50
+00:02:42,265 --> 00:02:44,590
+In this case,we have ten classes,
+
+51
+00:02:44,590 --> 00:02:46,000
+One for each digit,
+
+52
+00:02:46,000 --> 00:02:48,235
+so the with the the output layer is Ten.
+
+53
+00:02:48,235 --> 00:02:50,875
+These outputs are also known as our logits,
+
+54
+00:02:50,875 --> 00:02:54,150
+which is what we return from the LeNet function.
+
+55
+00:02:54,150 --> 00:02:57,425
+So that is the entire LeNet architecture.
+
+56
+00:02:57,425 --> 00:02:59,960
+Now we just have to put it to use.

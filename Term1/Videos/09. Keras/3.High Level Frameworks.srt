@@ -1,0 +1,42 @@
+1
+00:00:00,420 --> 00:00:03,893
+Now we're going to introduce you to
+a high-level framework called Keras that
+
+2
+00:00:03,893 --> 00:00:06,741
+sits on top of TensorFlow and
+provides a simplified interface.
+
+3
+00:00:06,741 --> 00:00:08,010
+&gt;&gt; Yeah, that sounds great.
+
+4
+00:00:08,010 --> 00:00:10,960
+At Auto, if we need a lot of flexibility
+and we really want to customize
+
+5
+00:00:10,960 --> 00:00:13,880
+the layer creation,
+we'll go straight to TensorFlow.
+
+6
+00:00:13,880 --> 00:00:16,530
+But sometimes we can get everything we
+need out of a frontend interface like
+
+7
+00:00:16,530 --> 00:00:17,240
+Keras.
+
+8
+00:00:17,240 --> 00:00:19,710
+And it makes building the network so
+much faster and cleaner.
+
+9
+00:00:19,710 --> 00:00:21,240
+&gt;&gt; All right, well,
+let's go check out Keras.

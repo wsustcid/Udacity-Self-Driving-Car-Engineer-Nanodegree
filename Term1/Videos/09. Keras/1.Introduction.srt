@@ -1,0 +1,51 @@
+1
+00:00:00,400 --> 00:00:01,990
+Congratulations!
+
+2
+00:00:01,990 --> 00:00:05,950
+You've built neural networks form
+scratch, you've mastered tensor flow,
+
+3
+00:00:05,950 --> 00:00:09,260
+and now we're going to show you how
+to build and train a multi-layer,
+
+4
+00:00:09,260 --> 00:00:13,450
+convolutional neural network
+in even fewer lines of code.
+
+5
+00:00:13,450 --> 00:00:14,340
+In this lesson,
+
+6
+00:00:14,340 --> 00:00:18,240
+we'll be introducing an interface
+that sits on top of tensor flow and
+
+7
+00:00:18,240 --> 00:00:23,130
+allows you to draw on the power of
+tensor flow with far more concise code.
+
+8
+00:00:23,130 --> 00:00:23,580
+&gt;&gt; That's right,
+
+9
+00:00:23,580 --> 00:00:27,760
+in this lesson you'll be building a deep
+neural network using a new set of tools.
+
+10
+00:00:27,760 --> 00:00:29,870
+You'll still have tensor
+flow under the hood, but
+
+11
+00:00:29,870 --> 00:00:32,740
+with an interface that makes testing and
+prototyping much faster.
