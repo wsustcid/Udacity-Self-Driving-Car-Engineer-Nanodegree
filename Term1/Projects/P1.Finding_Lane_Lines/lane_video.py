@@ -3,7 +3,7 @@
 @Github: https://github.com/wsustcid
 @Version: 1.0.0
 @Date: 2020-04-14 16:09:27
-@LastEditTime: 2020-04-14 17:37:14
+@LastEditTime: 2020-04-19 12:00:26
 '''
 
 """ Drawing lanes over video!
@@ -32,12 +32,12 @@ from lane_image import find_lane_lines
 
 
 ## Load video
-clip = VideoFileClip("test_videos/solidWhiteRight.mp4")
+clip = VideoFileClip("test_videos/solidYellowLeft.mp4")
 
 ## Process
 #Note: this function expects color images!!
 process_clip = clip.fl_image(find_lane_lines) 
 
 ## save to file
-output = 'test_videos_output/solidWhiteRight.mp4'
+output = 'test_videos_output/solidYellowLeft.mp4'
 process_clip.write_videofile(output, audio=False)

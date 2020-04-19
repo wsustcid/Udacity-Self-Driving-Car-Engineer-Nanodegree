@@ -3,7 +3,7 @@
 @Github: https://github.com/wsustcid
 @Version: 1.0.0
 @Date: 2020-04-13 21:25:20
-@LastEditTime: 2020-04-18 22:17:55
+@LastEditTime: 2020-04-19 11:56:45
 '''
 
 import numpy as np
@@ -81,7 +81,7 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
 
     return lines
 
-def fit_lane_lines(lines):
+def fit_lane_lines(lines, imshape=(540,960)):
     """ Fitting two lane lines (left and right) from multiple line segments
     Input: A 3D array that contains multiple lines 
     Output: A 3D array that contains only two lines
@@ -103,15 +103,21 @@ def fit_lane_lines(lines):
     for line in lines:
         for x1, y1, x2, y2 in line:
             slope = (y2-y1)/(x2-x1)
-            if slope < -delta:
+            if slope < -0.55 and slope > -0.85:
                 left_slope.append(slope)
                 left_points_x.append([x1,x2])
                 left_points_y.append([y1,y2])
-            elif slope > delta:
+            elif slope > 0.49 and slope < 0.7:
                 right_slope.append(slope)
                 right_points_x.append([x1,x2])
                 right_points_y.append([y1,y2])
     
+    # Warning !!!
+    if len(left_points_x) == 0 or len(right_points_x) == 0:
+        print("Warning !!!! Detecting No Points!!")
+    else:
+        print("Left Points: {}; Right Points: {}".format(len(left_points_x), len(right_points_x)))
+
     # fit a line 
     left_k = np.mean(left_slope)
     left_x0 = np.mean(left_points_x)
@@ -119,7 +125,7 @@ def fit_lane_lines(lines):
     left_b = left_y0 - left_k * left_x0
     
     # infer start and end points by y
-    left_y1 = np.max(left_points_y)
+    left_y1 = imshape[0]
     left_y2 = np.min(left_points_y)
     left_x1 = (left_y1 - left_b)/left_k
     left_x2 = (left_y2 - left_b)/left_k
@@ -131,13 +137,14 @@ def fit_lane_lines(lines):
     right_b = right_y0 - right_k * right_x0
     
     # infer start and end points by y
-    right_y1 = np.max(right_points_y)
+    right_y1 = imshape[0]
     right_y2 = np.min(right_points_y)
     right_x1 = (right_y1 - right_b)/right_k
     right_x2 = (right_y2 - right_b)/right_k
 
     lane_lines = np.array([[[left_x1,left_y1,left_x2,left_y2]],
                            [[right_x1,right_y1,right_x2,right_y2]]], dtype=np.uint32)
+                           
     return lane_lines
     
 
@@ -191,7 +198,9 @@ def fit_curve_lane_lines(lines):
     right_points_x, right_points_y = [], []
     # note here the shape of the line is (1,4), e.g. [[1,2,3,4]]
     # one dim array is not iterable!
-
+    
+    # 问题出在这，对点的筛选过于严格可能导致没有点出现，然后就会报错
+    ## 需要设置一个报错提醒，不能为空！
     delta = 0.1 # to delete the horizontal lines
     for line in lines:
         for x1, y1, x2, y2 in line:
